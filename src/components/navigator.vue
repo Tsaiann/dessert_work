@@ -1,6 +1,6 @@
 <template>
   <div class="navigator">
-
+    <p>hello!</p>
   </div>
 </template>
 

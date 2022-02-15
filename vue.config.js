@@ -3,7 +3,7 @@ const path = require('path');
 // const burl = ''
 module.exports = {
   lintOnSave: false,
-  publicPath: '',
+  publicPath: '/',
   pages: {
     index: {
       // entry for the page
