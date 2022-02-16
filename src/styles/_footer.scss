@@ -1,7 +1,39 @@
-footer {
-    @include flexBox(column, flex-start, flex-start);
+.footerBottom {
     box-sizing: border-box;
     width: 100%;
-    height: 100px;
-    background: #cecece;
+    height: 250px;
+    background: #C4AF96;
+    .footer{
+        @include flexBox(row,center,space-between);
+        max-width: 1000px;
+        margin: auto;
+        height: 100%;
+        .logo{
+            width: 183px;
+            img{
+                width: 70px;
+                margin: auto;
+            }
+            p{
+                color: black;
+                font-family: 'Apple Chancery';
+                font-size: 20px;
+                margin-top: 5px;
+            }
+        }
+        .contact{
+            p{
+                color: #754C24;
+                border-bottom: 1px solid #808080;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+                font-size: 20px;
+            }
+            li{
+                line-height: 1.5;
+            }
+        }
+    }
+    
+    
 }

@@ -1,3 +1,43 @@
 .navigator {
     width: 100%;
+    box-sizing: border-box;
+    .header{
+        max-width: 1000px;
+        margin: 35px auto;
+        p{
+            font-size: 22px;
+            font-family: 'Apple Chancery';
+            margin: auto;
+        }
+        .logo{
+            width: 100%;
+            img{
+                margin: auto;
+                margin-bottom: 5px;
+            }
+        }
+        .icon{
+            width: 150px;
+            position: absolute;
+            right: 0;
+            top: 55px;
+            img{
+                display: block;
+                margin-right: 15px;
+            }
+        }
+    }
+    .menu{
+        border-top: 1px solid #808080;
+        border-bottom: 1px solid #808080;
+        width: 100%;
+    }
+    ul{
+        max-width: 900px;
+        margin: auto;
+        li{
+            padding: 20px 20px;
+        }
+    }
+    
 }

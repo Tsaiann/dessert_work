@@ -1,10 +1,8 @@
 <template>
   <div class="home">
-    <p>hello!</p>
     <navigator />
-    <div class="content">
       <router-view />
-    </div>
+    <footerBottom />
   </div>
 </template>
 
