@@ -38,7 +38,7 @@
           </div>
         </li>
       </ul>
-      <ul>
+      <ul class="page mb_9 container">
         <li></li>
         <li></li>
         <li></li>

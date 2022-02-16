@@ -24,6 +24,16 @@
       }
     }
   }
+  .page{
+    @include flexBox(row, center, center);
+    li{
+      width: 10px;
+      height: 10px;
+      border-radius: 100%;
+      background: $middleGray;
+      margin: 30px 10px;
+    }
+  }
   .brand{
     @include flexBox(row, flex-end, space-between);
     li{
