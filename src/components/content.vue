@@ -8,8 +8,8 @@
         <p class="mb_1">熱銷排名</p>
         <img src="../assets/home/shape01.png" alt="shape" width="150px">
       </div>
-      <ul class="row horizontal space_between container autoCenter cake_item">
-        <li class="row vertical center">
+      <ul class="row horizontal space_between container cake_item">
+        <li>
           <img src="../assets/home/cake_item01.png" alt="cake">
           <div>
             <p>馬斯卡彭草莓派</p>
@@ -23,14 +23,14 @@
             <p>NT 60</p>
           </div>
         </li>
-        <li class="row vertical center">
+        <li>
           <img src="../assets/home/cake_item03.png" alt="cake">
           <div>
             <p>巧克力杏仁馬卡龍</p>
             <p>NT 80</p>
           </div>
         </li>
-        <li class="row vertical center">
+        <li>
           <img src="../assets/home/cake_item04.png" alt="cake">
           <div>
             <p>咖啡焦糖戚風</p>
@@ -44,13 +44,13 @@
         <li></li>
       </ul>
     </div>
-    <div class="row horizontal space_between cakeType mb_9">
+    <div class="cakeType mb_9">
       <img src="../assets/home/cake_kind01.png" alt="a kind of cake">
       <img src="../assets/home/cake_kind02.png" alt="a kind of cake">
       <img src="../assets/home/cake_kind03.png" alt="a kind of cake">
     </div>
     <div class="container autoCenter mb_9"><img src="../assets/home/shape02.png" alt="shape" width="1000px"></div>
-    <ul class="autoCenter container brand mb_9">
+    <ul class="brand container mb_9">
       <li class="row vertical">
         <img src="../assets/home/icon-brand.png" alt="brand" width="110px">
         <p>品牌故事</p>

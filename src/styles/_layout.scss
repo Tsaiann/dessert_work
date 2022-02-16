@@ -11,17 +11,19 @@ html, body {
         background: #EFEFEF;
         font-family: 'Noto Sans TC', 'Microsoft JhengHei', 'Hei', sans-serif;
         color: #808080;
+        padding-top: 30px;
         img{
             display: block;
         }
-        .autoCenter{
-            margin: auto;
-        }
         .container{
             max-width: 1000px;
+            margin: auto;
         }
         .mb_1{
             margin-bottom: 9px;
+        }
+        .mb_5{
+            margin-bottom: 45px;
         }
         .mb_7{
             margin-bottom: 63px;

@@ -5,7 +5,6 @@
     background: #C4AF96;
     .footer{
         @include flexBox(row,center,space-between);
-        margin: auto;
         height: 100%;
         .logo{
             width: 183px;

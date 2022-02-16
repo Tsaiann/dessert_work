@@ -1,6 +1,6 @@
 <template>
   <div class="navigator row vertical mb_9">
-    <div class="row vertical v_center header container">
+    <div class="row vertical v_center container header mb_5">
       <div class="logo"><img src="../assets/home/logo.png" alt="logo" width="70px"></div>
         <p>Seasonal Fructification</p>
         <div class="icon row horizontal">

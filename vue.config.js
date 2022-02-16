@@ -3,7 +3,7 @@ const path = require('path');
 // const burl = ''
 module.exports = {
   lintOnSave: false,
-  publicPath: '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/dessert_work/' : '/',
   pages: {
     index: {
       // entry for the page
