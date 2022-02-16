@@ -1,0 +1,42 @@
+.content{
+  width: 100%;
+  .homePhoto{
+    img{
+      margin: auto;
+      max-width: 100%;
+    }
+  }
+  .cake_item{
+    li{
+      border: 1px solid #C9C9C9;
+      width: 220px;
+      img{
+        width: 220px;
+      }
+      div{
+        @include flexBox(column, center, center);
+        padding: 25px 0;
+        p{
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+  .brand{
+    @include flexBox(row, flex-end, space-between);
+    li{
+      @include flexBox(column, center, center);
+      max-width: 110px;
+      p{
+        line-height: 2;
+      }
+    }
+  }
+  .cakeType{
+    max-width: 800px;
+    margin: auto;
+    img{
+      width: 220px;
+    }
+  }
+}

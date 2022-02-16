@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <navigator />
-      <router-view />
+    <router-view />
     <footerBottom />
   </div>
 </template>

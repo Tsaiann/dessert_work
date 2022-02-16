@@ -1,6 +1,6 @@
 <template>
   <div class="footerBottom">
-    <div class="footer">
+    <div class="footer container">
       <div class="logo">
         <img src="../assets/home/logo.png" alt="logo">
         <p>Seasonal Fructification</p>

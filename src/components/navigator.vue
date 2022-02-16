@@ -1,6 +1,6 @@
 <template>
-  <div class="navigator row vertical">
-    <div class="row vertical v_center header">
+  <div class="navigator row vertical mb_9">
+    <div class="row vertical v_center header container">
       <div class="logo"><img src="../assets/home/logo.png" alt="logo" width="70px"></div>
         <p>Seasonal Fructification</p>
         <div class="icon row horizontal">
@@ -10,12 +10,12 @@
         </div>
     </div>
     <div class="menu">
-      <ul class="row horizontal space_between">
-        <li>關於季菓</li>
-        <li>商品分類</li>
-        <li>會員專區</li>
-        <li>常見Q&A</li>
-        <li>菓食資料庫</li>
+      <ul class="row horizontal space_between container">
+        <li @click="$router.push({name:'About'})">關於季菓</li>
+        <li @click="$router.push({name:'Products'})">商品分類</li>
+        <li @click="$router.push({name:'User'})">會員專區</li>
+        <li @click="$router.push({name:'QA'})">常見Q&A</li>
+        <li @click="$router.push({name:'FoodData'})">菓食資料庫</li>
     </ul>
     </div>
   </div>
