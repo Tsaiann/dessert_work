@@ -1,10 +1,26 @@
 .content{
   width: 100%;
   .homePhoto{
+    position: relative;
     img{
       margin: auto;
       max-width: 100%;
     }
+    ul{
+      width: 115px;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%,0);
+      li{
+        width: 18px;
+        height: 18px;
+        border-radius: 10%;
+        background: $middleGray;
+        margin: 30px 10px;
+      }
+    }
+    
   }
   .cake_item{
     li{
@@ -48,8 +64,26 @@
     @include flexBox(row, flex-start,space-between);
     max-width: 800px;
     margin: auto;
-    img{
-      width: 220px;
+    .item{
+      position: relative;
+      p{
+        color: #fff;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        font-size: 18px;
+      }
+      span{
+        color: #fff;
+        position: absolute;
+        left: 50%;
+        top: 57%;
+        transform: translate(-50%,-50%);
+      }
+      img{
+        width: 220px;
+      }
     }
   }
 }

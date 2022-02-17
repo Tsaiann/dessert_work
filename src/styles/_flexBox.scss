@@ -110,4 +110,7 @@
     &.wrap {
         flex-wrap: wrap;
     }
+    &.grow {
+        height: 100%;
+    }
 }

@@ -19,7 +19,7 @@
             width: 150px;
             position: absolute;
             right: 0;
-            top: 55px;
+            top: 57px;
             img{
                 display: block;
                 margin-right: 15px;
@@ -35,6 +35,21 @@
         margin: auto;
         li{
             padding: 20px 20px;
+            cursor: pointer;
+            position: relative;
+            &:hover{
+                color:#4D4D4D;
+                &::after{
+                    content: "";
+                    position: absolute;
+                    border-style:solid;
+                    border-width: 0 5px 12px 5px;
+                    border-color: transparent transparent #4D4D4D transparent;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translate(-50%, 0);
+                }
+            }
         }
     }
     

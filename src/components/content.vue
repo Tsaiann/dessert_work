@@ -2,6 +2,11 @@
   <div class="content">
     <div class="homePhoto mb_9">
       <img src="../assets/home/home.png" alt="home_photo">
+      <ul class="row horizontal">
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
     </div>
     <div class="row vertical mb_7">
       <div class="mb_7 autoCenter row vertical center">
@@ -45,9 +50,21 @@
       </ul>
     </div>
     <div class="cakeType mb_9">
-      <img src="../assets/home/cake_kind01.png" alt="a kind of cake">
-      <img src="../assets/home/cake_kind02.png" alt="a kind of cake">
-      <img src="../assets/home/cake_kind03.png" alt="a kind of cake">
+      <div class="item">
+        <img src="../assets/home/cake_kind01.png" alt="a kind of cake">
+        <p>戚風蛋糕</p>
+        <span>Chiffon cake</span>
+      </div>
+      <div class="item">
+        <img src="../assets/home/cake_kind02.png" alt="a kind of cake">
+        <p>杯子蛋糕</p>
+        <span>Cupcake</span>
+      </div>
+      <div class="item">
+        <img src="../assets/home/cake_kind03.png" alt="a kind of cake">
+        <p>馬卡龍</p>
+        <span>Macaron</span>
+      </div>
     </div>
     <div class="container autoCenter mb_9"><img src="../assets/home/shape02.png" alt="shape" width="1000px"></div>
     <ul class="brand container mb_9">
