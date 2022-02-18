@@ -13,7 +13,7 @@
           <li>客服信箱:season99@gmail.com</li>
         </ul>
       </div>
-      <div class="contact">
+      <div class="contact serve">
         <p>客戶服務</p>
         <ul>
           <li @click="$router.push({name:'Delivery'})">宅配須知</li>
