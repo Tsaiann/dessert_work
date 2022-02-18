@@ -14,7 +14,7 @@
         <img src="../assets/home/shape01.png" alt="shape" width="150px">
       </div>
       <ul class="row horizontal space_between container cake_item">
-        <li>
+        <li class="itemTab">
           <img src="../assets/home/cake_item01.png" alt="cake">
           <div>
             <p>馬斯卡彭草莓派</p>
@@ -68,20 +68,20 @@
     </div>
     <div class="container autoCenter mb_9"><img src="../assets/home/shape02.png" alt="shape" width="1000px"></div>
     <ul class="brand container mb_9">
-      <li class="row vertical">
-        <img src="../assets/home/icon-brand.png" alt="brand" width="110px">
+      <li class="row vertical" @click="$router.push({name:'About'})">
+        <div class="icon-brand"></div>
         <p>品牌故事</p>
       </li>
-      <li class="row vertical">
-        <img src="../assets/home/icon-delivery.png" alt="delivery" width="150px">
+      <li class="row vertical" @click="$router.push({name:'Delivery'})">
+        <div class="icon-delivery"></div>
         <p>宅配需知</p>
       </li>
-      <li class="row vertical">
-        <img src="../assets/home/icon-return.png" alt="return goods" width="110px">
+      <li class="row vertical" @click="$router.push({name:'Return'})">
+        <div class="icon-return"></div>
         <p>退換貨政策</p>
       </li>
-      <li class="row vertical">
-        <img src="../assets/home/icon-private.png" alt="private" width="80px">
+      <li class="row vertical" @click="$router.push({name:'Private'})">
+        <div class="icon-private"></div>
         <p>隱私權</p>
       </li>
     </ul>

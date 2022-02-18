@@ -1,13 +1,13 @@
 <template>
   <div class="navigator row vertical mb_9">
     <div class="row vertical v_center container header mb_5">
-      <div class="logo" ><img src="../assets/home/logo.png" alt="logo" width="70px"></div>
-        <p>Seasonal Fructification</p>
-        <div class="icon row horizontal v_center">
-          <img src="../assets/home/icon_user.png" alt="user" width="35px">
-          <img src="../assets/home/icon_cart.png" alt="cart" width="33px">
-          <img src="../assets/home/icon_search.png" alt="search" width="35px">
-        </div>
+      <div class="logo" @click="$router.push({name:'Content'})"></div>
+      <p @click="$router.push({name:'Content'})">Seasonal Fructification</p>
+      <div class="icon row horizontal space_between">
+        <div class="icon_user"></div>
+        <div class="icon_cart"></div>
+        <div class="icon_search"></div>
+      </div>
     </div>
     <div class="menu">
       <ul class="row horizontal space_between container">

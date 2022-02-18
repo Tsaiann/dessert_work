@@ -16,9 +16,9 @@
       <div class="contact">
         <p>客戶服務</p>
         <ul>
-          <li>宅配須知</li>
-          <li>服務條款細則與隱私權保護</li>
-          <li>退換貨政策</li>
+          <li @click="$router.push({name:'Delivery'})">宅配須知</li>
+          <li @click="$router.push({name:'Return'})">服務條款細則與隱私權保護</li>
+          <li @click="$router.push({name:'Private'})">退換貨政策</li>
         </ul>
       </div>
     </div>

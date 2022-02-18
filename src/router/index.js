@@ -28,10 +28,30 @@ const routes = [
         component: () => import('../components/user.vue')
       },
       {
+        path: 'foodData',
+        name: 'FoodData',
+        component: () => import('../components/foodData.vue')
+      },
+      {
         path: 'questionsAns',
         name: 'QuestionsAns',
         component: () => import('../components/questionsAns.vue')
       },
+      {
+        path: 'delivery',
+        name: 'Delivery',
+        component: () => import('../components/delivery.vue')
+      },
+      {
+        path: 'return',
+        name: 'Return',
+        component: () => import('../components/return.vue')
+      },
+      {
+        path: 'private',
+        name: 'Private',
+        component: () => import('../components/private.vue')
+      }
     ]
   },
 ]
