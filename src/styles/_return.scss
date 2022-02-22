@@ -1,8 +1,7 @@
 .return{
   padding-top: 20px;
-  max-width: 950px;
-  margin: auto;
-  line-height: 1.5;
+  line-height: 1.6;
+  width: 100%;
   div{
     h2{
       color: #754C24;
@@ -12,23 +11,6 @@
       text-indent: -20px;
       margin-left: 20px;
       margin-bottom: 10px;
-    }
-  }
-
-  .guide{
-    width: 100%;
-    border-bottom: 2px solid $middleGray;
-    padding-bottom: 5px;
-    div{
-      background-image: url(../assets/icon/home.png);
-      background-size: contain;
-      width: 20px;
-      height: 20px;
-      margin: 0 10px 0 18px;
-    }
-    p{
-      margin-right: 10px;
-      color: $darkGray;
     }
   }
 }
