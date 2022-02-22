@@ -12,6 +12,22 @@ html, body {
         font-family: 'Noto Sans TC', 'Microsoft JhengHei', 'Hei', sans-serif;
         color: $darkGray;
         padding-top: 20px;
+        .guide{
+            width: 100%;
+            border-bottom: 2px solid $middleGray;
+            padding-bottom: 5px;
+            div{
+              background-image: url(../assets/icon/home.png);
+              background-size: contain;
+              width: 20px;
+              height: 20px;
+              margin: 0 10px 0 18px;
+            }
+            p{
+              margin-right: 10px;
+              color: $darkGray;
+            }
+          }
         img{
             display: block;
         }
@@ -36,6 +52,9 @@ html, body {
         }
         .ml_2{
             margin-left: 18px;
+        }
+        .mr_2{
+            margin-right: 18px;
         }
     }
 }
