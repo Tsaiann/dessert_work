@@ -23,7 +23,7 @@ $icon_img: 'icon-brand', 'icon-delivery', 'icon-return', 'icon-private';
 }
 
 
-$icon: 'icon_user', 'icon_cart', 'icon_search';
+$icon: 'icon_user', 'icon_cart';
 
 @each $currentIcon in $icon{
   .#{$currentIcon}{
@@ -32,5 +32,6 @@ $icon: 'icon_user', 'icon_cart', 'icon_search';
     background-repeat: no-repeat;
     width: 35px;
     height: 35px;
+    margin-left: 10px;
   }
 }

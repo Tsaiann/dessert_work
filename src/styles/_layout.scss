@@ -11,7 +11,7 @@ html, body {
         background: #EFEFEF;
         font-family: 'Noto Sans TC', 'Microsoft JhengHei', 'Hei', sans-serif;
         color: $darkGray;
-        padding-top: 30px;
+        padding-top: 20px;
         img{
             display: block;
         }
@@ -33,6 +33,9 @@ html, body {
         }
         .mb_9{
             margin-bottom: 81px;
+        }
+        .ml_2{
+            margin-left: 18px;
         }
     }
 }
