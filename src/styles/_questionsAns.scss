@@ -1,5 +1,5 @@
 .QA{
-  @include guideLine;
+  line-height: 1.5;
   div{
     span{
       color: $darkGray;
@@ -13,6 +13,7 @@
       margin-bottom: 10px;
       p{
         font-weight: 600;
+        color: #000;
       }
       span{
         display: block;

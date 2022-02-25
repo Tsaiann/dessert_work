@@ -1,0 +1,17 @@
+.guide{
+  border-bottom: 2px solid $middleGray;
+  padding: 20px 0 5px 0;
+  line-height: 1.6;
+  width: 100%;
+  div{
+    background-image: url(../assets/icon/home.png);
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    margin: 0 10px 0 18px;
+  }
+  p{
+    margin-right: 10px;
+    color: $darkGray;
+  }
+}

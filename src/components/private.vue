@@ -1,14 +1,10 @@
 <template>
   <div class="private mb_9 container">
-    <div class="guide row horizontal v_center mb_5">
-      <div></div>
-      <p>></p>
-      <p>隱私權保護與服務條款</p>
-    </div>
+    <guideLine msg= "服務條款細則與隱私權保護" />
     <div class="ml_2 mr_2">
       <h2 class="mb_2">隱私權保護政策</h2>
       <p class="mb_2">非常歡迎您光臨，為了讓您能夠安心的使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：</p>
-      <ul class="mb_2">
+      <ul class="mb_5">
         <li>
           <p>一、 隱私權保護政策的適用範圍</p>
           <span>隱私權保護政策內容，包括本網站如何處理在您使用網站服務時收集到的個人識別資料。隱私權保護政策不適用於本網站以外的相關連結網站，也不適用於非本網站所委託或參與管理的人員。</span>
@@ -51,11 +47,14 @@
 </template>
 
 <script>
+import guideLine from '@/components/guideLine.vue'
 export default {
   name:'Private',
+  components:{
+    guideLine
+  },
   setup(){
     return{
-
     }
   }
 }

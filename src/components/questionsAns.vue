@@ -1,13 +1,9 @@
 <template>
   <div class="QA container mb_9">
-    <div class="guide row horizontal v_center mb_5">
-      <div></div>
-      <p>></p>
-      <p>常見Q&A</p>
-    </div>
+    <guideLine msg="常見Q&A" />
     <div class="mr_2 ml_2">
       <h2 class="mb_2">蛋糕相關問題</h2>
-      <ul class="mb_2">
+      <ul class="mb_5">
         <li>
           <p>‧ 收到蛋糕與訂購的口味不符或是在宅配運送過程中嚴重受損怎麼辦？</p>
           <span> 若發生蛋糕與訂購的口味不符或是在宅配運送過程中嚴重受損的情況，請務必於收貨日當日拍照存證聯繫我們，我們將盡快與您聯繫。</span>
@@ -29,14 +25,14 @@
         </li>
       </ul>
       <h2 class="mb_2">運送相關問題</h2>
-        <ul class="mb_2">
+        <ul class="mb_5">
           <li>
             <p>‧ 商品運送方式為何？ / 消費多少金額可以免運費？ / 請問最快到貨日為幾天？ / 到貨日期及地址可以更動嗎？</p>
             <span>在本站的<a href="#/delivery">宅配需知</a>說明可以得到更多詳細的內容。</span>
           </li>
         </ul>
       <h2 class="mb_2">退換貨須知</h2>
-      <ul class="mb_2">
+      <ul class="mb_5">
         <li>
           <p>‧ 收到蛋糕後發現不喜歡可以退貨嗎？</p>
           <span>生鮮食品不適用於消費者保護法第19條，並不享有 7 天鑑賞期。</span>
@@ -57,8 +53,12 @@
 </template>
 
 <script>
+import guideLine from '@/components/guideLine.vue'
 export default {
   name:'QuestionsAns',
+  components:{
+    guideLine
+  },
   setup(){
     return{
 

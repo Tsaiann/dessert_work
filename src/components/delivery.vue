@@ -1,15 +1,11 @@
 <template>
   <div class="delivery mb_9 container">
-    <div class="guide row horizontal v_center mb_5">
-      <div></div>
-      <p>></p>
-      <p>宅配需知</p>
-    </div>
+    <guideLine msg="宅配需知" />
     <div class="ml_2 mr_2">
       <h2 class="mb_2">蛋糕宅配須知</h2>
       <p class="mb_2">目前我們配合黑貓宅急便做蛋糕宅配運送，為了確保商品的新鮮及配送安全，全程都會使用低溫冷凍配送，因此如果蛋糕內容含有新鮮水果及無法冷凍的食材就不能選擇宅配運送。</p>
-      <div></div>
-      <ul class="mb_2">
+      <div class="deliveryImg"></div>
+      <ul class="mb_5">
         <li>＊ 可指定到貨日：時間為週二至週六，因應黑貓宅急便週日公休政策，所以週日及週一無法指定到貨。</li>
         <li>＊ 訂單送出後，請在24小時內完成付款，付款完成才開始安排訂單製作。</li>
         <li>＊ 所有商品皆為新鮮製作，所以我們最快出貨日為下單後3個工作天，如有急單需求請務必來電確認，夥伴們會跟您確認更改收貨日期的事宜。</li>
@@ -24,8 +20,12 @@
 </template>
 
 <script>
+import guideLine from '@/components/guideLine.vue'
 export default {
   name:'Delivery',
+  components:{
+    guideLine
+  },
   setup(){
     return{
 
