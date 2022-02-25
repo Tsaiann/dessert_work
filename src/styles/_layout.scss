@@ -43,3 +43,12 @@ html, body {
     }
 }
 
+@mixin textIndent($ti,$ml){
+    text-indent: $ti +px;
+    margin-left: $ml +px;
+}
+
+@mixin textH2{
+    color: #754C24;
+    font-size: 20px;
+}

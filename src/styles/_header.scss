@@ -1,7 +1,7 @@
-.navigator {
+.header {
     width: 100%;
     box-sizing: border-box;
-    .header{
+    .sideTop{
         margin: auto;
         p{
             font-size: 22px;
@@ -39,7 +39,7 @@
                     padding: 20px 20px;
                     cursor: pointer;
                     position: relative;
-                    margin-right: 20px;
+                    margin-right: 30px;
                     &:hover{
                         color:#4D4D4D;
                         &::after{

@@ -6,8 +6,7 @@
       margin-left: 20px;
     }
     h2{
-      color: #754C24;
-      font-size: 20px;
+      @include textH2;
     }
     li{
       margin-bottom: 10px;

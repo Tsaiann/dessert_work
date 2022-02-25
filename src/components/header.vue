@@ -1,6 +1,6 @@
 <template>
-  <div class="navigator row vertical">
-    <div class="row vertical v_center container header mb_2">
+  <div class="header row vertical">
+    <div class="row vertical v_center container sideTop mb_2">
       <div class="logo" @click="$router.push({name:'Content'})"></div>
       <p @click="$router.push({name:'Content'})">Seasonal Fructification</p>
       <div class="icon row horizontal center">
@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'navigator',
+  name: 'header',
   components: {
     
   },

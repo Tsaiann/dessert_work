@@ -15,27 +15,27 @@ const routes = [
       {
         path: 'about',
         name: 'About',
-        component: () => import('../components/about.vue')
+        component: () => import('../components/navigator/about.vue')
       },
       {
         path: 'products',
         name: 'Products',
-        component: () => import('../components/products.vue')
+        component: () => import('../components/navigator/products.vue')
       },
       {
         path: 'user',
         name: 'User',
-        component: () => import('../components/user.vue')
+        component: () => import('../components/navigator/user.vue')
       },
       {
         path: 'foodData',
         name: 'FoodData',
-        component: () => import('../components/foodData.vue')
+        component: () => import('../components/navigator/foodData.vue')
       },
       {
         path: 'questionsAns',
         name: 'QuestionsAns',
-        component: () => import('../components/questionsAns.vue')
+        component: () => import('../components/navigator/questionsAns.vue')
       },
       {
         path: 'delivery',

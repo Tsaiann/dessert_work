@@ -7,15 +7,13 @@
 </template>
 <script>
 
-import { ref } from 'vue'
-
 export default {
   name:'GuideLine',
   props:{
     msg: String,
   },
   setup(props){
-    const msg = ref(props.msg)
+    const msg = props.msg
     
     return{
       msg

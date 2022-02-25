@@ -1,20 +1,20 @@
 <template>
   <div class="home">
-    <navigator />
+    <headerTop />
     <router-view />
     <footerBottom />
   </div>
 </template>
 
 <script>
-import navigator from '@/components/navigator.vue'
+import headerTop from '@/components/header.vue'
 import footerBottom from '@/components/footerBottom.vue'
 import { ref, reactive, computed, onMounted, onBeforeMount } from 'vue'
 
 export default {
   name: 'Home',
   components: {
-    navigator,
+    headerTop,
     footerBottom
   },
   setup(){

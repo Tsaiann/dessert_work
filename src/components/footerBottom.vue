@@ -13,9 +13,9 @@
           <li>客服信箱:season99@gmail.com</li>
         </ul>
       </div>
-      <div class="contact serve">
+      <div class="contact">
         <p>客戶服務</p>
-        <ul>
+        <ul class="serve">
           <li @click="$router.push({name:'Delivery'})">宅配須知</li>
           <li @click="$router.push({name:'Private'})">服務條款細則與隱私權保護</li>
           <li @click="$router.push({name:'Return'})">退換貨政策</li>
