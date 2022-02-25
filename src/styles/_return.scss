@@ -1,7 +1,5 @@
 .return{
-  padding-top: 20px;
-  line-height: 1.6;
-  width: 100%;
+  @include guideLine;
   div{
     h2{
       color: #754C24;

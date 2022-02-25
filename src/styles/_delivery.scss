@@ -1,0 +1,22 @@
+.delivery{
+  @include guideLine;
+  div{
+    h2{
+      color: #754C24;
+      font-size: 20px;
+    }
+    div{
+      margin: auto;
+      background-image: url(../assets/other/delivery.png);
+      width: 600px;
+      height: 300px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    li{
+      text-indent: -20px;
+      margin-left: 20px;
+      margin-bottom: 5px;
+    }
+  }
+}

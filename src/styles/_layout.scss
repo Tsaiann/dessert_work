@@ -13,7 +13,6 @@ html, body {
         color: $darkGray;
         padding-top: 20px;
         .guide{
-            width: 100%;
             border-bottom: 2px solid $middleGray;
             padding-bottom: 5px;
             div{
@@ -57,4 +56,11 @@ html, body {
             margin-right: 18px;
         }
     }
+}
+
+@mixin  guideLine{
+    padding-top: 20px;
+    line-height: 1.6;
+    width: 100%;
+    color: #000;
 }
