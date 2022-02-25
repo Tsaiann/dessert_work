@@ -2,8 +2,7 @@
   line-height: 1.5;
   div{
     h2{
-      color: #754C24;
-      font-size: 20px;
+      @include textH2;
     }
     .deliveryImg{
       margin: auto;
@@ -14,8 +13,7 @@
       background-repeat: no-repeat;
     }
     li{
-      text-indent: -20px;
-      margin-left: 20px;
+      @include textIndent(-20,20);
       margin-bottom: 5px;
     }
   }
