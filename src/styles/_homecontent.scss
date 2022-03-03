@@ -3,6 +3,7 @@
   .homePhoto{
     position: relative;
     width: 100%;
+    overflow: hidden;
     div{
       img{
         width: 100%;
@@ -25,7 +26,17 @@
         border-radius: 10%;
         background: $middleGray;
         margin: 30px 10px;
+        cursor: pointer;
       }
+    }
+    .right-in-enter-from{
+      transform: translateX(100%);
+    }
+    .right-in-enter-active, .right-in-leave-active{
+      transition: transform .5s ;
+    }
+    .right-in-leave-to{
+      transform: translateX(-100%);
     }
   }
   .cake_item{

@@ -4,13 +4,15 @@
       <div>
         <img src="../assets/home/home01.png" alt="">
       </div>
-      <div class="carousel" v-for="(img, index) of homeImgs" :key="index" v-show="index === show">
+      <transition-group tag="div" :name="transitionName">
+        <div class="carousel" v-for="(img, index) of homeImgs" :key="index" v-show="index === show">
         <img :src="img.src">
-      </div>
+        </div>
+      </transition-group>
       <ul class="row horizontal">
-        <li></li>
-        <li></li>
-        <li></li>
+        <li @click="setShow(0)"></li>
+        <li @click="setShow(1)"></li>
+        <li @click="setShow(2)"></li>
       </ul>
     </div>
     <div class="row vertical mb_7">
@@ -94,6 +96,7 @@
 </template>
 
 <script>
+import { ref, reactive, computed, onMounted, onBeforeMount } from 'vue'
 export default {
   name:'Content',
   setup(){
@@ -102,10 +105,17 @@ export default {
       { src: "/img/home02.9b39495a.png" },
       { src: "/img/home03.f2647de4.png" }
     ]
-    let show = 0
+    let show = ref(0)
+    let transitionName = ref("right-in")
+    const setShow = (index) =>{
+      show.value = index
+    } 
+
     return{
       homeImgs,
-      show
+      show,
+      transitionName,
+      setShow
     }
   }
 }
