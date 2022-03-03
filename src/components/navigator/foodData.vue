@@ -6,14 +6,15 @@
 
 <script>
 import guideLine from '@/components/guideLine.vue'
+
+
 export default {
   name:'FoodData',
   components:{
-    guideLine
+    guideLine,
   },
   setup(){
     return{
-
     }
   }
 }

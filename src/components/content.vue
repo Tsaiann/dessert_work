@@ -1,7 +1,9 @@
 <template>
   <div class="content">
     <div class="homePhoto mb_9">
-      <img src="../assets/home/home.png" alt="home_photo">
+      <div class="carousel" v-for="(img, index) of homeImgs" :key="index">
+        <img :src="img.src">
+      </div>
       <ul class="row horizontal">
         <li></li>
         <li></li>
@@ -92,8 +94,13 @@
 export default {
   name:'Content',
   setup(){
+    let homeImgs=[
+      { src: "/img/home.42f2080e.png" },
+      { src: "../assets/home/home02.png" },
+      { src: "../assets/home/home03.png" }
+    ]
     return{
-
+      homeImgs
     }
   }
 }

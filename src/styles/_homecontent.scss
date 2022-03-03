@@ -2,14 +2,15 @@
   width: 100%;
   .homePhoto{
     position: relative;
-    img{
-      margin: auto;
+    width: 100%;
+    min-height: 470px;
+    .carousel{
+      position: absolute;
       max-width: 100%;
-    }
-    div{
-      width: 50px;
-      height: 50px;
-      background: #000;
+      margin: auto;
+      img{
+        width: 100%;
+      }
     }
     ul{
       width: 115px;
@@ -25,7 +26,6 @@
         margin: 30px 10px;
       }
     }
-    
   }
   .cake_item{
     .itemTab{
