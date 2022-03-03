@@ -4,12 +4,6 @@
       <div class="carousel" v-for="(img, index) of homeImgs" :key="index">
         <img :src="img.src">
       </div>
-      <div>
-        <img src="../assets/home/home02.png" alt="">
-      </div>
-      <div>
-        <img src="../assets/home/home03.png" alt="">
-      </div>
       <ul class="row horizontal">
         <li></li>
         <li></li>
@@ -102,8 +96,8 @@ export default {
   setup(){
     let homeImgs=[
       { src: "/img/home01.42f2080e.png" },
-      { src: "/img/home02.png" },
-      { src: "../assets/home/home03.png" }
+      { src: "/img/home02.9b39495a.png" },
+      { src: "/img/home03.f2647de4.png" }
     ]
     return{
       homeImgs
