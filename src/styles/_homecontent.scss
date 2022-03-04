@@ -9,10 +9,41 @@
         width: 100%;
       }
     }
+    .prev, .next{
+      width: 40px;
+      height: 40px;
+      background: #333333;
+      border-radius: 10%;
+      position: absolute;
+      opacity: .8;
+      top:50%;
+      cursor: pointer;
+    }
+    .prev{
+      left: 3%;
+      &::after{
+        content:"";
+        @include position(50%,0,0,50%);
+        @include triangle(10px,15px,10px,0,transparent #000 transparent transparent);
+        transform: translate(-65%, -50%);
+      }
+    }
+    .next{
+      right: 3%;
+      &::after{
+        content:"";
+        @include position(50%,0,0,60%);
+        @include triangle(10px,0,10px,15px,transparent transparent transparent #000 );
+        transform: translate(-55%, -50%);
+      }
+    }
     .carousel{
       position: absolute;
       top: 0;
       margin: auto;
+    }
+    .currentPage{
+      background: #754C24;
     }
     ul{
       width: 115px;
@@ -29,15 +60,16 @@
         cursor: pointer;
       }
     }
-    .right-in-enter-from{
+    .right-in-enter-from, .left-in-leave-to{
       transform: translateX(100%);
     }
-    .right-in-enter-active, .right-in-leave-active{
+    .right-in-enter-active, .right-in-leave-active,.left-in-enter-active, .left-in-leave-active{
       transition: transform .5s ;
     }
-    .right-in-leave-to{
+    .right-in-leave-to,.left-in-enter-from{
       transform: translateX(-100%);
     }
+
   }
   .cake_item{
     .itemTab{
@@ -106,6 +138,32 @@
     margin: auto;
     .item{
       position: relative;
+      &:hover{
+        &::after{
+            content: "";
+            width: 195px;
+            height: 270px;
+            display: block;
+            position: absolute;
+            border-top: 1px solid #fff;
+            border-bottom: 1px solid #fff;
+            top: 30px;
+            left: 14px;
+            transition: all .3s ease;
+        }
+        &::before{
+          content: "";
+          width: 170px;
+          height: 295px;
+          display: block;
+          position: absolute;
+          border-right: 1px solid #fff;
+          border-left: 1px solid #fff;
+          top: 20px;
+          left: 25px;
+          transition: all .3s ease;
+      }
+    }
       p{
         color: #fff;
         position: absolute;

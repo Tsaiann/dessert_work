@@ -5,14 +5,14 @@
         <img src="../assets/home/home01.png" alt="">
       </div>
       <transition-group tag="div" :name="transitionName">
-        <div class="carousel" v-for="(img, index) of homeImgs" :key="index" v-show="index === show">
-        <img :src="img.src">
+        <div class="carousel" v-for="(img, index) of homeImgs" :key="index" v-show="index === showHomeImg">
+          <img :src="img.src">
         </div>
       </transition-group>
+      <div class="prev" @click="setShow(showHomeImg-1)"></div>
+      <div class="next" @click="setShow(showHomeImg+1)"></div>
       <ul class="row horizontal">
-        <li @click="setShow(0)"></li>
-        <li @click="setShow(1)"></li>
-        <li @click="setShow(2)"></li>
+        <li v-for="(item, i) of homeImgs" :key="i" @click="setShow(i)" :class="{'currentPage':currentIndex === i}"></li>
       </ul>
     </div>
     <div class="row vertical mb_7">
@@ -105,17 +105,32 @@ export default {
       { src: "/img/home02.9b39495a.png" },
       { src: "/img/home03.f2647de4.png" }
     ]
-    let show = ref(0)
+    let showHomeImg = ref(0)
     let transitionName = ref("right-in")
+    let currentIndex = ref(0)
+    
     const setShow = (index) =>{
-      show.value = index
+      if( index < 0 ){
+        transitionName.value ='left-in'
+        showHomeImg.value = homeImgs.length -1
+        currentIndex.value = homeImgs.length -1
+      }else if( index > homeImgs.length-1 ){
+        transitionName.value ='right-in'
+        showHomeImg.value = 0
+        currentIndex.value = 0
+      }else{
+        transitionName.value = showHomeImg.value < index ? 'right-in' :'left-in'
+        showHomeImg.value = index
+        currentIndex.value = index
+      }
     } 
-
+    
     return{
       homeImgs,
-      show,
+      showHomeImg,
       transitionName,
-      setShow
+      setShow,
+      currentIndex
     }
   }
 }
