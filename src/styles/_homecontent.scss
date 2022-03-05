@@ -138,32 +138,31 @@
     margin: auto;
     .item{
       position: relative;
-      &:hover{
-        &::after{
-            content: "";
-            width: 195px;
-            height: 270px;
-            display: block;
-            position: absolute;
-            border-top: 1px solid #fff;
-            border-bottom: 1px solid #fff;
-            top: 30px;
-            left: 14px;
-            transition: all .3s ease;
-        }
-        &::before{
-          content: "";
-          width: 170px;
-          height: 295px;
-          display: block;
-          position: absolute;
-          border-right: 1px solid #fff;
-          border-left: 1px solid #fff;
-          top: 20px;
-          left: 25px;
-          transition: all .3s ease;
+      cursor: pointer;
+      &:before, &:after{
+        content: "";
+        position: absolute;
+        width: 170px;
+        height: 290px;
+        top: 21px;
+        left: 25px;
+        border-style: solid;
+        border-color: #fff;
+        transition: transform .5s ease;
       }
-    }
+      &:after{
+        border-width: 1px 0 1px 0;
+        transform:  scaleX(0);
+      }
+      &:before{
+        border-width: 0 1px 0 1px;
+        transform:  scaleY(0);
+      }
+      &:hover{
+        &:after, &:before{
+          transform:  scale(1,1);
+        }
+      }
       p{
         color: #fff;
         position: absolute;
