@@ -1,10 +1,10 @@
 <template>
-  <div class="private mb_9 container">
+  <div class="private container">
     <guideLine msg= "服務條款細則與隱私權保護" />
-    <div class="ml_2 mr_2">
-      <h2 class="mb_2">隱私權保護政策</h2>
-      <p class="mb_2">非常歡迎您光臨，為了讓您能夠安心的使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：</p>
-      <ul class="mb_5">
+    <div data-space-left="1rem">
+      <h2 data-space-bottom="1rem">隱私權保護政策</h2>
+      <p data-space-bottom="1rem">非常歡迎您光臨，為了讓您能夠安心的使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：</p>
+      <ul data-space-bottom="2rem">
         <li>
           <p>一、 隱私權保護政策的適用範圍</p>
           <span>隱私權保護政策內容，包括本網站如何處理在您使用網站服務時收集到的個人識別資料。隱私權保護政策不適用於本網站以外的相關連結網站，也不適用於非本網站所委託或參與管理的人員。</span>
@@ -30,8 +30,8 @@
           <span>本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。</span>
         </li>
       </ul>
-      <h2 class="mb_2">會員服務條款</h2>
-      <ul class="service">
+      <h2 data-space-bottom="1rem">會員服務條款</h2>
+      <ul class="service" data-space-bottom="3rem">
         <li>1. 本會員服務條款所稱之「會員」，為依照本站所定之加入會員程序加入完成並通過認證者。</li>
         <li>2. 當您使用本站服務時，即表示您同意及遵守本服務條款的規定事項及相關法律之規定。</li>
         <li>3. 本站有審核加入會員資格之權利，另外已加入會員者本站亦保留有解除其會員資格之權利。</li>

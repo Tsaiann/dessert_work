@@ -1,6 +1,6 @@
 <template>
   <div class="header row vertical">
-    <div class="row vertical v_center container sideTop mb_2">
+    <div class="row vertical v_center container sideTop">
       <div class="logo" @click="$router.push({name:'Content'})"></div>
       <p @click="$router.push({name:'Content'})">Seasonal Fructification</p>
       <div class="icon row horizontal center">

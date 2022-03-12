@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <div class="homePhoto mb_9">
+    <div class="homePhoto" data-space-bottom="3rem">
       <div>
         <img src="../assets/home/home01.png" alt="">
       </div>
@@ -15,9 +15,9 @@
         <li v-for="(item, i) of homeImgs" :key="i" @click="setShow(i)" :class="{'currentPage':currentIndex === i}"></li>
       </ul>
     </div>
-    <div class="row vertical mb_7">
-      <div class="mb_7 autoCenter row vertical center">
-        <p class="mb_1">熱銷排名</p>
+    <div class="row vertical" data-space-bottom="4rem">
+      <div class="autoCenter row vertical center" data-space-bottom="3rem">
+        <p data-space-bottom="1rem">熱銷排名</p>
         <img src="../assets/home/shape01.png" alt="shape" width="150px">
       </div>
       <ul class="row horizontal space_between container cake_item">
@@ -50,13 +50,13 @@
           </div>
         </li>
       </ul>
-      <ul class="page mb_9 container">
+      <ul class="page container">
         <li></li>
         <li></li>
         <li></li>
       </ul>
     </div>
-    <div class="cakeType mb_9">
+    <div class="cakeType">
       <div class="item">
         <img src="../assets/home/cake_kind01.png" alt="a kind of cake">
         <p>戚風蛋糕</p>
@@ -73,8 +73,8 @@
         <span>Macaron</span>
       </div>
     </div>
-    <div class="container autoCenter mb_9"><img src="../assets/home/shape02.png" alt="shape" width="1000px"></div>
-    <ul class="brand container mb_9">
+    <div class="container autoCenter"><img src="../assets/home/shape02.png" alt="shape" width="1000px"></div>
+    <ul class="brand container" data-space-bottom="3rem">
       <li class="row vertical" @click="$router.push({name:'About'})">
         <div class="icon-brand"></div>
         <p>品牌故事</p>
@@ -101,7 +101,7 @@ export default {
   name:'Content',
   setup(){
     let homeImgs=[
-      { src: "/img/home01.42f2080e.png" },
+      { src: "/img/home01.657c3a60.png" },
       { src: "/img/home02.9b39495a.png" },
       { src: "/img/home03.f2647de4.png" }
     ]

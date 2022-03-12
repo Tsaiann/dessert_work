@@ -1,5 +1,5 @@
 <template>
-  <div class="guide row horizontal v_center mb_5">
+  <div class="guide row horizontal v_center " data-space-bottom="2.5rem">
       <div></div>
       <p>></p>
       <p>{{ msg }}</p>
