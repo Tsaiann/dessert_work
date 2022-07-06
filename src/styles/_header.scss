@@ -1,82 +1,113 @@
 .header {
-    width: 100%;
-    .sideTop{
-        margin: auto;
-        padding-bottom: 30px;
-        p{
-            font-size: 22px;
-            font-family: 'Apple Chancery';
-            margin: auto;
-            cursor: pointer;
-            color: #000;
-        }
-        .logo{
-            width: 80px;
-            height: 80px;
-            background-image: url('../assets/home/logo.png');
-            background-repeat: no-repeat;
-            background-size: contain;
-            margin: auto auto 5px auto;
-            cursor: pointer;
-        }
-        .icon{
-            width: 130px;
-            position: absolute;
-            right: 50px;
-            top: 70px;
-        }
-    }
-    .menu{
-        border-top: 1px solid #808080;
-        border-bottom: 1px solid #808080;
-        width: 100%;
-        box-shadow: 0px 0px 3px  #808080;
-        div{
-            max-width: 1100px;
-            margin: auto;
-            ul{
-                margin: auto;
-                li{
-                    padding: 20px 20px;
-                    cursor: pointer;
-                    position: relative;
-                    margin-right: 30px;
-                    &:hover{
-                        color:#4D4D4D;
-                        &::after{
-                            content: "";
-                            position: absolute;
-                            border-style:solid;
-                            border-width: 0 5px 12px 5px;
-                            border-color: transparent transparent #4D4D4D transparent;
-                            bottom: 0;
-                            left: 50%;
-                            transform: translate(-50%, 0);
-                        }
-                    }
-                }
-            }
-            div{
-                margin-right: 20px;
-                position: relative;
-                input{
-                    display: block;
-                    border: 1px solid #E3E3E3;
-                    border-radius: 50px;
-                    width: 250px;
-                    height: 30px;
-                    padding-left: 20px;
-                }
-                img{
-                    width: 20px;
-                    height: 20px;
-                    position: absolute;
-                    background-image: url(../assets/home/icon_search.png);
-                    right: 16px;
-                    top: 7px;
-                    cursor: pointer;
-                }
-            }
-        }
-    }
+	width: 100%;
+	.sideTop{
+		margin: auto;
+		padding-bottom: 30px;
+		p{
+			font-size: 22px;
+			font-family: 'Apple Chancery';
+			margin: auto;
+			cursor: pointer;
+			color: #000;
+		}
+		.logo{
+				width: 80px;
+				height: 80px;
+				background-image: url('../assets/home/logo.png');
+				background-repeat: no-repeat;
+				background-size: contain;
+				margin: auto auto 5px auto;
+				cursor: pointer;
+		}
+		.icon{
+				width: 130px;
+				position: absolute;
+				right: 50px;
+				top: 70px;
+		}
+  }
+	.menu{
+		border-top: 1px solid #808080;
+		border-bottom: 1px solid #808080;
+		width: 100%;
+		box-shadow: 0px 0px 3px  #808080;
+		div{
+			max-width: 1100px;
+			position: relative;
+			margin: auto;
+			padding: 0;
+			.p-menubar-root-list{
+				.p-menuitem{
+					width: 150px;
+					cursor: pointer;
+					position: relative;
+					padding-right: 20px;
+					.p-menuitem-icon{
+						display: none;
+					}
+					a{
+						display: block;
+						text-align: center;
+					}
+					.p-submenu-list{
+						padding: 0;
+						width: 130px;
+						.p-menuitem{
+							padding: 0;
+							a{
+								width: 128px;
+								display: block;
+								padding: 15px 0;
+								text-align: center;
+							}
+							&:hover{
+								&::after{
+									content: "";
+									display: none;
+								}
+							}
+						}
+					}
+					.p-submenu-icon{
+						display: none;
+					}
+					a:focus{
+						border: none;
+					}
+					&:hover{
+						color:#4D4D4D;
+						&::after{
+							content: "";
+							position: absolute;
+							border-style:solid;
+							border-width: 0 5px 12px 5px;
+							border-color: transparent transparent #4D4D4D transparent;
+							bottom: 0;
+							left: 45%;
+							transform: translate(-50%, 0);
+						}
+					}
+				}
+			}
+			.p-menubar-end{
+				width: 0px;
+			}
+			input{
+				display: block;
+				border: 1px solid #E3E3E3;
+				border-radius: 50px;
+				width: 200px;
+				height: 30px;
+				padding-left: 20px;
+			}
+			img{
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				left: 165px;
+				top: 5px;
+				cursor: pointer;
+			}
+		}  
+  }
 }

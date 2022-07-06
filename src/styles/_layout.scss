@@ -32,10 +32,6 @@ html, body {
   font-size: 20px;
 }
 
-@mixin textH2{
-  color: #754C24;
-  font-size: 20px;
-}
 @mixin triangle($top,$right,$bottom,$left,$color){
   border-style: solid;
   border-width: $top $right $bottom $left;
