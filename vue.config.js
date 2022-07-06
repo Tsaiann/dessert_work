@@ -1,9 +1,8 @@
 const path = require('path');
-// const burl = '@/views/default/'
-// const burl = ''
+
 module.exports = {
   lintOnSave: false,
-  publicPath: process.env.NODE_ENV === 'production' ? '/dessert_work/' : '/',
+  publicPath: './',
   pages: {
     index: {
       // entry for the page
@@ -35,6 +34,16 @@ module.exports = {
     },
   },
   devServer: {
-    disableHostCheck: true,
-  },
-};
+    proxy: {
+      '/api': {
+        target: process.env.VUE_APP_BASE_API,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api' : ''
+        },
+        ws: false,
+      }
+    }
+    // ...
+  }
+}
