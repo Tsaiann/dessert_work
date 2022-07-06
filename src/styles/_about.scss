@@ -1,0 +1,45 @@
+.about{
+  width: 100%;
+  line-height: 1.5;
+  .about-page{
+    position: relative;
+    width: 100%;
+    background: #fff;
+    padding: 40px 40px 80px 50px;
+    margin-bottom: 50px;
+    border: 1px solid #000;
+    &::after{
+      content: "";
+      position: absolute;
+      background: #A67F78;
+      opacity: .5;
+      width: 165px;
+      height: 300px;
+      left: 0;
+      bottom: 70px;
+    }
+    &::before{
+      content: "";
+      position: absolute;
+      background: #A67F78;
+      opacity: .5;
+      width: 30px;
+      height: 300px;
+      right: 0;
+      top: 90px;
+    }
+    h2{
+      @include textH2;
+      margin-bottom: 100px;
+    }
+  }
+  .about-content{
+    max-width: 680px;
+    margin: auto;
+    span{
+      font-size: 20px;
+      color: #000;
+      margin-bottom: 10px;
+    }
+  }
+}
