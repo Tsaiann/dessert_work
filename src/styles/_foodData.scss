@@ -1,4 +1,35 @@
 .foodData{
   width: 100%;
   line-height: 1.5;
+  h1{
+    font-size: 24px;
+  }
+  .card{
+    max-width: 860px;
+    margin: 0 auto 30px auto;
+    @include flexBox(row, center, flex-start);
+    div{
+      width: 220px;
+      text-align: center;
+      margin-right: 120px;
+      h2{
+        color: #754C24;
+        font-size: 18px;
+      }
+    }
+  }
+  .card__reverse{
+    max-width: 860px;
+    margin: 0 auto 30px auto;
+    @include flexBox(row, center, flex-end);
+    div{
+      width: 220px;
+      margin-left: 100px;
+      text-align: center;
+      h2{
+        color: #754C24;
+        font-size: 18px;
+      }
+    }
+  }
 }
