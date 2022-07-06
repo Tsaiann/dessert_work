@@ -1,12 +1,12 @@
 import { createStore } from 'vuex'
+import { memberModules } from './modules/memberStatus'
 
 export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
-  }
+    memberModules
+  },
+  state: {},
+  mutations: {},
+  actions: {},
+  getters: {}
 })
