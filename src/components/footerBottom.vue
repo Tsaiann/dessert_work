@@ -2,7 +2,7 @@
   <div class="footerBottom">
     <div class="footer container">
       <div class="logo">
-        <img src="../assets/home/logo.png" alt="logo">
+        <img src="../assets/home/logo.png" alt="logo" />
         <p>Seasonal Fructification</p>
       </div>
       <div class="contact">
@@ -16,9 +16,9 @@
       <div class="contact">
         <p>客戶服務</p>
         <ul class="serve">
-          <li @click="$router.push({name:'Delivery'})">宅配須知</li>
-          <li @click="$router.push({name:'Private'})">服務條款細則與隱私權保護</li>
-          <li @click="$router.push({name:'Return'})">退換貨政策</li>
+          <li @click="$router.push({ name: 'Delivery' })">宅配須知</li>
+          <li @click="$router.push({ name: 'Private' })">服務條款細則與隱私權保護</li>
+          <li @click="$router.push({ name: 'Return' })">退換貨政策</li>
         </ul>
       </div>
     </div>
@@ -28,10 +28,8 @@
 <script>
 export default {
   name: 'footerBottom',
-  setup(){
-    return{
-
-    }
+  setup() {
+    return {}
   }
 }
 </script>

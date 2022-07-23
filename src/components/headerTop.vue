@@ -4,8 +4,8 @@
       <div class="logo" @click="$router.push({ name: 'Content' })"></div>
       <p @click="$router.push({ name: 'Content' })">Seasonal Fructification</p>
       <div class="icon row horizontal center">
-        <div class="icon_user"></div>
-        <div class="icon_cart"></div>
+        <div class="icon_user" @click="handleMember"></div>
+        <div class="icon_cart" @click="handleCart"></div>
       </div>
     </div>
     <div class="menu">
@@ -20,18 +20,14 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import Menubar from 'primevue/menubar'
-import InputText from 'primevue/inputtext'
+import { ref, reactive, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'headerTop',
-  components: {
-    Menubar,
-    InputText
-  },
   setup() {
-    const items = ref([
+    const router = useRouter()
+    const items = reactive([
       {
         label: '關於季菓',
         to: '/about'
@@ -67,7 +63,7 @@ export default {
       },
       {
         label: '會員專區',
-        to: '/user/login'
+        to: '/user'
       },
       {
         label: '常見Q&A',
@@ -78,8 +74,35 @@ export default {
         to: '/foodData'
       }
     ])
+    const handleCart = () => {
+      const userInfo = localStorage.getItem('userInfo')
+      if (userInfo === null) {
+        router.push({ name: 'User' })
+      } else {
+        router.push({ name: 'Cart' })
+      }
+    }
+    const handleMember = () => {
+      const userInfo = localStorage.getItem('userInfo')
+      if (userInfo === null) {
+        router.push({ name: 'User' })
+      } else {
+        router.push({ name: 'Member' })
+      }
+    }
+    const memberRouterChange = onMounted(() => {
+      const userInfo = localStorage.getItem('userInfo')
+      if (userInfo === null) {
+        items[2].to = '/user'
+      } else {
+        items[2].to = '/member'
+      }
+    })
     return {
-      items
+      items,
+      handleMember,
+      memberRouterChange,
+      handleCart
     }
   }
 }

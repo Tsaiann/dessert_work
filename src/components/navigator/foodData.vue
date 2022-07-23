@@ -1,5 +1,5 @@
 <template>
-  <div class="foodData container mb_9">
+  <div class="foodData container">
     <guideLine :data="guideData" />
     <div data-space-bottom="3rem">
       <div class="row vertical center" data-space-bottom="4rem">
@@ -13,7 +13,7 @@
         </div>
         <img src="../../assets/other/foodData_egg.png" alt="egg" />
       </div>
-      <div class="card__reverse">
+      <div class="card reverse">
         <img src="../../assets/other/foodData_sugar.png" alt="sugar" />
         <div>
           <h2>日本上原海藻糖</h2>
@@ -27,7 +27,7 @@
         </div>
         <img src="../../assets/other/foodData_flour.png" alt="flour" />
       </div>
-      <div class="card__reverse">
+      <div class="card reverse">
         <img src="../../assets/other/foodData_butter.png" alt="butter" />
         <div>
           <h2>依思尼無鹽發酵奶油條</h2>
@@ -50,7 +50,7 @@
 
 <script>
 import guideLine from '@/components/guideLine.vue'
-import { reactive, ref, onMounted } from 'vue'
+import { reactive } from 'vue'
 
 export default {
   name: 'FoodData',
