@@ -34,3 +34,15 @@ export const createMember = (data) =>
     },
     data: data
   })
+
+// 取得當前會員資料
+export const memberData = (data) =>
+  request({
+    url: '/member/center/info/r',
+    method: 'get',
+    headers: {
+      token: getToken(),
+      'Content-Type': 'text/plain'
+    },
+    data: data
+  })
