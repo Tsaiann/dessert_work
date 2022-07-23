@@ -1,0 +1,352 @@
+.user{
+  width: 100%;
+  line-height: 1.5;
+  .user-page{
+    width: 100%;
+    background: #fff;
+    padding: 100px;
+    margin-bottom: 100px;
+  }
+}
+.login{
+  width: 70%;
+  margin: auto;
+  border: 1px solid $darkGray;
+  .login-button{
+    @include flexBox(row, flex-start, flex-start);
+    width: 100%;
+    cursor: pointer;
+    p, span{
+      width: 50%;
+      font-size: 22px;
+      text-align: center;
+      padding: 20px 0;
+    }
+    p{
+      border-right: 1px solid $darkGray;
+      border-bottom: 1px solid $darkGray;
+      background: $lightGray;
+    }
+  }
+  .login-data{
+    width: 80%;
+    margin: auto;
+    padding: 50px 0;
+    p{
+      font-size: 18px;
+      margin: 15px 0 5px 0;
+    }
+    input{
+      width: 100%;
+    }
+    .otp{
+      @include flexBox(row, stretch, flex-start);
+      margin-top: 10px;
+      input{
+        width: 40%;
+      }
+      span{
+        background: #dcdcdc;
+        opacity: 0.9;
+        border-radius: 5px;
+        font-size: 20px;
+        padding: 5px 16px;
+        margin-left: 5px;
+        letter-spacing: 0.1rem;
+      }
+    }
+   .smbit{
+      width: 100%;
+      @include flexBox(column, flex-start, center);
+      margin-top: 30px;
+      button{
+        background: #DACDBC;
+        opacity: 0.9;
+        border: 0;
+        color: #000;
+        width: 80%;
+        margin: 0 auto 5px auto;
+      }
+      .field-checkbox{
+        width: 80%;
+        margin: auto;
+      }
+      p{
+        width: 100%;
+        font-size: 16px;
+        text-align: center;
+        color: $middleGray;
+      }
+    }
+  }
+}
+.register{
+  width: 70%;
+  margin: auto;
+  border: 1px solid $darkGray;
+  .register-button{
+    @include flexBox(row, flex-start, flex-start);
+    width: 100%;
+    cursor: pointer;
+    p, span{
+      width: 50%;
+      font-size: 22px;
+      text-align: center;
+      padding: 20px 0;
+    }
+    span{
+      border-left: 1px solid $darkGray;
+      border-bottom: 1px solid $darkGray;
+      background: $lightGray;
+    }
+  }
+  .register-data{
+    width: 80%;
+    margin: auto;
+    padding: 50px 0;
+    .p-calendar .p-component .p-inputwrapper{
+      width: 200px;
+    }
+    div{
+      margin-bottom: 10px;
+    }
+    p{
+      font-size: 18px;
+    }
+    span{
+      color: red;
+      font-size: 12px;
+      input{
+        width: 500px;
+      }
+    }
+    input{
+      width: 100%;
+    }
+  }
+}
+.button_submit{
+  @include size(300px, 40px);
+  opacity: 0.8;
+  border: 0;
+  margin: 15px auto 0 auto;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  &.confirm{
+    background: #DACDBC;
+    color: #000;
+    &:hover{
+      color: white;
+      background: #C3996D;
+    }
+  }
+  &.cancel{
+    background: rgb(246, 240, 240);
+    color: $darkGray;
+    &:hover{
+      color: $darkGray;
+      background: #d5d4d2;
+    }
+  }
+}
+.member{
+  width: 100%;
+  line-height: 1.5;
+  .member-page{
+    @include pageAsideMenu;
+    .member-list{
+      @include size(78%, 100%);
+      max-height: 890px;
+      min-height: 700px;
+      overflow: scroll;
+      border: 2px solid $middleGray;
+      background: #fff;
+    }
+  }
+}
+.homepage{
+  width: 100%;
+  padding: 2rem 2.5rem;
+  color: #000;
+  .pi-pencil, .pi-user{
+    border: 1px solid #000;
+    border-radius: 100%;
+    padding: 4px;
+  }
+  .pi-pencil{
+    padding: 8px;
+  }
+  .member-level{
+    margin-left: 10px;
+    background: #C7B299;
+    padding: 2px 20px;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+  .member-edit{
+    margin-left: 48px;
+    span{
+      font-size: 12px;
+      color: $darkGray;
+    }
+    p{
+      color: $darkGray;
+    }
+    .member-detail{
+      @include flexBox(row, center, flex-start);
+      margin-top: 15px;
+      p{
+        width: 20%;
+        color: #000;
+      }
+      input{
+        width: 80%;
+      }
+      .field-checkbox{
+        width: 100px;
+      }
+    }
+  }
+}
+.order{
+  @include size(100%, 100%);
+  .p-datatable{
+    height: 100%;
+    @include flexBox(column, flex-start, flex-start);
+    .p-datatable-wrapper{
+      @include size(100%, 100%);
+      .p-button-sm{
+        padding: 0.2rem 0.5rem;
+      }
+    }
+    .p-paginator-bottom{
+     width: 100%; 
+    }
+  }
+}
+
+.discount{
+  padding: 40px 30px;
+  &-data{
+    border: 1px solid #C7B299;
+    padding: 20px;
+    margin-bottom: 30px;
+    h2{
+      @include title-h2;
+      position: relative;
+      &::before{
+        content:'(永久有效)';
+        @include position('','',1px,220px);
+        font-size: 16px;
+        color: #754C24;
+        opacity: 0.7;
+      }
+    }
+    p{
+      color: #C7B299;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    div{
+      @include size(100%, 30px);
+      border: 1px solid #C7B299;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      position: relative;
+      &::before{
+        content: '';
+        @include triangle(9px,4px,0,4px,#C1272D transparent transparent transparent);
+        @include position(-9px,49.5%,'','');
+      }
+      &::after{
+        content: '銀級會員';
+        @include position(-27px,46.5%,'','');
+        color: #C1272D;
+        font-size: 10px;
+      }
+      span{
+        @include size(50%, 29px);
+        display: block;
+        border-radius: 4px;
+        background: #C7B299;
+        &::before{
+          content: '';
+          @include triangle(9px,4px,0,4px,$darkGray transparent transparent transparent);
+          @include position(-8px,-4px,'','');
+          z-index: 1;
+        }
+        &::after{
+          content: '金級會員';
+          @include position(-27px,-4px,'','');
+          color: $darkGray;
+          font-size: 10px;
+        }
+      }
+    }
+  }  
+  &-coupon{
+    @include flexBox(row, flex-start, flex-start);
+    width: 350px;
+    margin-bottom: 20px;
+    &_header{
+      @include size(90px,140px);
+      position: relative;
+      background: linear-gradient(90deg, transparent 0, transparent 0.1875rem, #e9d7c0 0);
+      span {
+        @include size(10px,calc(100% - 10px));
+        @include position(0.3rem,'','',0);
+        background: radial-gradient(circle at 0 0.25rem, transparent 0, transparent 0.1875rem, #e9d7c0 0);
+        background-size: 0.25rem 0.625rem;
+        &::before {
+          content: '';
+          @include size(5px,5px);
+          @include position(-5px,'','',0);
+          background-color: #e9d7c0;
+        }
+        &::after {
+          content: '';
+          @include size(5px,5px);
+          @include position('','',-5px,0);
+          background-color: #e9d7c0;
+        }
+      }
+    }
+    &_content{
+      @include size(260px, 140px);
+      border: 1px solid #e9d7c0;
+      padding: 10px;
+      h2{
+        color: #C7B299;
+        font-size: 26px;
+      }
+    }
+  }
+}
+.like{
+  .likeList{
+    @include flexBox(row, center, space-between);
+    padding: 30px 40px;
+    border-bottom: 1px solid $darkGray;
+    div{
+      width: 100%;
+      h2{
+        font-size: 20px;
+      }
+      p{
+        color: #C7B299;
+        font-weight: bolder;
+        font-size: 18px;
+      }
+      .iconList{
+        @include flexBox(column, center, flex-start);
+        width: 80px;
+        i{
+          border: 1px solid $darkGray;
+          padding: 5px;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+}

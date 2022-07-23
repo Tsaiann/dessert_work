@@ -1,0 +1,166 @@
+.cart{
+  width: 100%;
+  line-height: 1.5;
+  .cart-page{
+    width: 100%;
+    background: #fff;
+    padding: 40px 60px 80px 60px;
+    height: 100%;
+    margin-bottom: 50px;
+    .p-steps .p-steps-item.p-highlight .p-steps-number{
+      background: #EAE2D8;
+    }
+    h2{
+      background: #EAE2D8;
+      font-size: 20px;
+      font-weight: normal;
+      padding: 5px 10px;
+      color: #000;
+    }
+    .cart-data{
+      @include size(80%, 400px);
+      margin: 50px auto 40px auto;
+      border: 1px solid $lightGray;
+    }
+    .send{
+      @include size(45%, 230px);
+      margin-right: 18px;
+      border: 1px solid $lightGray;
+      p{
+        margin: 10px 0 5px 15px;
+      }
+      div{
+        margin: 0 0 10px 15px;
+      }
+    }
+    .info{
+      @include size(33%, 230px);
+      border: 1px solid $lightGray;
+      div{
+        padding: 5px 10px 2px 10px;
+      }
+      .p-inputtext-sm{
+        height: 30px;
+      }
+      span{
+        color: #b49167;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    }
+    button{
+      margin: 0
+    }
+    .fillInfo{
+      @include flexBox(row, flex-start, center);
+      margin: 70px 0 50px 0;
+      &-left{
+        width: 40%;
+        margin-right: 20px;
+        .remark, .purchaser{
+          border: 1px solid $lightGray;
+          input{
+            width: 100%;
+          }
+          label{
+            margin-left: 5px;
+          }
+          textarea{
+            width: 100%;
+          }
+        }
+      }
+      &-right{
+        width: 40%;
+        border: 1px solid $lightGray;
+        h3{
+          font-weight: normal;
+        }
+        p{
+          font-size: 14px;
+          color: #C1272D;
+          @include textIndent(-17,17);
+        }
+        input, span{
+          width: 100%;
+        }
+        .p-button.p-button-icon-only{
+          padding: 0 13px;
+          background: #d6b791;
+          border: 1px solid #d6b791;
+        }
+        label{
+          margin-left: 5px;
+        }
+      }
+    }
+    .finish{
+      border: 1px solid $lightGray;
+      width: 80%;
+      margin: 70px auto 40px auto;
+      
+      &-title{
+        background: #EAE2D8;
+        h2, span{
+          text-align: center;
+        }
+        span{
+          display: block;
+          color: $darkGray;
+          padding-bottom: 5px;
+        }
+      }
+      &-footer{
+        @include flexBox(row, center, flex-start);
+        background: $middleGray;
+        padding: 10px 10px 10px 20px;
+        color: #C1272D;
+        font-size: 14px;
+      }
+    }
+    .finish-button{
+      @include flexBox(column, flex-start,flex-start);
+      width: 80%;
+      margin: auto;
+      background: $lightGray;
+      border-radius: 5px;
+      border: 1px solid $lightGray;
+      div{
+        @include flexBox(row, center, space-between);
+        width: 100%;
+        padding: 12px 20px;
+        cursor: pointer;
+        &:hover{
+          color: #fff;
+          background: $middleGray;
+        } 
+      }
+    }
+  }
+}
+.dialog-discount{
+  width: 48%;
+  border: 1px solid $middleGray;
+  text-align: center;
+  padding: 15px 10px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  cursor: pointer;
+  &:hover{
+    color: #fff;
+    background: #C7B299;
+  }
+  h2{
+    font-size: 30px;
+  }
+  p{
+    font-size: 14px;
+  }
+}
+.p-dialog .p-dialog-footer button{
+  width: 300px;
+}
+.p-dialog-content{
+  height: 300px;
+  overflow: scroll;
+}

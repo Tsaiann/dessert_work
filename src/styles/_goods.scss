@@ -1,0 +1,12 @@
+.products{
+  width: 100%;
+  line-height: 1.5;
+  .goods-page{
+    @include pageAsideMenu;
+    .goods-list{
+      @include size(78%, 700px);
+      border: 2px solid $middleGray;
+      background: #fff;
+    }
+  }
+}
