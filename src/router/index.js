@@ -78,33 +78,66 @@ const routes = [
         name: 'Member',
         component: () => import('../components/user/member/member.vue'),
         redirect: { name: 'Homepage' },
+        meta: {
+          requiresAuth: true
+        },
         children: [
           {
             path: 'homepage',
             name: 'Homepage',
-            component: () => import('../components/user/member/homepage.vue')
+            component: () => import('../components/user/member/homepage.vue'),
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'order',
             name: 'Order',
-            component: () => import('../components/user/member/order.vue')
+            component: () => import('../components/user/member/order.vue'),
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'like',
             name: 'Like',
-            component: () => import('../components/user/member/like.vue')
+            component: () => import('../components/user/member/like.vue'),
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'ask',
             name: 'Ask',
-            component: () => import('../components/user/member/ask.vue')
+            component: () => import('../components/user/member/ask.vue'),
+            meta: {
+              requiresAuth: true
+            }
           },
           {
             path: 'discount',
             name: 'Discount',
-            component: () => import('../components/user/member/discount.vue')
+            component: () => import('../components/user/member/discount.vue'),
+            meta: {
+              requiresAuth: true
+            }
           }
         ]
+      },
+      {
+        path: 'cart',
+        name: 'Cart',
+        component: () => import('../components/cart/cart.vue')
+      },
+      {
+        path: 'fillInfo',
+        name: 'FillInfo',
+        component: () => import('../components/cart/fillInfo.vue')
+      },
+      {
+        path: 'finish',
+        name: 'Finish',
+        component: () => import('../components/cart/finish.vue')
       },
       {
         path: 'foodData',
