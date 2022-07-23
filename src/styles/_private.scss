@@ -2,15 +2,13 @@
   line-height: 1.5;
   div{
     h2{
-      @include textH2;
+      @include title-h2;
     }
     li{
       margin-bottom: 15px;
       p{
-        font-size: 18px;
         color: #000;
         font-weight: 600;
-        
       }
     }
     .service{

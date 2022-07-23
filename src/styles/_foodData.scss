@@ -18,18 +18,10 @@
       }
     }
   }
-  .card__reverse{
-    max-width: 860px;
-    margin: 0 auto 30px auto;
+  .reverse{
     @include flexBox(row, center, flex-end);
     div{
-      width: 220px;
-      margin-left: 100px;
-      text-align: center;
-      h2{
-        color: #754C24;
-        font-size: 18px;
-      }
+      margin: 0 0 0 100px;
     }
   }
 }

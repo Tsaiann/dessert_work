@@ -11,8 +11,7 @@
 			color: #000;
 		}
 		.logo{
-				width: 80px;
-				height: 80px;
+			@include size(80px, 80px);
 				background-image: url('../assets/home/logo.png');
 				background-repeat: no-repeat;
 				background-size: contain;
@@ -20,10 +19,9 @@
 				cursor: pointer;
 		}
 		.icon{
-				width: 130px;
-				position: absolute;
-				right: 50px;
-				top: 70px;
+			@include position(70px, 50px, '', '');
+			width: 130px;
+			cursor: pointer;
 		}
   }
 	.menu{
@@ -78,34 +76,24 @@
 						color:#4D4D4D;
 						&::after{
 							content: "";
-							position: absolute;
-							border-style:solid;
-							border-width: 0 5px 12px 5px;
-							border-color: transparent transparent #4D4D4D transparent;
-							bottom: 0;
-							left: 45%;
+							@include triangle(0,5px,12px,5px,transparent transparent #4D4D4D transparent);
+							@include position('','',0,45%);
 							transform: translate(-50%, 0);
 						}
 					}
 				}
 			}
-			.p-menubar-end{
-				width: 0px;
-			}
+			
 			input{
+				@include size(200px,30px);
 				display: block;
 				border: 1px solid #E3E3E3;
 				border-radius: 50px;
-				width: 200px;
-				height: 30px;
 				padding-left: 20px;
 			}
 			img{
-				width: 20px;
-				height: 20px;
-				position: absolute;
-				left: 165px;
-				top: 5px;
+				@include size(20px,20px);
+				@include position(5px, '', '', 165px);
 				cursor: pointer;
 			}
 		}  

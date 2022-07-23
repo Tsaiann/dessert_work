@@ -6,22 +6,16 @@
     p{
       &::after{
         content:"";
-        width: 40px;
-        height: 4px;
+        @include size(40px, 4px);
+        @include position('', '', 10%, 50%);
         background: #C3996D;
-        position: absolute;
-        bottom: 10%;
-        left: 50%;
         transform: translate(-50%, -50%);
       }
       &::before{
         content:"";
-        width: 150px;
-        height: 2px;
+        @include size(150px, 2px);
+        @include position('', '', 10%, 50%);
         background: #C9C9C9;
-        position: absolute;
-        bottom: 10%;
-        left: 50%;
         transform: translate(-50%, -50%);
       }
     }
@@ -52,13 +46,11 @@
       }
     }
     .prev, .next{
-      width: 40px;
-      height: 40px;
+      @include size(40px, 40px);
+      @include position(50%, '', '', '');
       background: #333333;
       border-radius: 10%;
-      position: absolute;
       opacity: .8;
-      top:50%;
       cursor: pointer;
     }
     .prev{
@@ -88,14 +80,11 @@
       background: #754C24;
     }
     ul{
+      @include position('', '', 0, 50%);
       width: 115px;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
       transform: translate(-50%,0);
       li{
-        width: 18px;
-        height: 18px;
+        @include size(18px, 18px);
         border-radius: 10%;
         background: $middleGray;
         margin: 30px 10px;
@@ -118,29 +107,23 @@
       position: relative;
       &::after{
         content:'';
-        width: 60px;
-        height: 25px;
+        @include size(60px, 25px);
+        @include position(5px, 5px, '', '');
         background: rgba(225,43,18,.5);
-        position: absolute;
         border-radius: 10%;
-        top: 5px;
-        left: 5px;
         z-index: 2;
       }
       &::before{
         content: 'NEW';
+        @include position(9px, '', '', 18px);
         color: #000;
-        position: absolute;
-        top: 9px;
-        left: 18px;
         z-index: 5;
       }
     }
     li{
       @include flexBox(column, center, center);
+      @include size(220px,320px);
       border: 1px solid #C9C9C9;
-      width: 220px;
-      height: 320px;
       img{
         width: 100%;
       }
@@ -156,8 +139,7 @@
   .page{
     @include flexBox(row, center, center);
     li{
-      width: 10px;
-      height: 10px;
+      @include size(10px, 10px);
       border-radius: 100%;
       background: $middleGray;
       margin: 30px 10px;
@@ -184,11 +166,8 @@
       cursor: pointer;
       &:before, &:after{
         content: "";
-        position: absolute;
-        width: 170px;
-        height: 290px;
-        top: 21px;
-        left: 25px;
+        @include size(170px, 290px);
+        @include position(21px, '', '', 25px);
         border-style: solid;
         border-color: #fff;
         transition: transform .5s ease;
@@ -207,18 +186,14 @@
         }
       }
       p{
+        @include position(50%, '', '', 50%);
         color: #fff;
-        position: absolute;
-        left: 50%;
-        top: 50%;
         transform: translate(-50%,-50%);
         font-size: 18px;
       }
       span{
+        @include position(57%, '', '', 50%);
         color: #fff;
-        position: absolute;
-        left: 50%;
-        top: 57%;
         transform: translate(-50%,-50%);
       }
       img{

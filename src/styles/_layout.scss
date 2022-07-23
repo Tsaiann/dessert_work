@@ -19,6 +19,14 @@ html, body {
       	max-width: 1000px;
         margin: auto;
       }
+      .p-breadcrumb{
+        background: none;
+        border: none;
+      }
+      .p-menubar{
+        background: none;
+        border: none;
+      }
   }
 }
 
@@ -27,7 +35,7 @@ html, body {
   margin-left: $ml +px;
 }
 
-@mixin textH2{
+@mixin title-h2{
   color: #754C24;
   font-size: 20px;
 }
@@ -43,4 +51,8 @@ html, body {
 	right: $right;
 	bottom: $bottom;
 	left: $left;
+}
+@mixin size($weight, $height){
+  width: $weight;
+  height: $height;
 }

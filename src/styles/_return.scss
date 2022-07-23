@@ -5,10 +5,13 @@
       color: #754C24;
       font-size: 20px;
     }
-    li{
-      text-indent: -20px;
-      margin-left: 20px;
-      margin-bottom: 10px;
+    .return-list{
+      margin-bottom: 2rem;
+      li{
+        @include textIndent(-20, 20);
+        margin-bottom: 10px;
+      }
     }
+    
   }
 }

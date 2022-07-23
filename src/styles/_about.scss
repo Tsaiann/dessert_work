@@ -10,26 +10,20 @@
     border: 1px solid #000;
     &::after{
       content: "";
-      position: absolute;
+      @include size(165px,300px);
+      @include position('','',70px,0);
       background: #A67F78;
       opacity: .5;
-      width: 165px;
-      height: 300px;
-      left: 0;
-      bottom: 70px;
     }
     &::before{
       content: "";
-      position: absolute;
+      @include size(30px,300px);
+      @include position(90px,0,'','');
       background: #A67F78;
       opacity: .5;
-      width: 30px;
-      height: 300px;
-      right: 0;
-      top: 90px;
     }
     h2{
-      @include textH2;
+      @include title-h2;
       margin-bottom: 100px;
     }
   }

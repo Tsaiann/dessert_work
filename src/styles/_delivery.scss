@@ -2,19 +2,21 @@
   line-height: 1.5;
   div{
     h2{
-      @include textH2;
+      @include title-h2;
     }
     .deliveryImg{
+      @include size(600px, 300px);
       margin: auto;
       background-image: url(../assets/other/delivery.png);
-      width: 600px;
-      height: 300px;
       background-size: contain;
       background-repeat: no-repeat;
     }
-    li{
-      @include textIndent(-20,20);
-      margin-bottom: 5px;
+    .delivery-list{
+      margin-bottom: 2rem;
+      li{
+        @include textIndent(-20,20);
+        margin-bottom: 5px;
+      }
     }
   }
 }
