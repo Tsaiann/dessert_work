@@ -17,6 +17,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'vue/no-v-html': 'off',
+    'vue/no-v-model-argument': 'off',
     'prettier/prettier': [
       'error',
       {
