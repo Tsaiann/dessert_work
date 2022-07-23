@@ -1,15 +1,30 @@
 <template>
-  <div class="user">
-
+  <div class="user container">
+    <guideLine :data="guideData" />
+    <div class="user-page">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  name:'User',
-  setup(){
-    return{
+import guideLine from '@/components/guideLine.vue'
+import { reactive } from 'vue'
 
+export default {
+  name: 'User',
+  components: {
+    guideLine
+  },
+  setup() {
+    const guideData = reactive([
+      {
+        label: '會員專區',
+        to: '/user'
+      }
+    ])
+    return {
+      guideData
     }
   }
 }

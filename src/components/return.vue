@@ -1,12 +1,12 @@
 <template>
   <div class="return container">
-    <guideLine msg="退換貨政策" />
+    <guideLine :data="guideData" />
     <div data-space-left="1rem">
       <h2 data-space-bottom="1rem">退款政策</h2>
       <p data-space-bottom="1rem">
         親愛的客戶，本店絕對尊重您的權益並予以保護。為了幫助您瞭解，謹以下列聲明，向您說明退換貨政策之類別、使用範圍及方式、以及如果您對於感動食品的退換貨政策聲明、相關告知事項有任何疑問，還請您與我們聯絡，我們將會儘快協助處理。
       </p>
-      <ul data-space-bottom="2rem">
+      <ul class="return-list">
         <li>＊ 服務人員為確保商品品質，出貨前都會檢查商品。</li>
         <li>＊ 商品若有瑕疵需退換，需保留商品出貨時所有相關文件及完整包裝以及照片 (需有外箱與內容物受損 或是缺失的影片或是照片)，否則不予受理。</li>
         <li>＊ 商品若有寄錯需退換，需保留商品出貨時所有相關文件及完整包裝，否則不予受理。</li>
@@ -39,13 +39,22 @@
 
 <script>
 import guideLine from '@/components/guideLine.vue'
+import { reactive } from 'vue'
 export default {
   name: 'Return',
   components: {
     guideLine
   },
   setup() {
-    return {}
+    const guideData = reactive([
+      {
+        label: '退換貨政策',
+        to: '/return'
+      }
+    ])
+    return {
+      guideData
+    }
   }
 }
 </script>
