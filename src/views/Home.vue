@@ -9,7 +9,6 @@
 <script>
 import headerTop from '@/components/headerTop.vue'
 import footerBottom from '@/components/footerBottom.vue'
-import { ref, reactive, computed, onMounted, onBeforeMount } from 'vue'
 
 export default {
   name: 'Home',
@@ -17,10 +16,8 @@ export default {
     headerTop,
     footerBottom
   },
-  setup(){
-    return{
-
-    }
+  setup() {
+    return {}
   }
 }
 </script>
