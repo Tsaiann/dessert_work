@@ -1,9 +1,6 @@
 .foodData{
   width: 100%;
   line-height: 1.5;
-  h1{
-    font-size: 24px;
-  }
   .card{
     max-width: 860px;
     margin: 0 auto 30px auto;
@@ -13,8 +10,7 @@
       text-align: center;
       margin-right: 120px;
       h2{
-        color: #754C24;
-        font-size: 18px;
+        @include text(#754C24,18, 600);
       }
     }
   }
