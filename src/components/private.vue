@@ -2,7 +2,7 @@
   <div class="private container">
     <guideLine :data="guideData" />
     <div data-space-left="1rem">
-      <h2 data-space-bottom="1rem">隱私權保護政策</h2>
+      <h1 data-space-bottom="1rem">隱私權保護政策</h1>
       <p data-space-bottom="1rem">
         非常歡迎您光臨，為了讓您能夠安心的使用本網站的各項服務與資訊，特此向您說明本網站的隱私權保護政策，以保障您的權益，請您詳閱下列內容：
       </p>
@@ -43,7 +43,7 @@
           <span>本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。</span>
         </li>
       </ul>
-      <h2 data-space-bottom="1rem">會員服務條款</h2>
+      <h1 data-space-bottom="1rem">會員服務條款</h1>
       <ul class="service" data-space-bottom="3rem">
         <li>1. 本會員服務條款所稱之「會員」，為依照本站所定之加入會員程序加入完成並通過認證者。</li>
         <li>2. 當您使用本站服務時，即表示您同意及遵守本服務條款的規定事項及相關法律之規定。</li>

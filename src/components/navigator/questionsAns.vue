@@ -2,7 +2,7 @@
   <div class="QA container" data-space-bottom="3rem">
     <guideLine :data="guideData" />
     <div data-space-left="1rem">
-      <h2 data-space-bottom="1rem">蛋糕相關問題</h2>
+      <h1 data-space-bottom="1rem">蛋糕相關問題</h1>
       <ul data-space-bottom="3rem">
         <li>
           <p>‧ 收到蛋糕與訂購的口味不符或是在宅配運送過程中嚴重受損怎麼辦？</p>
@@ -24,14 +24,14 @@
           <span>所有蛋糕皆以動物性鮮奶油製作而成，部份含果醬果泥之商品含有吉利丁成分。</span>
         </li>
       </ul>
-      <h2 data-space-bottom="1rem">運送相關問題</h2>
+      <h1 data-space-bottom="1rem">運送相關問題</h1>
       <ul data-space-bottom="3rem">
         <li>
           <p>‧ 商品運送方式為何？ / 消費多少金額可以免運費？ / 請問最快到貨日為幾天？ / 到貨日期及地址可以更動嗎？</p>
           <span>在本站的<a href="#/delivery">宅配需知</a>說明可以得到更多詳細的內容。</span>
         </li>
       </ul>
-      <h2 data-space-bottom="1rem">退換貨須知</h2>
+      <h1 data-space-bottom="1rem">退換貨須知</h1>
       <ul data-space-bottom="3rem">
         <li>
           <p>‧ 收到蛋糕後發現不喜歡可以退貨嗎？</p>
@@ -45,7 +45,7 @@
           >
         </li>
       </ul>
-      <h2 data-space-bottom="1rem">線上客服服務時間</h2>
+      <h1 data-space-bottom="1rem">線上客服服務時間</h1>
       <ul data-space-bottom="3rem">
         <li>‧ 線上客服回覆時間：週一 ~ 週五 早上9 : 00 ~ 晚上18 : 00</li>
         <li>‧ 客服聯絡電話：02-2876-7897</li>

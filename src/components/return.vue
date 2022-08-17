@@ -2,7 +2,7 @@
   <div class="return container">
     <guideLine :data="guideData" />
     <div data-space-left="1rem">
-      <h2 data-space-bottom="1rem">退款政策</h2>
+      <h1 data-space-bottom="1rem">退款政策</h1>
       <p data-space-bottom="1rem">
         親愛的客戶，本店絕對尊重您的權益並予以保護。為了幫助您瞭解，謹以下列聲明，向您說明退換貨政策之類別、使用範圍及方式、以及如果您對於感動食品的退換貨政策聲明、相關告知事項有任何疑問，還請您與我們聯絡，我們將會儘快協助處理。
       </p>
@@ -25,9 +25,9 @@
           款細則亦皆有說明，購物前可先估算為保雙方權益，購物前請先確認相關資訊。
         </li>
       </ul>
-      <h2 data-space-bottom="1rem">寄回方式</h2>
+      <h1 data-space-bottom="1rem">寄回方式</h1>
       <p data-space-bottom="2rem">我們會主動聯繫黑貓宅急便，到府收件，運費由我們負擔，詳細流程將於您提出退換貨申請時，由客服指引說明。</p>
-      <h2 data-space-bottom="1rem">退款方式</h2>
+      <h1 data-space-bottom="1rem">退款方式</h1>
       <p data-space-bottom="3rem">
         退貨商品收回並經工作人員確認商品數量無誤，符合所有退款標準，且所需資料確認無誤後，信用卡部
         分我們於10天內將款項退到您的帳戶。若您使用其他方式付款，必須請您提供正確的匯款帳號，以利完成退款手續。

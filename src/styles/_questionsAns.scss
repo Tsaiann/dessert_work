@@ -5,14 +5,10 @@
       color: $darkGray;
       margin-left: 20px;
     }
-    h2{
-      @include title-h2;
-    }
     li{
       margin-bottom: 10px;
       p{
-        font-weight: 600;
-        color: #000;
+        @include text(#000, 16,600);
       }
       span{
         display: block;

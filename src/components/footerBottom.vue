@@ -3,9 +3,9 @@
     <div class="footer container">
       <div class="logo">
         <img src="../assets/home/logo.png" alt="logo" />
-        <p>Seasonal Fructification</p>
+        <p data-space-top="0.5rem">Seasonal Fructification</p>
       </div>
-      <div class="contact">
+      <div class="footer-content">
         <p>聯絡我們</p>
         <ul>
           <li>服務時間:9:00 - 18:00</li>
@@ -13,7 +13,7 @@
           <li>客服信箱:season99@gmail.com</li>
         </ul>
       </div>
-      <div class="contact">
+      <div class="footer-content">
         <p>客戶服務</p>
         <ul class="serve">
           <li @click="$router.push({ name: 'Delivery' })">宅配須知</li>

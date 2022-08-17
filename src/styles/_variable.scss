@@ -1,4 +1,4 @@
-$lightGray: #EFEFEF ;
+$lightGray: #fdfdfd ;
 $middleGray:#C9C9C9;
 $darkGray: #808080;
 $common:#A67F78;
@@ -20,19 +20,6 @@ $icon_img: 'icon-brand', 'icon-delivery', 'icon-return', 'icon-private';
   .icon-private{
     width: 75px;
     height:100px;
-  }
-}
-
-
-$icon: 'icon_user', 'icon_cart';
-
-@each $currentIcon in $icon{
-  .#{$currentIcon}{
-    background-image: url('../assets/home/#{$currentIcon}.png');
-    background-size: contain; 
-    background-repeat: no-repeat;
-    width: 35px;
-    height: 35px;
-    margin-left: 10px;
+    font-weight: normal;
   }
 }

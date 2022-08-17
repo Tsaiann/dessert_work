@@ -13,7 +13,7 @@
 $direction: "all", "left", "right", "top", "bottom", "horizontal", "vertical";
 
 @each $currentDirection in $direction {
-    @for $i from 0 through 8 {
+    @for $i from 0 through 10 {
         [data-space-#{$currentDirection}="#{$i * 0.5rem}"] {
             @if $currentDirection == "all" {
                 margin: #{$i * 0.5rem};
