@@ -1,12 +1,10 @@
 .about{
   width: 100%;
-  line-height: 1.5;
-  .about-page{
+  &-page{
     position: relative;
     width: 100%;
     background: #fff;
     padding: 40px 40px 80px 50px;
-    margin-bottom: 50px;
     border: 1px solid #000;
     &::after{
       content: "";
@@ -22,18 +20,17 @@
       background: #A67F78;
       opacity: .5;
     }
-    h2{
-      @include title-h2;
-      margin-bottom: 100px;
-    }
   }
   .about-content{
     max-width: 680px;
     margin: auto;
     span{
-      font-size: 20px;
-      color: #000;
-      margin-bottom: 10px;
+      @include text(#000, 20, 400);
+      display: block;
+    }
+    p{
+      margin-bottom: 15px;
+      line-height: 1.5;
     }
   }
 }
