@@ -1,6 +1,21 @@
 <template>
   <div>
     <Toast position="center" />
+    <Toast position="center" group="aa">
+      <template #message="slotProps">
+        <div class="row horizontal">
+          <div data-width="100%">
+            <div class="row vertical center" data-space-bottom="1rem">
+              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+              <h4>{{ slotProps.message.summary }}</h4>
+            </div>
+            <div class="row horizontal center">
+              <Button class="p-button-success" label="是" @click="onConfirm()"></Button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Toast>
     <div class="goods-detail_item">
       <img :src="list.ImageUrls[0].Url" alt="" />
       <div class="icon">
@@ -21,7 +36,7 @@
 <script>
 import { addGoodsCart } from '@/service/api'
 import { callApi } from '@/utils/callApi'
-import { reactive } from 'vue'
+import { reactive, inject } from 'vue'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
 export default {
@@ -32,6 +47,7 @@ export default {
   setup(props) {
     const toast = useToast()
     const router = useRouter()
+    const reload = inject('reload')
     const state = reactive({
       cartForm: {
         GoodsID: 37,
@@ -48,19 +64,24 @@ export default {
     const addCart = async () => {
       const userInfo = localStorage.getItem('userInfo')
       if (userInfo !== null) {
-        console.log(userInfo)
         const data = state.cartForm
-        callApi(addGoodsCart, data, () => {
-          toast.add({ severity: 'success', summary: '新增成功！', detail: 'Message Content' })
+        await callApi(addGoodsCart, data, async () => {
+          toast.add({ severity: 'success', summary: '已加入購物車！', group: 'aa' })
         })
       } else {
         toast.add({ severity: 'error', summary: '請先登入會員！', detail: 'Message Content' })
       }
     }
+    const onConfirm = async () => {
+      await reload()
+      toast.removeGroup('bc')
+    }
     return {
       goodsList,
       addCart,
-      state
+      state,
+      reload,
+      onConfirm
     }
   }
 }
