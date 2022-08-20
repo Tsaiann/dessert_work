@@ -48,10 +48,17 @@
             optionValue="name"
             placeholder="請選擇送貨方式"
             :style="{ width: '94%' }"
-            @change="fee()"
+            @change="feeMethodSelect()"
           />
           <p>付款方式</p>
-          <Dropdown v-model="selectedPay" :options="payItems" optionLabel="name" placeholder="請選擇付款方式" :style="{ width: '94%' }" />
+          <Dropdown
+            v-model="selectedPay"
+            :options="payItems"
+            optionLabel="name"
+            placeholder="請選擇付款方式"
+            :style="{ width: '94%' }"
+            @change="payMethodSelect()"
+          />
         </div>
         <div class="info">
           <h2>訂單資訊</h2>
@@ -93,7 +100,7 @@
         </Dialog>
       </div>
       <div class="row horizontal h_end" data-space-top="2rem" data-width="90%">
-        <button class="button_submit confirm" @click="handleNextPage(method.delivery)">前往結賬</button>
+        <button class="button_submit confirm" @click="handleNextPage()">前往結賬</button>
       </div>
     </div>
   </div>
@@ -117,9 +124,6 @@ export default {
       delivery: '',
       payment: ''
     })
-    const deliveryChange = computed(() => {
-      return method.delivery
-    })
     const router = useRouter()
     const toast = useToast()
     const selectedSend = ref(null)
@@ -127,12 +131,17 @@ export default {
     const dialogDiscountVisible = ref(false)
     const goodsList = ref([])
     const deliveryFee = ref(0)
-    const fee = () => {
+    const feeMethodSelect = () => {
       if (selectedSend.value === '自取') {
         deliveryFee.value = 0
+        method.delivery = selectedSend.value
       } else {
         deliveryFee.value = 150
+        method.delivery = selectedSend.value
       }
+    }
+    const payMethodSelect = () => {
+      method.payment = selectedPay.value.name
     }
     const feeChange = computed(() => {
       return deliveryFee.value * 1
@@ -193,12 +202,13 @@ export default {
     const deleteCartData = async (id) => {
       toast.add({ severity: 'warn', summary: '確定要刪除商品？', group: 'bc', ID: id })
     }
-    const handleNextPage = (delivery) => {
+    const handleNextPage = () => {
       if (selectedPay.value !== null && selectedSend.value !== null) {
         router.push({
           name: 'FillInfo',
-          query: {
-            d: delivery
+          params: {
+            delivery: method.delivery,
+            payment: method.payment
           }
         })
       } else {
@@ -245,11 +255,11 @@ export default {
       totalCount,
       allGoodsTotal,
       feeChange,
-      fee,
+      feeMethodSelect,
+      payMethodSelect,
       deliveryFee,
       orderTotal,
-      method,
-      deliveryChange
+      method
     }
   }
 }

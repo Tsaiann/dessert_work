@@ -1,5 +1,22 @@
 <template>
   <div class="cart container">
+    <Toast position="center" group="bc">
+      <template #message="slotProps">
+        <div class="row horizontal">
+          <div data-width="100%">
+            <div class="row vertical center" data-space-bottom="1rem">
+              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+              <h4>{{ slotProps.message.summary }}</h4>
+              <p>{{ slotProps.message.detail }}</p>
+            </div>
+            <div class="row horizontal center">
+              <Button class="p-button-success" label="是" @click="onConfirm(slotProps.message.ID)" data-space-right="1rem"></Button>
+              <Button class="p-button-secondary" label="否" @click="onReject"></Button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Toast>
     <guideLine :data="guideData" />
     <div class="cart-page">
       <div class="card">
@@ -57,9 +74,13 @@
               <InputText type="text" v-model="state.recipientForm.Phone" />
               <p>取貨通知將以此電話聯繫</p>
             </div>
+            <div data-space-bottom="0.5rem">
+              <h3>電子信箱</h3>
+              <InputText type="text" v-model="state.recipientForm.Email" />
+            </div>
             <div>
               <h3>收件地址</h3>
-              <InputText type="text" data-space-bottom="1rem" v-model="state.recipientForm.Address" />
+              <InputText type="text" data-space-bottom="1rem" v-model="state.recipientForm.Addr" />
             </div>
             <hr style="border-color: #eae2d8" />
             <div data-space-bottom="0.5rem">
@@ -72,10 +93,6 @@
             <div data-space-bottom="0.5rem">
               <h3>選擇日期</h3>
               <Calendar id="icon" v-model="date" :showIcon="true" />
-            </div>
-            <div data-space-bottom="0.5rem">
-              <h3>索取發票</h3>
-              <Dropdown v-model="selectedBill" :options="billItems" optionLabel="name" :style="{ width: '100%' }" />
             </div>
           </div>
         </div>
@@ -94,6 +111,7 @@ import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { memberData, submitGoodsCart } from '@/service/api'
 import { callApi } from '@/utils/callApi'
+import { useToast } from 'primevue/usetoast'
 
 export default {
   name: 'ShoppingData',
@@ -102,9 +120,9 @@ export default {
   },
   setup() {
     const router = useRouter()
+    const toast = useToast()
     const purchaserChecked = ref(false)
     const recipientChecked = ref(false)
-    const selectedBill = ref('電子發票')
     const date = ref()
     const state = reactive({
       memberForm: {
@@ -116,21 +134,17 @@ export default {
       recipientForm: {
         Recipient: '',
         Phone: '',
-        Address: '',
+        Addr: '',
         OrderRemark: '',
-        PaymentMethod: '',
-        DeliveryMethod: ''
+        Email: '',
+        PaymentMethod: router.currentRoute.value.params.payment,
+        DeliveryMethod: router.currentRoute.value.params.delivery
       }
     })
     const guideData = reactive([
       {
         label: '購物車',
         to: '/cart'
-      }
-    ])
-    const billItems = reactive([
-      {
-        name: '電子發票'
       }
     ])
     const steps = reactive([
@@ -151,7 +165,17 @@ export default {
       router.push({ name: 'Cart' })
     }
     const submitOrder = () => {
-      router.push({ name: 'Finish' })
+      toast.add({ severity: 'warn', summary: '確定要送出訂單？', group: 'bc' })
+    }
+    const onReject = () => {
+      toast.removeGroup('bc')
+    }
+    const onConfirm = async () => {
+      const data = state.recipientForm
+      callApi(submitGoodsCart, data, () => {
+        router.push({ name: 'Finish' })
+        toast.removeGroup('bc')
+      })
     }
     const handleChecked = async () => {
       if (purchaserChecked.value === true) {
@@ -163,9 +187,10 @@ export default {
           state.memberForm.Phone = res.data.Data.Phone
         })
         if (recipientChecked.value === true) {
-          state.recipientForm.Address = state.memberForm.Address
+          state.recipientForm.Addr = state.memberForm.Address
           state.recipientForm.Recipient = state.memberForm.Name
           state.recipientForm.Phone = state.memberForm.Phone
+          state.recipientForm.Email = state.memberForm.Email
         }
       }
     }
@@ -176,11 +201,11 @@ export default {
       purchaserChecked,
       recipientChecked,
       date,
-      selectedBill,
-      billItems,
       handlePrePage,
       submitOrder,
-      handleChecked
+      handleChecked,
+      onReject,
+      onConfirm
     }
   }
 }
