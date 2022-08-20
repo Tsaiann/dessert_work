@@ -1,17 +1,19 @@
 .header {
 	width: 100%;
+	position: sticky;
+	top:0;
+	background: rgb(246, 246, 246);
+	z-index: 9999;
 	.sideTop{
-		margin: auto;
-		padding-bottom: 30px;
-		p{
-			font-size: 22px;
+		padding: 20px 0;
+		h3{
+			@include text(#000, 20, 100);
 			font-family: 'Apple Chancery';
 			margin: auto;
 			cursor: pointer;
-			color: #000;
 		}
 		.logo{
-			@include size(80px, 80px);
+			@include size(70px, 70px);
 				background-image: url('../assets/home/logo.png');
 				background-repeat: no-repeat;
 				background-size: contain;
@@ -19,11 +21,100 @@
 				cursor: pointer;
 		}
 		.icon{
-			@include position(70px, 50px, '', '');
+			@include position(80px, 50px, '', '');
 			width: 130px;
-			cursor: pointer;
+			.pi.pi-shopping-cart, .pi-user{
+				font-size: 2rem;
+				color: rgb(88, 88, 88);
+				padding: 3px;
+				font-weight:lighter;
+			}
+			.pi-user{
+				font-size: 1.6rem;
+				margin-right: 5px;
+				border-radius: 100%;
+				border: 2px solid rgb(88, 88, 88);
+			}
+			&_cart:focus-within .float-block{
+				display: block;
+			}
+		}
+		.float-block{
+			@include position(55px, -140px, '', '');
+			width: 350px;
+			min-height: 80px;
+			max-height: 400px;
+			overflow: scroll;
+			background: $lightGray;
+			border: 2px solid $middleGray;
+			z-index: 9999;
+			display: none;
+			cursor: auto;
+			h3{
+				font-weight: normal;
+				text-align: center;
+				margin-top: 15px;
+			}
+			&_item{
+				@include flexBox(row, center, space-between);
+				width: 85%;
+				margin: 0 auto 0 auto;
+				min-height: 80px;
+				img{
+					width: 18%;
+				}
+				&__text{
+					h2{
+						@include text(#403f3f, 16, 500);
+						margin-bottom: 5px;
+					}
+					p{
+						@include text($darkGray, 14, 400);
+						cursor: auto;
+					}
+				}
+				&__count{
+					p{
+						@include text(rgb(172, 166, 166),14, normal);
+					}
+				}
+			}
+			.cart-check{
+				@include flexBox(column, center, center);
+				position: sticky;
+				margin-top: 15px;
+				bottom: 0;
+				z-index: 9999;
+				background: $lightGray;
+			}
+			.button_submit{
+				@include size(80%, 30px);
+				margin: 10px 0;
+			}
+			&::after{
+				content: "";
+				@include triangle(0,5px,12px,5px,transparent transparent $lightGray transparent);
+				@include position(-12px,45.37%,'','');
+				transform: translate(-45.5%, 0);
+			}
+			&::before{
+				content: "";
+				@include triangle(0,8px,16px,8px,transparent transparent $middleGray transparent);
+				@include position(-16px,160.4px,'','');
+				transform: translate(-45.5%, 0);
+			}
 		}
   }
+	.p-menubar .p-menubar-root-list>.p-menuitem > .p-menuitem-link:not(.p-disabled):hover{
+		background: none;
+		color: #fff;
+		&:hover{
+			color: $darkGray;
+		}
+	}
+	.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:focus{
+		box-shadow: none;
+	}
 	.menu{
 		border-top: 1px solid #808080;
 		border-bottom: 1px solid #808080;
@@ -34,9 +125,11 @@
 			position: relative;
 			margin: auto;
 			padding: 0;
+			height: 50px;
 			.p-menubar-root-list{
+				height: 100%;
 				.p-menuitem{
-					width: 150px;
+					@include size(150px, 100%);
 					cursor: pointer;
 					position: relative;
 					padding-right: 20px;
@@ -46,14 +139,15 @@
 					a{
 						display: block;
 						text-align: center;
+						height: 100%;
+						line-height: 1.5;
 					}
 					.p-submenu-list{
 						padding: 0;
 						width: 130px;
 						.p-menuitem{
-							padding: 0;
 							a{
-								width: 128px;
+								width: 130px;
 								display: block;
 								padding: 15px 0;
 								text-align: center;
@@ -69,11 +163,8 @@
 					.p-submenu-icon{
 						display: none;
 					}
-					a:focus{
-						border: none;
-					}
+					
 					&:hover{
-						color:#4D4D4D;
 						&::after{
 							content: "";
 							@include triangle(0,5px,12px,5px,transparent transparent #4D4D4D transparent);
@@ -83,18 +174,20 @@
 					}
 				}
 			}
-			
-			input{
-				@include size(200px,30px);
-				display: block;
-				border: 1px solid #E3E3E3;
-				border-radius: 50px;
-				padding-left: 20px;
-			}
-			img{
-				@include size(20px,20px);
-				@include position(5px, '', '', 165px);
-				cursor: pointer;
+			.p-menubar-end{
+				@include flexBox(row, center, center);
+				input{
+					@include size(200px,30px);
+					display: block;
+					border: 1px solid #E3E3E3;
+					border-radius: 50px;
+					padding-left: 20px;
+				}
+				img{
+					@include size(20px,20px);
+					@include position(15px, '', '', 165px);
+					cursor: pointer;
+				}
 			}
 		}  
   }

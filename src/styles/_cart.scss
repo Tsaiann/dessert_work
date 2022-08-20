@@ -20,12 +20,12 @@
     .cart-data{
       @include size(80%, 400px);
       margin: 50px auto 40px auto;
-      border: 1px solid $lightGray;
+      border: 1px solid $middleGray;
     }
     .send{
       @include size(45%, 230px);
       margin-right: 18px;
-      border: 1px solid $lightGray;
+      border: 1px solid $middleGray;
       p{
         margin: 10px 0 5px 15px;
       }
@@ -35,7 +35,7 @@
     }
     .info{
       @include size(33%, 230px);
-      border: 1px solid $lightGray;
+      border: 1px solid $middleGray;
       div{
         padding: 5px 10px 2px 10px;
       }
@@ -58,7 +58,7 @@
         width: 40%;
         margin-right: 20px;
         .remark, .purchaser{
-          border: 1px solid $lightGray;
+          border: 1px solid $middleGray;
           input{
             width: 100%;
           }
@@ -72,7 +72,7 @@
       }
       &-right{
         width: 40%;
-        border: 1px solid $lightGray;
+        border: 1px solid $middleGray;
         h3{
           font-weight: normal;
         }
@@ -95,7 +95,7 @@
       }
     }
     .finish{
-      border: 1px solid $lightGray;
+      border: 1px solid $middleGray;
       width: 80%;
       margin: 70px auto 40px auto;
       
@@ -124,7 +124,7 @@
       margin: auto;
       background: $lightGray;
       border-radius: 5px;
-      border: 1px solid $lightGray;
+      border: 1px solid $middleGray;
       div{
         @include flexBox(row, center, space-between);
         width: 100%;
@@ -162,5 +162,14 @@
 }
 .p-dialog-content{
   height: 300px;
+  overflow: scroll;
+}
+
+.p-toast .p-toast-message.p-toast-message-warn{
+  background: $lightGray;
+  opacity: 1;
+}
+.p-datatable{
+  max-height: 350px;
   overflow: scroll;
 }

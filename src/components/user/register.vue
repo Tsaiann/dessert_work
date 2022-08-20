@@ -80,7 +80,6 @@ export default {
     const v$ = useVuelidate(rules, state.registerForm)
     const handleSubmit = async () => {
       v$.value.$validate()
-      timeChange()
       const data = {
         Account: state.registerForm.account,
         Password: state.registerForm.password,

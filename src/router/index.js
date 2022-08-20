@@ -56,6 +56,11 @@ const routes = [
         ]
       },
       {
+        path: 'goodsDetail',
+        name: 'GoodsDetail',
+        component: () => import('../components/goods/goodsDetail.vue')
+      },
+      {
         path: 'user',
         name: 'User',
         component: () => import('../components/navigator/user.vue'),
@@ -170,7 +175,10 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 }
+  }
 })
 
 router.beforeEach((to, from, next) => {

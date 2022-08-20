@@ -5,7 +5,7 @@ import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import PrimeVue from 'primevue/config'
-import 'primevue/resources/themes/bootstrap4-light-blue/theme.css'
+import { useRouter } from 'vue-router'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import 'primevue/resources/themes/saga-blue/theme.css'
@@ -16,6 +16,7 @@ import Toast from 'primevue/toast'
 import Message from 'primevue/message'
 import ToastService from 'primevue/toastservice'
 import InputText from 'primevue/inputtext'
+import InputNumber from 'primevue/inputnumber'
 import Calendar from 'primevue/calendar'
 import Button from 'primevue/button'
 import Breadcrumb from 'primevue/breadcrumb'
@@ -29,20 +30,26 @@ import Menubar from 'primevue/menubar'
 import Steps from 'primevue/steps'
 import Dropdown from 'primevue/dropdown'
 import Textarea from 'primevue/textarea'
+import Carousel from 'primevue/carousel'
+import Galleria from 'primevue/galleria'
 
 const app = createApp(App)
 app.use(store)
 app.use(router)
 app.use(VueAxios, axios)
+app.use(useRouter, router)
 app.use(PrimeVue)
 app.component('Menubar', Menubar)
 app.component('Toast', Toast)
 app.component('Textarea', Textarea)
 app.component('Dropdown', Dropdown)
+app.component('Galleria', Galleria)
 app.component('Steps', Steps)
 app.component('InputText', InputText)
+app.component('InputNumber', InputNumber)
 app.component('Breadcrumb', Breadcrumb)
 app.component('RadioButton', RadioButton)
+app.component('Carousel', Carousel)
 app.component('Row', Row)
 app.component('Paginator', Paginator)
 app.component('DataTable', DataTable)

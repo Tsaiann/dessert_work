@@ -23,3 +23,37 @@ $icon_img: 'icon-brand', 'icon-delivery', 'icon-return', 'icon-private';
     font-weight: normal;
   }
 }
+
+@mixin textIndent($ti,$ml){
+  text-indent: $ti +px;
+  margin-left: $ml +px;
+}
+
+@mixin title-h2{
+  color: #754C24;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+@mixin text($color, $fontSize, $fontWeight){
+  color: $color;
+  font-size: $fontSize +px;
+  font-weight: $fontWeight;
+}
+
+@mixin triangle($top,$right,$bottom,$left,$color){
+  border-style: solid;
+  border-width: $top $right $bottom $left;
+  border-color: $color;
+}
+@mixin position($top,$right,$bottom,$left){
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+@mixin size($weight, $height){
+  width: $weight;
+  height: $height;
+}

@@ -27,7 +27,7 @@
 </template>
 <script>
 import Toast from 'primevue/toast'
-import { reactive, onMounted } from 'vue'
+import { reactive, onMounted, inject } from 'vue'
 import { getOtp, login } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useRouter } from 'vue-router'
@@ -40,6 +40,7 @@ export default {
     Toast
   },
   setup() {
+    const reload = inject('reload')
     const toast = useToast()
     const store = useStore()
     const router = useRouter()
@@ -66,6 +67,8 @@ export default {
         await callApi(login, state.memberForm, async (res) => {
           store.commit('memberModules/SET_USERSTATUS', res.data.Data)
           await router.push({ name: 'Member' })
+          await reload()
+          getCartData()
         }).catch(() => {
           toast.add({ severity: 'error', summary: '輸入錯入，請重新輸入！', detail: 'Message Content', life: 3000 })
           removeLogin()

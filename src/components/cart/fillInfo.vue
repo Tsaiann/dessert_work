@@ -35,7 +35,7 @@
           <div class="remark" data-space-bottom="1.5rem">
             <h2>備註</h2>
             <div class="row horizontal center" data-inset="1rem">
-              <Textarea v-model="state.recipientForm.Remark" rows="5" cols="30" placeholder="有任何額外需求請打在此處" />
+              <Textarea v-model="state.recipientForm.OrderRemark" rows="5" cols="30" placeholder="有任何額外需求請打在此處" data-width="100%" />
             </div>
           </div>
           <button class="button_submit cancel" @click="handlePrePage">⇽ 返回購物車</button>
@@ -49,7 +49,7 @@
             </div>
             <div data-space-bottom="0.5rem">
               <h3>收件人姓名</h3>
-              <InputText type="text" v-model="state.recipientForm.Name" />
+              <InputText type="text" v-model="state.recipientForm.Recipient" />
               <p>請填入收件人真實姓名，以確保順利收件</p>
             </div>
             <div data-space-bottom="0.5rem">
@@ -90,9 +90,9 @@
 
 <script>
 import guideLine from '@/components/guideLine.vue'
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { memberData } from '@/service/api'
+import { memberData, submitGoodsCart } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 
 export default {
@@ -114,10 +114,12 @@ export default {
         Address: ''
       },
       recipientForm: {
-        Name: '',
+        Recipient: '',
         Phone: '',
         Address: '',
-        Remark: ''
+        OrderRemark: '',
+        PaymentMethod: '',
+        DeliveryMethod: ''
       }
     })
     const guideData = reactive([
@@ -162,7 +164,7 @@ export default {
         })
         if (recipientChecked.value === true) {
           state.recipientForm.Address = state.memberForm.Address
-          state.recipientForm.Name = state.memberForm.Name
+          state.recipientForm.Recipient = state.memberForm.Name
           state.recipientForm.Phone = state.memberForm.Phone
         }
       }
