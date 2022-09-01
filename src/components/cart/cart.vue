@@ -1,9 +1,9 @@
 <template>
   <div class="cart container">
     <Toast position="center" />
-    <Toast position="center" group="bc">
+    <Toast position="center" group="bc" @close="onReject">
       <template #message="slotProps">
-        <div class="row horizontal">
+        <div class="row horizontal flex flex-column">
           <div data-width="100%">
             <div class="row vertical center" data-space-bottom="1rem">
               <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
@@ -26,11 +26,19 @@
       <div class="cart-data">
         <h2>購物車</h2>
         <DataTable :value="goodsList" responsiveLayout="scroll">
-          <Column field="GoodsID" header="商品名稱"></Column>
+          <Column field="Goods.Name" header="商品名稱" bodyStyle="width: 250px"></Column>
           <Column field="TimestampPice" header="價格"></Column>
-          <Column field="ItemNum" header="數量"></Column>
+          <Column header="數量" headerStyle="text-align: center">
+            <template #body="{ data }">
+              <div class="cart-data-count">
+                <i class="pi pi-minus" style="font-size: 0.5rem" @click="countMinus(data)"></i>
+                <InputNumber v-model="data.ItemNum" class="p-inputtext-sm"></InputNumber>
+                <i class="pi pi-plus" style="font-size: 0.5rem" @click="countPlus(data)"></i>
+              </div>
+            </template>
+          </Column>
           <Column field="total" header="小計"></Column>
-          <Column bodyStyle="text-align: center; overflow: visible">
+          <Column bodyStyle="text-align: center; overflow: visible;">
             <template #body="{ data }">
               <i class="pi pi-times" @click="deleteCartData(data.ID)"></i>
             </template>
@@ -107,7 +115,7 @@
 </template>
 
 <script>
-import { reactive, ref, onMounted, computed } from 'vue'
+import { reactive, ref, onMounted, computed, inject } from 'vue'
 import guideLine from '@/components/guideLine.vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
@@ -124,6 +132,7 @@ export default {
       delivery: '',
       payment: ''
     })
+    const reload = inject('reload')
     const router = useRouter()
     const toast = useToast()
     const selectedSend = ref(null)
@@ -197,6 +206,7 @@ export default {
       callApi(getGoodsCart, data, (res) => {
         goodsList.value = [...res.data.Data]
         totalCount()
+        console.log(res)
       })
     })
     const deleteCartData = async (id) => {
@@ -208,7 +218,8 @@ export default {
           name: 'FillInfo',
           params: {
             delivery: method.delivery,
-            payment: method.payment
+            payment: method.payment,
+            total: orderTotal.value
           }
         })
       } else {
@@ -225,6 +236,7 @@ export default {
         toast.removeGroup('bc')
         getCartData()
       })
+      await reload()
     }
     const totalCount = () => {
       for (let i in goodsList.value) {
@@ -238,6 +250,16 @@ export default {
       }
       return total
     })
+    const countPlus = (data) => {
+      if (data.ItemNum < 99) {
+        data.ItemNum += 1
+      }
+    }
+    const countMinus = (data) => {
+      if (data.ItemNum > 1) {
+        data.ItemNum -= 1
+      }
+    }
     return {
       guideData,
       steps,
@@ -259,7 +281,9 @@ export default {
       payMethodSelect,
       deliveryFee,
       orderTotal,
-      method
+      method,
+      countMinus,
+      countPlus
     }
   }
 }

@@ -84,7 +84,7 @@
             </div>
             <hr style="border-color: #eae2d8" />
             <div data-space-bottom="0.5rem">
-              <h3>到貨時間/自取時間</h3>
+              <h3>寄出時間/自取時間</h3>
               <p>‧ 請謹慎選擇日期，若要更改需加收150元人工費</p>
               <p>‧ 出貨後2天內會到貨，時間會依照物流人員當天狀況而決定</p>
               <p>‧ 重大國定假日/年節/中秋或天災 (颱風/地震）有可能延遲到貨 (4天內到達)</p>
@@ -139,7 +139,8 @@ export default {
         Email: '',
         PaymentMethod: router.currentRoute.value.params.payment,
         DeliveryMethod: router.currentRoute.value.params.delivery
-      }
+      },
+      orderTotal: router.currentRoute.value.params.total
     })
     const guideData = reactive([
       {
@@ -173,7 +174,17 @@ export default {
     const onConfirm = async () => {
       const data = state.recipientForm
       callApi(submitGoodsCart, data, () => {
-        router.push({ name: 'Finish' })
+        router.push({
+          name: 'Finish',
+          params: {
+            recipient: state.recipientForm.Recipient,
+            phone: state.recipientForm.Phone,
+            addr: state.recipientForm.Addr,
+            paymentMethod: state.recipientForm.PaymentMethod,
+            deliveryMethod: state.recipientForm.DeliveryMethod,
+            total: state.orderTotal
+          }
+        })
         toast.removeGroup('bc')
       })
     }

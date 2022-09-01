@@ -15,6 +15,7 @@ import { reactive, onMounted } from 'vue'
 import { getGoodsList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import card from '@/components/goods/card'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'Goods',
@@ -22,22 +23,29 @@ export default {
     card
   },
   setup() {
+    const router = useRouter()
     const state = reactive({
       goodsList: [],
+      search: router.currentRoute.value.params.search,
       goodsListSearch: {
-        ID: 0,
-        Page: 0,
-        PageLimit: 0,
-        GoodsName: '',
-        GoodsType: 0
+        GoodsName: ''
       }
     })
     const getAllGoodsList = onMounted(async () => {
-      const data = state.goodsListSearch
-      callApi(getGoodsList, data, (res) => {
-        state.goodsList = [...res.data.Data]
-        console.log(state.goodsList)
-      })
+      if (state.search === undefined) {
+        const data = state.goodsListSearch
+        callApi(getGoodsList, data, (res) => {
+          state.goodsList = [...res.data.Data]
+          console.log(state.goodsList)
+        })
+      } else {
+        state.goodsListSearch.GoodsName = state.search
+        const data = state.goodsListSearch
+        callApi(getGoodsList, data, (res) => {
+          state.goodsList = [...res.data.Data]
+          console.log(state.goodsList)
+        })
+      }
     })
     return {
       getAllGoodsList,

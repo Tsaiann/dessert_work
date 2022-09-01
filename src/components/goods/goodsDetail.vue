@@ -36,7 +36,7 @@
             <Textarea v-model="state.remark" rows="5" cols="30" data-width="100%" placeholder="有任何額外需求請打在此處" />
             <div class="like">
               <i class="pi pi-heart" data-space-left="1rem"></i>
-              <span data-space-left="0.5rem">加入到收藏清單</span>
+              <span data-space-left="0.5rem" @click="handleAddLike">加入到收藏清單</span>
             </div>
           </div>
         </div>
@@ -102,8 +102,8 @@
   </div>
 </template>
 <script>
-import { reactive, onMounted } from 'vue'
-import { addGoodsCart } from '@/service/api'
+import { reactive, onMounted, inject } from 'vue'
+import { addGoodsCart, addLikeList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
@@ -115,6 +115,7 @@ export default {
     guideLine
   },
   setup() {
+    const reload = inject('reload')
     const toast = useToast()
     const router = useRouter()
     const state = reactive({
@@ -161,10 +162,10 @@ export default {
     const addCart = async () => {
       const userInfo = localStorage.getItem('userInfo')
       if (userInfo !== null) {
-        console.log(userInfo)
         const data = state.cartForm
         callApi(addGoodsCart, data, () => {
           toast.add({ severity: 'success', summary: '新增成功！', detail: 'Message Content' })
+          reload()
         })
       } else {
         toast.add({ severity: 'error', summary: '請先登入會員！', detail: 'Message Content' })
@@ -178,9 +179,16 @@ export default {
         await callApi(addGoodsCart, data, () => {
           router.push({ name: 'Cart' })
         })
+        await reload()
       } else {
         toast.add({ severity: 'error', summary: '請先登入會員！', detail: 'Message Content' })
       }
+    }
+    const handleAddLike = () => {
+      const data = { GoodsID: 37 }
+      callApi(addLikeList, data, (res) => {
+        console.log(res)
+      })
     }
     return {
       state,
@@ -188,7 +196,8 @@ export default {
       images,
       countChange,
       addCart,
-      handleBuy
+      handleBuy,
+      handleAddLike
     }
   }
 }

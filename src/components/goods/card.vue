@@ -61,6 +61,7 @@ export default {
       }
     })
     const goodsList = props.list
+    // 增加進購物車
     const addCart = async () => {
       const userInfo = localStorage.getItem('userInfo')
       if (userInfo !== null) {

@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <Toast />
+    <Toast position="center" />
     <div class="register-button">
       <p>註冊會員</p>
       <span @click="$router.push({ name: 'Login' })">會員登入</span>
@@ -60,9 +60,9 @@ export default {
     const rules = computed(() => {
       return {
         name: { required },
-        account: { required },
+        account: { required, minLength: minLength(6) },
         email: { required, email },
-        password: { required, minLength: minLength(6) },
+        password: { required, minLength: minLength(8) },
         confirmPassword: { required, sameAs: sameAs(state.registerForm.password) },
         phone: { required, minLength: minLength(10) }
       }

@@ -1,6 +1,23 @@
 <template>
   <div class="header row vertical">
-    <Toast position="center" group="bc">
+    <Toast position="center" group="cart">
+      <template #message="slot">
+        <div class="row horizontal">
+          <div data-width="100%">
+            <div class="row vertical center" data-space-bottom="1rem">
+              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+              <h4>{{ slot.message.summary }}</h4>
+              <p>{{ slot.message.detail }}</p>
+            </div>
+            <div class="row horizontal center">
+              <Button class="p-button-success" label="是" @click="onConfirm(slot.message.ID)" data-space-right="1rem"></Button>
+              <Button class="p-button-secondary" label="否" @click="onReject()"></Button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Toast>
+    <Toast position="center" group="confirm">
       <template #message="slotProps">
         <div class="row horizontal">
           <div data-width="100%">
@@ -10,8 +27,7 @@
               <p>{{ slotProps.message.detail }}</p>
             </div>
             <div class="row horizontal center">
-              <Button class="p-button-success" label="是" @click="onConfirm(slotProps.message.ID)" data-space-right="1rem"></Button>
-              <Button class="p-button-secondary" label="否" @click="onReject"></Button>
+              <Button class="p-button-success" label="是" @click="onConfirmCart"></Button>
             </div>
           </div>
         </div>
@@ -27,20 +43,20 @@
             <h3 v-if="goodsList.length <= 0">您的購物車是空的</h3>
             <div class="float-block_item" v-for="(item, i) in goodsList" :key="i" v-else>
               <div class="row horizontal v_center">
-                <img :src="item.ImageUrls[0].Url" alt="aaa" />
+                <img :src="renderCartImg(item.ImageUrls[0].Url)" alt="aaa" />
                 <div class="float-block_item__text" data-space-left="1rem">
-                  <h2>原味戚風蛋糕</h2>
-                  <p>四吋</p>
-                </div>
-                <div class="float-block_item__count" data-space-left="1.5rem">
+                  <h2>{{ item.Goods.Name }}</h2>
                   <p>數量： {{ item.ItemNum }}</p>
                 </div>
               </div>
               <i class="pi pi-trash" @click="deleteCartData(item.ID)"></i>
             </div>
             <div class="cart-check">
-              <button class="button_submit confirm" @click="$router.push({ name: 'Cart' })">立即結帳</button>
+              <button class="button_submit confirm" @click="goCart">立即結帳</button>
             </div>
+          </div>
+          <div class="cart_count">
+            <p>{{ goodsList.length }}</p>
           </div>
         </i>
       </div>
@@ -48,8 +64,8 @@
     <div class="menu">
       <Menubar :model="routerList">
         <template #end>
-          <img src="../assets/home/icon_search.png" alt="search" />
-          <InputText placeholder="Search" type="text" />
+          <img src="../assets/home/icon_search.png" alt="search" @click="handleSearch" />
+          <InputText placeholder="Search" type="text" v-model="search" />
         </template>
       </Menubar>
     </div>
@@ -57,7 +73,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted, inject } from 'vue'
 import { getGoodsCart, deleteGoodsCart } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useRouter } from 'vue-router'
@@ -67,11 +83,12 @@ import { useToast } from 'primevue/usetoast'
 export default {
   name: 'headerTop',
   setup() {
+    const reload = inject('reload')
     const router = useRouter()
     const toast = useToast()
     const goodsList = ref([])
     const goodsCount = ref(1)
-    const floatBlockState = ref(false)
+    const search = ref('')
     const routerList = reactive([
       {
         label: '關於季菓',
@@ -119,6 +136,7 @@ export default {
         to: '/foodData'
       }
     ])
+    // 獲得所有購物車資料
     const getCartData = onMounted(() => {
       const data = ''
       callApi(getGoodsCart, data, (res) => {
@@ -126,14 +144,7 @@ export default {
         console.log(goodsList.value)
       })
     })
-    const handleCart = () => {
-      if (floatBlockState === false) {
-        floatBlockState === true
-      } else {
-        router.push({ name: 'Cart' })
-        floatBlockState === false
-      }
-    }
+    // 點擊會員icon判斷有沒有登入會員跳換路由
     const handleMember = () => {
       const userInfo = localStorage.getItem('userInfo')
       if (userInfo === null) {
@@ -142,6 +153,7 @@ export default {
         router.push({ name: 'Member' })
       }
     }
+    // 判斷menu中會員是否登入來跳轉路由
     const memberRouterChange = onMounted(() => {
       const userInfo = localStorage.getItem('userInfo')
       if (userInfo === null) {
@@ -150,8 +162,9 @@ export default {
         routerList[2].to = '/member'
       }
     })
+    // 刪除購物車商品
     const deleteCartData = async (id) => {
-      toast.add({ severity: 'warn', summary: '確定要刪除商品？', group: 'bc', ID: id })
+      toast.add({ severity: 'warn', summary: '確定要刪除商品？', group: 'cart', ID: id })
     }
     const onReject = () => {
       toast.removeGroup('bc')
@@ -164,18 +177,51 @@ export default {
         getCartData()
       })
     }
+    //傳回來的圖片加上正確網址
+    const renderCartImg = (img) => {
+      return process.env.VUE_APP_BASE_API + '/imgs/' + img
+    }
+    // 搜尋框功能
+    const handleSearch = () => {
+      router
+        .push({
+          name: 'Goods',
+          params: {
+            search: search.value
+          }
+        })
+        .then(() => {
+          reload()
+        })
+    }
+    // 購物車結帳功能（會員/非會員）
+    const goCart = () => {
+      const userInfo = localStorage.getItem('userInfo')
+      if (userInfo === null) {
+        toast.add({ severity: 'warn', summary: '請先登入會員！', group: 'confirm' })
+      } else {
+        router.push({ name: 'Cart' })
+      }
+    }
+    const onConfirmCart = () => {
+      router.push({ name: 'User' })
+      toast.removeGroup('confirm')
+    }
     return {
       routerList,
       goodsList,
-      floatBlockState,
       handleMember,
       memberRouterChange,
-      handleCart,
       goodsCount,
       getCartData,
       deleteCartData,
       onReject,
-      onConfirm
+      onConfirm,
+      renderCartImg,
+      search,
+      handleSearch,
+      goCart,
+      onConfirmCart
     }
   }
 }

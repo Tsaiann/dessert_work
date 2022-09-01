@@ -68,7 +68,6 @@ export default {
           store.commit('memberModules/SET_USERSTATUS', res.data.Data)
           await router.push({ name: 'Member' })
           await reload()
-          getCartData()
         }).catch(() => {
           toast.add({ severity: 'error', summary: '輸入錯入，請重新輸入！', detail: 'Message Content', life: 3000 })
           removeLogin()

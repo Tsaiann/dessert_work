@@ -61,7 +61,7 @@ export const getGoodsList = (data) =>
 export const updateMemberData = (data) =>
   request({
     url: '/member/center/info/u',
-    method: 'get',
+    method: 'post',
     headers: {
       token: getToken(),
       'Content-Type': 'application/json'
@@ -108,6 +108,73 @@ export const deleteGoodsCart = (data) =>
 export const submitGoodsCart = (data) =>
   request({
     url: '/member/cartInfo/checkout',
+    method: 'post',
+    headers: {
+      token: getToken(),
+      'Content-Type': 'application/json'
+    },
+    data: data
+  })
+
+// 獲得所有訂單
+export const getOrderList = (data) =>
+  request({
+    url: '/member/center/order/list',
+    method: 'post',
+    headers: {
+      token: getToken(),
+      'Content-Type': 'application/json'
+    },
+    data: data
+  })
+// 添加商品至收藏清單
+export const addLikeList = (data) =>
+  request({
+    url: '/member/favor/c',
+    method: 'post',
+    headers: {
+      token: getToken(),
+      'Content-Type': 'text/plain'
+    },
+    data: data
+  })
+// 獲得所有收藏列表
+export const allLikeList = (data) =>
+  request({
+    url: '/member/favor/r',
+    method: 'get',
+    headers: {
+      token: getToken()
+    },
+    data: data
+  })
+// 刪除喜愛清單
+export const deleteLikeList = (data) =>
+  request({
+    url: '/member/favor/d',
+    method: 'post',
+    headers: {
+      token: getToken(),
+      'Content-Type': 'text/plain'
+    },
+    data: data
+  })
+// 獲得照片
+export const getImg = (data) =>
+  request({
+    url: '/admin/image/r',
+    method: 'post',
+    headers: {
+      token: getToken(),
+      'Content-Type': 'application/json'
+    },
+    data: data
+  })
+
+// 獲得訂單詳細資料
+export const orderDetail = (data) =>
+  request({
+    url: '/member/center/order/detail',
     method: 'post',
     headers: {
       token: getToken(),

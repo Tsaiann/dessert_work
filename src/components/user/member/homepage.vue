@@ -1,6 +1,21 @@
 <template>
   <div class="homepage container">
-    <Toast position="center" />
+    <Toast position="center" group="bc">
+      <template #message="slotProps">
+        <div class="row horizontal flex flex-column">
+          <div data-width="100%">
+            <div class="row vertical center" data-space-bottom="1rem">
+              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+              <h4>{{ slotProps.message.summary }}</h4>
+              <p>{{ slotProps.message.detail }}</p>
+            </div>
+            <div class="row horizontal center">
+              <Button class="p-button-success" label="確定" @click="onConfirm" data-space-right="1rem"></Button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Toast>
     <div class="row horizontal v_center" data-space-bottom="2rem">
       <i class="pi pi-user" style="font-size: 1.5rem"></i>
       <p data-space-left="1rem">ann110149</p>
@@ -43,7 +58,7 @@
       </div>
       <div class="member-detail" data-space-bottom="2rem">
         <p>再次確認新密碼</p>
-        <InputText type="password" v-model="state.memberForm.pwdConfirm" />
+        <InputText type="password" v-model="state.pwdConfirm" />
       </div>
       <hr />
       <div class="member-detail">
@@ -67,15 +82,18 @@
 </template>
 
 <script>
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, computed, inject } from 'vue'
 import { memberData, updateMemberData } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { resetForm } from '@/utils/resetForm'
 import { useToast } from 'primevue/usetoast'
+import { email, required, minLength } from '@vuelidate/validators'
+import useVuelidate from '@vuelidate/core'
 
 export default {
   name: 'Homepage',
   setup() {
+    const reload = inject('reload')
     const toast = useToast()
     const state = reactive({
       memberForm: {
@@ -89,6 +107,14 @@ export default {
       checked: true,
       pwdConfirm: ''
     })
+    const rules = computed(() => {
+      return {
+        Name: { required },
+        Email: { required, email },
+        Password: { minLength: minLength(8) }
+      }
+    })
+    const v$ = useVuelidate(rules, state.memberForm)
     const getMemberData = onMounted(async () => {
       const data = ''
       await callApi(memberData, data, (res) => {
@@ -103,25 +129,33 @@ export default {
       getMemberData()
     }
     const handleMemberUpdate = async () => {
+      v$.value.$validate()
       const data = state.memberForm
-      if (state.memberForm.Name !== '' && state.memberForm.Email !== '') {
+      if (!v$.value.$error && state.memberForm.Name !== '' && state.memberForm.Email !== '') {
         if (state.memberForm.Password !== state.pwdConfirm) {
           toast.add({ severity: 'error', summary: '所輸入的確認密碼有誤，請重新輸入', detail: 'Message Content' })
         } else {
           callApi(updateMemberData, data, () => {
             getMemberData()
-            toast.add({ severity: 'success', summary: '更新成功！', detail: 'Message Content' })
+            toast.add({ severity: 'success', summary: '更新成功！', detail: 'Message Content', group: 'bc' })
           })
         }
       } else {
-        toast.add({ severity: 'error', summary: '必填欄位不可空！', detail: 'Message Content' })
+        toast.add({ severity: 'error', summary: '必填欄位不可為空或填寫錯誤', detail: 'Message Content' })
+        resetForm(state.registerForm)
       }
+    }
+    const onConfirm = () => {
+      reload()
     }
     return {
       state,
       getMemberData,
       handleReset,
-      handleMemberUpdate
+      handleMemberUpdate,
+      v$,
+      rules,
+      onConfirm
     }
   }
 }
