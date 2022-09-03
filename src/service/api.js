@@ -182,3 +182,26 @@ export const orderDetail = (data) =>
     },
     data: data
   })
+
+// 獲得訂單詳細資料
+export const updateCartInfo = (data) =>
+  request({
+    url: '/member/cartInfo/u',
+    method: 'post',
+    headers: {
+      token: getToken(),
+      'Content-Type': 'application/json'
+    },
+    data: data
+  })
+
+// 獲得訂單詳細資料
+export const benefitsList = (data) =>
+  request({
+    url: '/member/center/benefits',
+    method: 'get',
+    headers: {
+      token: getToken()
+    },
+    data: data
+  })

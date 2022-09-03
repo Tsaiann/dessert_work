@@ -107,7 +107,7 @@
 
 <script>
 import guideLine from '@/components/guideLine.vue'
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import { memberData, submitGoodsCart } from '@/service/api'
 import { callApi } from '@/utils/callApi'
@@ -119,6 +119,7 @@ export default {
     guideLine
   },
   setup() {
+    const reload = inject('reload')
     const router = useRouter()
     const toast = useToast()
     const purchaserChecked = ref(false)
@@ -186,6 +187,7 @@ export default {
           }
         })
         toast.removeGroup('bc')
+        reload()
       })
     }
     const handleChecked = async () => {

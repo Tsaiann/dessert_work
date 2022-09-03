@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <Toast />
+    <Toast position="center" />
     <div class="login-button">
       <p @click="$router.push({ name: 'Register' })">註冊會員</p>
       <span>會員登入</span>
@@ -28,7 +28,7 @@
 <script>
 import Toast from 'primevue/toast'
 import { reactive, onMounted, inject } from 'vue'
-import { getOtp, login } from '@/service/api'
+import { getOtp, login, getGoodsList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
@@ -66,6 +66,10 @@ export default {
       if (state.memberForm.account !== '' && state.memberForm.password !== '' && state.memberForm.otp !== '') {
         await callApi(login, state.memberForm, async (res) => {
           store.commit('memberModules/SET_USERSTATUS', res.data.Data)
+          const data = { GoodsName: '' }
+          await callApi(getGoodsList, data, (res) => {
+            store.commit('goodsModules/SET_GOODSTATUS', res.data.Data)
+          })
           await router.push({ name: 'Member' })
           await reload()
         }).catch(() => {

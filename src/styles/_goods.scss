@@ -154,7 +154,7 @@
   }
   .goods-main{
     margin: 0 20px;
-    #pv_id_3,#pv_id_2,#pv_id_4,#pv_id_5,#pv_id_6{
+    #pv_id_3,#pv_id_2,#pv_id_4,#pv_id_5,#pv_id_6,#pv_id_7,#pv_id_8{
       width: 100%;
       img{
         width: 100%;
@@ -233,7 +233,7 @@
           }
         }
       }
-      .like{
+      .like, .like_finish{
         @include flexBox(row, center, flex-start);
         border: 1px solid $middleGray;
         width: 35%;
@@ -241,6 +241,11 @@
         border-radius: 50px;
         background: #fff;
         cursor: pointer;
+        &_finish{
+          i{
+            color: 	#ee7272;
+          }
+        }
       }
     }
   }

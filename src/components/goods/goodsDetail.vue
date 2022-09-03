@@ -2,6 +2,22 @@
   <div class="container products">
     <guideLine :data="guideData" />
     <Toast position="center" />
+    <Toast position="center" group="goodsDetail">
+      <template #message="slotProps">
+        <div class="row horizontal flex flex-column">
+          <div data-width="100%">
+            <div class="row vertical center" data-space-bottom="1rem">
+              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+              <h4>{{ slotProps.message.summary }}</h4>
+              <p>{{ slotProps.message.detail }}</p>
+            </div>
+            <div class="row horizontal center">
+              <Button class="p-button-success" label="是" @click="onConfirm()" data-space-right="1rem"></Button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </Toast>
     <div class="goods-main">
       <div class="row horizontal center">
         <div data-width="70%" data-space-right="2rem">
@@ -30,13 +46,17 @@
             <h3>購買數量</h3>
             <div class="goods-main-content__count" data-space-left="1.5rem">
               <i class="pi pi-minus" @click="countChange('minus')"></i>
-              <InputNumber class="p-inputtext-sm" v-model="state.cartForm.ItemNum" />
+              <InputNumber class="p-inputtext-sm" v-model="state.cartForm.Specs[0].Num" />
               <i class="pi pi-plus" style="color: red" @click="countChange('plus')"></i>
             </div>
             <Textarea v-model="state.remark" rows="5" cols="30" data-width="100%" placeholder="有任何額外需求請打在此處" />
-            <div class="like">
+            <div class="like" v-if="state.like === false">
               <i class="pi pi-heart" data-space-left="1rem"></i>
               <span data-space-left="0.5rem" @click="handleAddLike">加入到收藏清單</span>
+            </div>
+            <div class="like_finish" v-else>
+              <i class="pi pi-heart-fill" data-space-left="1rem"></i>
+              <span data-space-left="0.5rem">已加入收藏清單</span>
             </div>
           </div>
         </div>
@@ -103,11 +123,12 @@
 </template>
 <script>
 import { reactive, onMounted, inject } from 'vue'
-import { addGoodsCart, addLikeList } from '@/service/api'
+import { addGoodsCart, addLikeList, allLikeList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
 import guideLine from '@/components/guideLine.vue'
+import { useStore } from 'vuex'
 
 export default {
   name: 'GoodsDetail',
@@ -116,6 +137,7 @@ export default {
   },
   setup() {
     const reload = inject('reload')
+    const store = useStore()
     const toast = useToast()
     const router = useRouter()
     const state = reactive({
@@ -123,14 +145,18 @@ export default {
       remark: '',
       cartForm: {
         GoodsID: 37,
-        ItemNum: 1,
         Specs: [
+          {
+            SpecID: 54,
+            Num: 1
+          },
           {
             SpecID: 56,
             Num: 1
           }
         ]
-      }
+      },
+      like: false
     })
     const guideData = reactive([
       {
@@ -153,10 +179,10 @@ export default {
       }
     ])
     const countChange = (name) => {
-      if (name === 'plus' && state.cartForm.ItemNum < 99) {
-        state.cartForm.ItemNum += 1
-      } else if (name === 'minus' && state.cartForm.ItemNum > 1) {
-        state.cartForm.ItemNum -= 1
+      if (name === 'plus' && state.cartForm.Specs[0].Num < 99) {
+        state.cartForm.Specs[0].Num += 1
+      } else if (name === 'minus' && state.cartForm.Specs[0].Num > 1) {
+        state.cartForm.Specs[0].Num -= 1
       }
     }
     const addCart = async () => {
@@ -164,8 +190,7 @@ export default {
       if (userInfo !== null) {
         const data = state.cartForm
         callApi(addGoodsCart, data, () => {
-          toast.add({ severity: 'success', summary: '新增成功！', detail: 'Message Content' })
-          reload()
+          toast.add({ severity: 'success', summary: '已加入購物車！', group: 'goodsDetail' })
         })
       } else {
         toast.add({ severity: 'error', summary: '請先登入會員！', detail: 'Message Content' })
@@ -174,7 +199,6 @@ export default {
     const handleBuy = async () => {
       const userInfo = localStorage.getItem('userInfo')
       if (userInfo !== null) {
-        console.log(userInfo)
         const data = state.cartForm
         await callApi(addGoodsCart, data, () => {
           router.push({ name: 'Cart' })
@@ -184,12 +208,28 @@ export default {
         toast.add({ severity: 'error', summary: '請先登入會員！', detail: 'Message Content' })
       }
     }
+    //加入到收藏清單
     const handleAddLike = () => {
       const data = { GoodsID: 37 }
-      callApi(addLikeList, data, (res) => {
-        console.log(res)
+      callApi(addLikeList, data, () => {
+        state.like = true
       })
     }
+    const onConfirm = () => {
+      toast.removeGroup('goodsDetail')
+      reload()
+    }
+    const likeStatus = onMounted(() => {
+      const data = ''
+      callApi(allLikeList, data, (res) => {
+        console.log(res)
+        for (let i in res.data.Data) {
+          if (res.data.Data[i].GoodsID === state.cartForm.GoodsID) {
+            state.like = true
+          }
+        }
+      })
+    })
     return {
       state,
       guideData,
@@ -197,7 +237,9 @@ export default {
       countChange,
       addCart,
       handleBuy,
-      handleAddLike
+      handleAddLike,
+      onConfirm,
+      likeStatus
     }
   }
 }

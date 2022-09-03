@@ -46,7 +46,7 @@
                 <img :src="renderCartImg(item.ImageUrls[0].Url)" alt="aaa" />
                 <div class="float-block_item__text" data-space-left="1rem">
                   <h2>{{ item.Goods.Name }}</h2>
-                  <p>數量： {{ item.ItemNum }}</p>
+                  <p>數量： {{ item.Specs[0].Num }}</p>
                 </div>
               </div>
               <i class="pi pi-trash" @click="deleteCartData(item.ID)"></i>
@@ -173,7 +173,7 @@ export default {
       const data = { ID: id }
       await callApi(deleteGoodsCart, data, () => {
         toast.add({ severity: 'success', summary: '已刪除', detail: 'Message Content' })
-        toast.removeGroup('bc')
+        toast.removeGroup('cart')
         getCartData()
       })
     }

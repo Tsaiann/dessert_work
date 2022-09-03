@@ -35,7 +35,7 @@
             </div>
             <div data-width="20%">
               <i class="pi pi-times"></i>
-              <span>{{ item.ItemNum }}</span>
+              <span>{{ item.Specs[0].Num }}</span>
             </div>
           </div>
         </div>
@@ -121,11 +121,22 @@ export default {
       callApi(orderDetail, data, (res) => {
         state.orderDetailList = res.data.Data
         console.log(state.orderDetailList)
+        goodsChange()
+        detailDialog.value = true
       })
     }
     const openDialog = (id) => {
-      detailDialog.value = true
       getOrderDetail(id)
+    }
+    const goodsChange = () => {
+      const goodsData = JSON.parse(localStorage.getItem('goodsInfo'))
+      for (let i in goodsData) {
+        for (let e in state.orderDetailList.Items) {
+          if (state.orderDetailList.Items[e].GoodsID === goodsData[i].ID) {
+            state.orderDetailList.Items[e].Goods.Name = goodsData[i].Name
+          }
+        }
+      }
     }
     return {
       getOrder,

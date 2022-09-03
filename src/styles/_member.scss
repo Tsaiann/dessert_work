@@ -112,17 +112,16 @@
       position: relative;
       &::before{
         content: '';
-        @include triangle(9px,4px,0,4px,#C1272D transparent transparent transparent);
+        @include triangle(9px,4px,0,4px,$darkGray transparent transparent transparent);
         @include position(-9px,49.5%,'','');
       }
       &::after{
         content: '銀級會員';
         @include position(-27px,46.5%,'','');
-        color: #C1272D;
         font-size: 10px;
       }
       span{
-        @include size(50%, 29px);
+        @include size(0, 29px);
         display: block;
         border-radius: 4px;
         background: #C7B299;
@@ -216,7 +215,7 @@
 .orderData{
   .goods_detail{
     @include flexBox(row, center, flex-start);
-    margin: 20px 15px;
+    margin: 20px 0 20px 17px;
     img{
       width: 20%;
     }
@@ -250,6 +249,7 @@
 }
 .data_title{
   @include flexBox(row, center, flex-start);
+  margin-left: 5px;
   div{
     width: 4px;
     height: 30px;

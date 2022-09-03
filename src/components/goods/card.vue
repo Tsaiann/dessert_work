@@ -54,6 +54,10 @@ export default {
         ItemNum: 1,
         Specs: [
           {
+            SpecID: 54,
+            Num: 1
+          },
+          {
             SpecID: 56,
             Num: 1
           }

@@ -31,9 +31,9 @@
           <Column header="數量" headerStyle="text-align: center">
             <template #body="{ data }">
               <div class="cart-data-count">
-                <i class="pi pi-minus" style="font-size: 0.5rem" @click="countMinus(data)"></i>
-                <InputNumber v-model="data.ItemNum" class="p-inputtext-sm"></InputNumber>
-                <i class="pi pi-plus" style="font-size: 0.5rem" @click="countPlus(data)"></i>
+                <i class="pi pi-minus" style="font-size: 0.5rem" @click="changeCart('minus', data)"></i>
+                <InputNumber v-model="data.Specs[0].Num" class="p-inputtext-sm"></InputNumber>
+                <i class="pi pi-plus" style="font-size: 0.5rem" @click="changeCart('plus', data)"></i>
               </div>
             </template>
           </Column>
@@ -119,7 +119,7 @@ import { reactive, ref, onMounted, computed, inject } from 'vue'
 import guideLine from '@/components/guideLine.vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
-import { getGoodsCart, deleteGoodsCart } from '@/service/api'
+import { getGoodsCart, deleteGoodsCart, updateCartInfo } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 
 export default {
@@ -128,6 +128,19 @@ export default {
     guideLine
   },
   setup() {
+    const state = reactive({
+      updateCartForm: {
+        ID: 0,
+        GoodsID: 0,
+        Specs: [
+          {
+            ID: 0,
+            SpecID: 0,
+            Num: 0
+          }
+        ]
+      }
+    })
     const method = reactive({
       delivery: '',
       payment: ''
@@ -155,6 +168,7 @@ export default {
     const feeChange = computed(() => {
       return deliveryFee.value * 1
     })
+    //整筆訂單的金額總數
     const orderTotal = computed(() => {
       let total = 0
       for (let i in goodsList.value) {
@@ -201,14 +215,16 @@ export default {
         to: '/finish'
       }
     ])
+    //取得購物車資料
     const getCartData = onMounted(() => {
       const data = ''
       callApi(getGoodsCart, data, (res) => {
         goodsList.value = [...res.data.Data]
         totalCount()
-        console.log(res)
+        console.log(goodsList.value)
       })
     })
+    //刪除購物車資料
     const deleteCartData = async (id) => {
       toast.add({ severity: 'warn', summary: '確定要刪除商品？', group: 'bc', ID: id })
     }
@@ -238,11 +254,13 @@ export default {
       })
       await reload()
     }
+    //每筆商品的金額總數
     const totalCount = () => {
       for (let i in goodsList.value) {
-        goodsList.value[i]['total'] = goodsList.value[i].TimestampPice * goodsList.value[i].ItemNum
+        goodsList.value[i]['total'] = goodsList.value[i].TimestampPice * goodsList.value[i].Specs[0].Num
       }
     }
+    //所有商品的金額總數
     const allGoodsTotal = computed(() => {
       let total = 0
       for (let i in goodsList.value) {
@@ -250,17 +268,30 @@ export default {
       }
       return total
     })
-    const countPlus = (data) => {
-      if (data.ItemNum < 99) {
-        data.ItemNum += 1
+    //更新購物車的商品數量
+    const changeCart = (method, obj) => {
+      state.updateCartForm.ID = obj.ID
+      state.updateCartForm.GoodsID = obj.GoodsID
+      state.updateCartForm.Specs[0].ID = obj.Specs[0].ID
+      state.updateCartForm.Specs[0].SpecID = obj.Specs[0].SpecID
+      if (method === 'plus' && obj.Specs[0].Num < 99) {
+        state.updateCartForm.Specs[0].Num = obj.Specs[0].Num + 1
+        const data = state.updateCartForm
+        callApi(updateCartInfo, data, () => {
+          getCartData()
+        })
+      } else if (method === 'minus' && obj.Specs[0].Num > 1) {
+        state.updateCartForm.Specs[0].Num = obj.Specs[0].Num - 1
+        const data = state.updateCartForm
+        callApi(updateCartInfo, data, () => {
+          getCartData()
+        })
       }
     }
-    const countMinus = (data) => {
-      if (data.ItemNum > 1) {
-        data.ItemNum -= 1
-      }
-    }
+
     return {
+      state,
+      changeCart,
       guideData,
       steps,
       selectedSend,
@@ -281,9 +312,7 @@ export default {
       payMethodSelect,
       deliveryFee,
       orderTotal,
-      method,
-      countMinus,
-      countPlus
+      method
     }
   }
 }
