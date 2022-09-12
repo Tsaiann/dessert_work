@@ -23,7 +23,7 @@
           <i class="pi pi-search-plus" style="font-size: 1.4rem"></i>
           <p>查看商品</p>
         </div>
-        <div class="row vertical center" @click="addCart()">
+        <div class="row vertical center" @click="addCart(list)">
           <i class="pi pi-shopping-bag" style="font-size: 1.4rem"></i>
           <p>加入購物車</p>
         </div>
@@ -50,15 +50,9 @@ export default {
     const reload = inject('reload')
     const state = reactive({
       cartForm: {
-        GoodsID: 37,
-        ItemNum: 1,
+        GoodsID: null,
         Specs: [
           {
-            SpecID: 54,
-            Num: 1
-          },
-          {
-            SpecID: 56,
             Num: 1
           }
         ]
@@ -66,9 +60,11 @@ export default {
     })
     const goodsList = props.list
     // 增加進購物車
-    const addCart = async () => {
+    const addCart = async (list) => {
       const userInfo = localStorage.getItem('userInfo')
       if (userInfo !== null) {
+        state.cartForm.GoodsID = list.ID
+        state.cartForm.Specs[0].SpecID = list.GoodsSpecs[1].ID
         const data = state.cartForm
         await callApi(addGoodsCart, data, async () => {
           toast.add({ severity: 'success', summary: '已加入購物車！', group: 'aa' })

@@ -131,9 +131,12 @@ import guideLine from '@/components/guideLine.vue'
 import { useStore } from 'vuex'
 
 export default {
-  name: 'GoodsDetail',
+  name: 'newdetail',
   components: {
     guideLine
+  },
+  props: {
+    detail: Object
   },
   setup() {
     const reload = inject('reload')
@@ -164,6 +167,8 @@ export default {
         to: '/products'
       }
     ])
+    const goodDetail = props.detail
+    const imagesList = () => {}
     const images = reactive([
       {
         src: require('../../assets/goods/資產 9-100.jpg'),
@@ -239,7 +244,8 @@ export default {
       handleBuy,
       handleAddLike,
       onConfirm,
-      likeStatus
+      likeStatus,
+      goodDetail
     }
   }
 }

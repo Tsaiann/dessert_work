@@ -28,7 +28,7 @@
             <h2>購買人資訊</h2>
             <div data-inset="1rem">
               <div class="field-checkbox">
-                <Checkbox id="binary" v-model="purchaserChecked" :binary="true" @change="handleChecked" />
+                <Checkbox id="binary" v-model="purchaserChecked" :binary="true" @change="purChecked" />
                 <label for="binary">購買人資料與會員資料相同</label>
               </div>
               <div data-space-bottom="0.5rem">
@@ -61,7 +61,7 @@
           <h2>送貨資訊</h2>
           <div data-inset="1rem">
             <div class="field-checkbox">
-              <Checkbox id="binary" v-model="recipientChecked" :binary="true" @change="handleChecked" />
+              <Checkbox id="binary" v-model="recipientChecked" :binary="true" @change="recChecked" />
               <label for="binary">收件人資料與購買人相同</label>
             </div>
             <div data-space-bottom="0.5rem">
@@ -112,6 +112,7 @@ import { useRouter } from 'vue-router'
 import { memberData, submitGoodsCart } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useToast } from 'primevue/usetoast'
+import { useStore } from 'vuex'
 
 export default {
   name: 'ShoppingData',
@@ -122,6 +123,7 @@ export default {
     const reload = inject('reload')
     const router = useRouter()
     const toast = useToast()
+    const store = useStore()
     const purchaserChecked = ref(false)
     const recipientChecked = ref(false)
     const date = ref()
@@ -138,10 +140,9 @@ export default {
         Addr: '',
         OrderRemark: '',
         Email: '',
-        PaymentMethod: router.currentRoute.value.params.payment,
-        DeliveryMethod: router.currentRoute.value.params.delivery
-      },
-      orderTotal: router.currentRoute.value.params.total
+        PaymentMethod: JSON.parse(localStorage.getItem('cartInfo')).payment,
+        DeliveryMethod: JSON.parse(localStorage.getItem('cartInfo')).delivery
+      }
     })
     const guideData = reactive([
       {
@@ -163,9 +164,11 @@ export default {
         to: '/finish'
       }
     ])
+    //回到上一頁
     const handlePrePage = () => {
       router.push({ name: 'Cart' })
     }
+    //確定送出訂單資料
     const submitOrder = () => {
       toast.add({ severity: 'warn', summary: '確定要送出訂單？', group: 'bc' })
     }
@@ -175,22 +178,14 @@ export default {
     const onConfirm = async () => {
       const data = state.recipientForm
       callApi(submitGoodsCart, data, () => {
-        router.push({
-          name: 'Finish',
-          params: {
-            recipient: state.recipientForm.Recipient,
-            phone: state.recipientForm.Phone,
-            addr: state.recipientForm.Addr,
-            paymentMethod: state.recipientForm.PaymentMethod,
-            deliveryMethod: state.recipientForm.DeliveryMethod,
-            total: state.orderTotal
-          }
-        })
+        store.commit('cartModules/SET_CARTINFO', state.recipientForm)
+        router.push({ name: 'Finish' })
         toast.removeGroup('bc')
         reload()
       })
     }
-    const handleChecked = async () => {
+    //購買人資料與會員資料相同
+    const purChecked = async () => {
       if (purchaserChecked.value === true) {
         const data = ''
         await callApi(memberData, data, (res) => {
@@ -199,12 +194,15 @@ export default {
           state.memberForm.Email = res.data.Data.Email
           state.memberForm.Phone = res.data.Data.Phone
         })
-        if (recipientChecked.value === true) {
-          state.recipientForm.Addr = state.memberForm.Address
-          state.recipientForm.Recipient = state.memberForm.Name
-          state.recipientForm.Phone = state.memberForm.Phone
-          state.recipientForm.Email = state.memberForm.Email
-        }
+      }
+    }
+    //收件人資料與購買者相同
+    const recChecked = () => {
+      if (recipientChecked.value === true) {
+        state.recipientForm.Addr = state.memberForm.Address
+        state.recipientForm.Recipient = state.memberForm.Name
+        state.recipientForm.Phone = state.memberForm.Phone
+        state.recipientForm.Email = state.memberForm.Email
       }
     }
     return {
@@ -216,9 +214,10 @@ export default {
       date,
       handlePrePage,
       submitOrder,
-      handleChecked,
       onReject,
-      onConfirm
+      onConfirm,
+      recChecked,
+      purChecked
     }
   }
 }

@@ -18,7 +18,7 @@
     </Toast>
     <div class="row horizontal v_center" data-space-bottom="2rem">
       <i class="pi pi-user" style="font-size: 1.5rem"></i>
-      <p data-space-left="1rem">ann110149</p>
+      <p data-space-left="1rem">{{ state.memberForm.account }}</p>
       <div class="member-level">銅級會員</div>
     </div>
     <div class="row horizontal v_center" data-space-bottom="1rem">
@@ -97,6 +97,7 @@ export default {
     const toast = useToast()
     const state = reactive({
       memberForm: {
+        account: '',
         Name: '',
         Email: '',
         Phone: '',
@@ -122,6 +123,7 @@ export default {
         state.memberForm.Email = res.data.Data.Email
         state.memberForm.Phone = res.data.Data.Phone
         state.memberForm.Address = res.data.Data.Address
+        state.memberForm.account = res.data.Data.Account
       })
     })
     const handleReset = () => {

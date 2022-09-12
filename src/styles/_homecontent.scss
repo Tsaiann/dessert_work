@@ -21,6 +21,7 @@
     }
     .product-item {
       width: 200px;
+      cursor: pointer;
       .product-item-content {
         border: 1px solid $middleGray;
         text-align: center;

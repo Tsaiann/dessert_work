@@ -23,7 +23,7 @@
           </div>
         </template>
         <template #item="slotProps">
-          <div class="product-item">
+          <div class="product-item" @click="$router.push({ name: 'GoodsDetail' })">
             <div class="product-item-content">
               <div>
                 <img :src="slotProps.data.ImageUrls[0].Url" alt="" />

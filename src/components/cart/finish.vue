@@ -7,7 +7,7 @@
       </div>
       <div class="finish">
         <div class="finish-title">
-          <h2>感謝您的訂購，本次訂單編號為 424344343</h2>
+          <h2>感謝您的訂購!</h2>
           <span @click="$router.push({ name: 'Order' })">查看明細</span>
         </div>
         <div data-inset="1rem">
@@ -92,12 +92,12 @@ export default {
       }
     ])
     const recipientForm = reactive({
-      recipient: router.currentRoute.value.params.recipient,
-      phone: router.currentRoute.value.params.phone,
-      addr: router.currentRoute.value.params.addr,
-      payment: router.currentRoute.value.params.paymentMethod,
-      delivery: router.currentRoute.value.params.deliveryMethod,
-      total: router.currentRoute.value.params.total
+      recipient: JSON.parse(localStorage.getItem('cartInfo')).recipient,
+      phone: JSON.parse(localStorage.getItem('cartInfo')).phone,
+      addr: JSON.parse(localStorage.getItem('cartInfo')).addr,
+      payment: JSON.parse(localStorage.getItem('cartInfo')).payment,
+      delivery: JSON.parse(localStorage.getItem('cartInfo')).delivery,
+      total: JSON.parse(localStorage.getItem('cartTotal')).total
     })
     const text = onMounted(() => {
       console.log(router.currentRoute.value.params)

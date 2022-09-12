@@ -25,7 +25,7 @@
       </div>
       <div class="cart-data">
         <h2>購物車</h2>
-        <DataTable :value="goodsList" responsiveLayout="scroll">
+        <DataTable :value="state.goodsList" responsiveLayout="scroll">
           <Column field="Goods.Name" header="商品名稱" bodyStyle="width: 250px"></Column>
           <Column field="TimestampPice" header="價格"></Column>
           <Column header="數量" headerStyle="text-align: center">
@@ -50,7 +50,7 @@
           <h2>送貨以及付款方式</h2>
           <p>送貨方式</p>
           <Dropdown
-            v-model="selectedSend"
+            v-model="state.deliveryValue"
             :options="sentItems"
             optionLabel="name"
             optionValue="name"
@@ -60,12 +60,12 @@
           />
           <p>付款方式</p>
           <Dropdown
-            v-model="selectedPay"
+            v-model="state.paymentValue"
             :options="payItems"
+            optionValue="name"
             optionLabel="name"
             placeholder="請選擇付款方式"
             :style="{ width: '94%' }"
-            @change="payMethodSelect()"
           />
         </div>
         <div class="info">
@@ -121,6 +121,7 @@ import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
 import { getGoodsCart, deleteGoodsCart, updateCartInfo } from '@/service/api'
 import { callApi } from '@/utils/callApi'
+import { useStore } from 'vuex'
 
 export default {
   name: 'Cart',
@@ -128,7 +129,12 @@ export default {
     guideLine
   },
   setup() {
+    const store = useStore()
+    const reload = inject('reload')
+    const router = useRouter()
+    const toast = useToast()
     const state = reactive({
+      goodsList: [],
       updateCartForm: {
         ID: 0,
         GoodsID: 0,
@@ -139,42 +145,11 @@ export default {
             Num: 0
           }
         ]
-      }
-    })
-    const method = reactive({
-      delivery: '',
-      payment: ''
-    })
-    const reload = inject('reload')
-    const router = useRouter()
-    const toast = useToast()
-    const selectedSend = ref(null)
-    const selectedPay = ref(null)
-    const dialogDiscountVisible = ref(false)
-    const goodsList = ref([])
-    const deliveryFee = ref(0)
-    const feeMethodSelect = () => {
-      if (selectedSend.value === '自取') {
-        deliveryFee.value = 0
-        method.delivery = selectedSend.value
-      } else {
-        deliveryFee.value = 150
-        method.delivery = selectedSend.value
-      }
-    }
-    const payMethodSelect = () => {
-      method.payment = selectedPay.value.name
-    }
-    const feeChange = computed(() => {
-      return deliveryFee.value * 1
-    })
-    //整筆訂單的金額總數
-    const orderTotal = computed(() => {
-      let total = 0
-      for (let i in goodsList.value) {
-        total += goodsList.value[i].total
-      }
-      return total + deliveryFee.value
+      },
+      deliveryValue: null,
+      paymentValue: null,
+      deliveryFee: 0,
+      total: 0
     })
     const payItems = reactive([
       {
@@ -215,32 +190,38 @@ export default {
         to: '/finish'
       }
     ])
+    const dialogDiscountVisible = ref(false)
+    //根據選擇的寄送方式運費不同
+    const feeMethodSelect = () => {
+      if (state.deliveryValue === '自取') {
+        state.deliveryFee = 0
+      } else {
+        state.deliveryFee = 150
+      }
+    }
+    const feeChange = computed(() => {
+      return state.deliveryFee * 1
+    })
+    //整筆訂單的金額總數
+    const orderTotal = computed(() => {
+      let total = 0
+      for (let i in state.goodsList) {
+        total += state.goodsList[i].total
+      }
+      return total + state.deliveryFee
+    })
     //取得購物車資料
     const getCartData = onMounted(() => {
       const data = ''
       callApi(getGoodsCart, data, (res) => {
-        goodsList.value = [...res.data.Data]
+        state.goodsList = [...res.data.Data]
         totalCount()
-        console.log(goodsList.value)
+        console.log(state.goodsList)
       })
     })
     //刪除購物車資料
     const deleteCartData = async (id) => {
       toast.add({ severity: 'warn', summary: '確定要刪除商品？', group: 'bc', ID: id })
-    }
-    const handleNextPage = () => {
-      if (selectedPay.value !== null && selectedSend.value !== null) {
-        router.push({
-          name: 'FillInfo',
-          params: {
-            delivery: method.delivery,
-            payment: method.payment,
-            total: orderTotal.value
-          }
-        })
-      } else {
-        toast.add({ severity: 'error', summary: '請選擇送貨與付款方式', detail: 'Message Content' })
-      }
     }
     const onReject = () => {
       toast.removeGroup('bc')
@@ -254,17 +235,27 @@ export default {
       })
       await reload()
     }
+    // 前往下一頁
+    const handleNextPage = async () => {
+      if (state.deliveryValue !== null && state.paymentValue !== null) {
+        store.commit('cartModules/SET_CARTPAYMENT', state)
+        store.commit('cartModules/SET_CARTTOTAL', orderTotal.value)
+        router.push({ name: 'FillInfo' })
+      } else {
+        toast.add({ severity: 'error', summary: '請選擇送貨與付款方式', detail: 'Message Content' })
+      }
+    }
     //每筆商品的金額總數
     const totalCount = () => {
-      for (let i in goodsList.value) {
-        goodsList.value[i]['total'] = goodsList.value[i].TimestampPice * goodsList.value[i].Specs[0].Num
+      for (let i in state.goodsList) {
+        state.goodsList[i]['total'] = state.goodsList[i].TimestampPice * state.goodsList[i].Specs[0].Num
       }
     }
     //所有商品的金額總數
     const allGoodsTotal = computed(() => {
       let total = 0
-      for (let i in goodsList.value) {
-        total += goodsList.value[i].total
+      for (let i in state.goodsList) {
+        total += state.goodsList[i].total
       }
       return total
     })
@@ -294,14 +285,11 @@ export default {
       changeCart,
       guideData,
       steps,
-      selectedSend,
-      selectedPay,
       sentItems,
       payItems,
       handleNextPage,
       dialogDiscountVisible,
       getCartData,
-      goodsList,
       deleteCartData,
       onConfirm,
       onReject,
@@ -309,10 +297,7 @@ export default {
       allGoodsTotal,
       feeChange,
       feeMethodSelect,
-      payMethodSelect,
-      deliveryFee,
-      orderTotal,
-      method
+      orderTotal
     }
   }
 }
