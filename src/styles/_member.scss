@@ -226,6 +226,21 @@
   max-height: 300px;
   overflow: scroll;
   overflow-x: hidden;
+  /* 網頁捲軸【寬度】 */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /* 網頁捲軸【背景】顏色 */
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  /* 網頁捲軸【把手】顏色 */
+  &::-webkit-scrollbar-thumb {
+    background: #e4c9ac;
+    border-radius: 10px;
+  }
   .goods_detail{
     @include flexBox(row, center, flex-start);
     margin: 20px 0 20px 17px;
