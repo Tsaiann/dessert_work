@@ -225,6 +225,7 @@
 .orderData{
   max-height: 300px;
   overflow: scroll;
+  overflow-x: hidden;
   .goods_detail{
     @include flexBox(row, center, flex-start);
     margin: 20px 0 20px 17px;
