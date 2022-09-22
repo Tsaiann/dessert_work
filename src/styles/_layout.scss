@@ -1,8 +1,5 @@
 html, body {
   height: 100%;
-  &::webkit-scrollbar{
-    display: none;
-  }
   .button_submit{
     opacity: 0.8;
     border: 0;
@@ -35,10 +32,13 @@ html, body {
     }
   }
 }
-
+body::-webkit-scrollbar {
+  display: none;
+}
 #app {
   position: relative;
   height: 100%;
+  overflow-y: hidden;
   .home {
     @include flexBox(column, flex-start, flex-start);
     width: 100%;
