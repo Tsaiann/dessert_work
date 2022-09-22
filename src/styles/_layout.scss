@@ -11,6 +11,9 @@ html, body {
     background: rgb(246, 246, 246);
     font-family: 'Noto Sans TC', 'Microsoft JhengHei', 'Hei', sans-serif;
     color: $darkGray;
+    ::webkit-scrollbar{
+      display: none;
+    }
     img{
       display: block;
     }

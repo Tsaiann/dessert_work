@@ -172,8 +172,8 @@
       cursor: pointer;
       &:before, &:after{
         content: "";
-        @include size(170px, 290px);
-        @include position(21px, '', '', 25px);
+        @include size(160px, 280px);
+        @include position(25px, '', '', 28px);
         border-style: solid;
         border-color: #fff;
         transition: transform .5s ease;
