@@ -1,17 +1,17 @@
 <template>
   <div class="cart container">
-    <Toast position="center" group="bc">
-      <template #message="slotProps">
+    <Toast position="center" group="cartCheckout">
+      <template #message="slot">
         <div class="row horizontal">
           <div data-width="100%">
-            <div class="row vertical center" data-space-bottom="1rem">
-              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
-              <h4>{{ slotProps.message.summary }}</h4>
-              <p>{{ slotProps.message.detail }}</p>
+            <div class="row vertical center">
+              <i class="pi pi-exclamation-circle" style="font-size: 3rem" data-space-bottom="1rem"></i>
+              <h4>{{ slot.message.summary }}</h4>
+              <nav></nav>
             </div>
             <div class="row horizontal center">
-              <Button class="p-button-success" label="是" @click="onConfirm(slotProps.message.ID)" data-space-right="1rem"></Button>
-              <Button class="p-button-secondary" label="否" @click="onReject"></Button>
+              <Button class="p-button-success" label="取消" @click="onRejectCheckout" data-space-right="1rem"></Button>
+              <Button class="p-button-secondary" label="確定" @click="onConfirmCheckout(slot.message.ID)"></Button>
             </div>
           </div>
         </div>
@@ -170,18 +170,21 @@ export default {
     }
     //確定送出訂單資料
     const submitOrder = () => {
-      toast.add({ severity: 'warn', summary: '確定要送出訂單？', group: 'bc' })
+      toast.add({ severity: 'success', summary: '確定要送出訂單？', group: 'cartCheckout' })
     }
-    const onReject = () => {
-      toast.removeGroup('bc')
+    const onRejectCheckout = () => {
+      toast.removeGroup('cartCheckout')
     }
-    const onConfirm = async () => {
+    const onConfirmCheckout = async () => {
       const data = state.recipientForm
       callApi(submitGoodsCart, data, () => {
         store.commit('cartModules/SET_CARTINFO', state.recipientForm)
         router.push({ name: 'Finish' })
-        toast.removeGroup('bc')
+        toast.removeGroup('cartCheckout')
         reload()
+      }).catch(() => {
+        toast.removeGroup('cartCheckout')
+        toast.add({ severity: 'error', summary: '請確實填寫資料！', group: 'errorBox' })
       })
     }
     //購買人資料與會員資料相同
@@ -214,8 +217,8 @@ export default {
       date,
       handlePrePage,
       submitOrder,
-      onReject,
-      onConfirm,
+      onRejectCheckout,
+      onConfirmCheckout,
       recChecked,
       purChecked
     }

@@ -10,7 +10,7 @@
               <nav></nav>
             </div>
             <div class="row horizontal center">
-              <Button class="p-button-success" label="取消" @click="onReject()" data-space-right="1rem"></Button>
+              <Button class="p-button-success" label="取消" @click="onReject('cartGoodsDelete')" data-space-right="1rem"></Button>
               <Button class="p-button-secondary" label="確定" @click="onConfirm(slot.message.ID)"></Button>
             </div>
           </div>
@@ -41,6 +41,23 @@
             </div>
           </div>
           <i class="pi pi-times" style="font-size: 1rem" @click="handleReset"></i>
+        </div>
+      </template>
+    </Toast>
+    <Toast position="center" group="logout">
+      <template #message="slot">
+        <div class="row horizontal">
+          <div data-width="100%">
+            <div class="row vertical center">
+              <i class="pi pi-exclamation-circle" style="font-size: 3rem" data-space-bottom="1rem"></i>
+              <h4>{{ slot.message.summary }}</h4>
+              <nav></nav>
+            </div>
+            <div class="row horizontal center">
+              <Button class="p-button-success" label="取消" @click="onReject('logout')" data-space-right="1rem"></Button>
+              <Button class="p-button-secondary" label="確定" @click="onConfirmLogout"></Button>
+            </div>
+          </div>
         </div>
       </template>
     </Toast>
@@ -192,8 +209,8 @@ export default {
     const deleteCartData = async (id) => {
       toast.add({ severity: 'success', summary: '確定要刪除商品？', group: 'cartGoodsDelete', ID: id })
     }
-    const onReject = () => {
-      toast.removeGroup('cartGoodsDelete')
+    const onReject = (name) => {
+      toast.removeGroup(name)
     }
     const onConfirm = async (id) => {
       const data = { ID: id }
@@ -226,8 +243,11 @@ export default {
     }
     //登出會員
     const logout = () => {
+      toast.add({ severity: 'success', summary: '確定要登出嗎？', group: 'logout' })
+    }
+    const onConfirmLogout = () => {
       localStorage.clear()
-      router.push({ name: 'Content' })
+      router.push({ name: 'User' })
       memberChecked.value = false
       reload()
     }
@@ -248,6 +268,14 @@ export default {
     const handleReset = async () => {
       await reload()
     }
+    const onConfirmLike = async (id) => {
+      const data = { GoodsID: id }
+      await callApi(deleteLikeList, data, () => {
+        toast.add({ severity: 'success', summary: '刪除成功！', group: 'goods_addcart' })
+        toast.removeGroup('likeDelete')
+        getLikeList()
+      })
+    }
     return {
       closeCheckbox,
       routerList,
@@ -267,7 +295,9 @@ export default {
       confirmUserInfo,
       logout,
       memberRouter,
-      handleReset
+      handleReset,
+      onConfirmLogout,
+      onConfirmLike
     }
   }
 }

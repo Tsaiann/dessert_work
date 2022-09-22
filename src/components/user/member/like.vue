@@ -1,23 +1,22 @@
 <template>
   <div class="like container">
-    <Toast position="center" group="bc" @close="onReject">
-      <template #message="slotProps">
-        <div class="row horizontal flex flex-column">
+    <Toast position="center" group="likeDelete">
+      <template #message="slot">
+        <div class="row horizontal">
           <div data-width="100%">
-            <div class="row vertical center" data-space-bottom="1rem">
-              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
-              <h4>{{ slotProps.message.summary }}</h4>
-              <p>{{ slotProps.message.detail }}</p>
+            <div class="row vertical center">
+              <i class="pi pi-exclamation-circle" style="font-size: 3rem" data-space-bottom="1rem"></i>
+              <h4>{{ slot.message.summary }}</h4>
+              <nav></nav>
             </div>
             <div class="row horizontal center">
-              <Button class="p-button-success" label="是" @click="onConfirm(slotProps.message.ID)" data-space-right="1rem"></Button>
-              <Button class="p-button-secondary" label="否" @click="onReject"></Button>
+              <Button class="p-button-success" label="取消" @click="onReject()" data-space-right="1rem"></Button>
+              <Button class="p-button-secondary" label="確定" @click="onConfirm(slot.message.ID)"></Button>
             </div>
           </div>
         </div>
       </template>
     </Toast>
-    <Paginator :rows="5" :totalRecords="state.likeList.length" :rowsPerPageOptions="[5, 10, 15]"></Paginator>
     <div class="likeList" v-for="(item, i) in state.likeList" :key="i">
       <img :src="state.imgList[i]" alt="cake" data-space-right="2rem" @click="changeRouter(item.GoodsID)" />
       <div class="likeList_text" @click="changeRouter(item.GoodsID)">
@@ -35,7 +34,7 @@
 </template>
 
 <script>
-import { reactive, ref, onMounted } from 'vue'
+import { reactive, onMounted } from 'vue'
 import { allLikeList, deleteLikeList, getImg } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useToast } from 'primevue/usetoast'
@@ -54,7 +53,6 @@ export default {
     })
     const router = useRouter()
     const toast = useToast()
-    const imgList = ref([])
     //獲得收藏清單列表
     const getLikeList = onMounted(() => {
       const data = ''
@@ -67,17 +65,16 @@ export default {
     })
     //刪除商品
     const deleteLike = (id) => {
-      toast.add({ severity: 'warn', summary: '確定要刪除商品？', group: 'bc', ID: id })
+      toast.add({ severity: 'success', summary: '確定要刪除商品？', group: 'likeDelete', ID: id })
     }
     const onReject = () => {
-      toast.removeGroup('bc')
+      toast.removeGroup('likeDelete')
     }
     const onConfirm = async (id) => {
       const data = { GoodsID: id }
       await callApi(deleteLikeList, data, () => {
-        toast.add({ severity: 'success', summary: '已刪除', detail: 'Message Content' })
-        toast.removeGroup('bc')
-        getLikeList()
+        toast.add({ severity: 'success', summary: '刪除成功！', group: 'goods_addcart' })
+        toast.removeGroup('likeDelete')
       })
     }
     //獲得商品照片
