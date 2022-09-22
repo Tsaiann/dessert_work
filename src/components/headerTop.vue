@@ -85,7 +85,7 @@
       <Menubar :model="routerList">
         <template #end>
           <img src="../assets/home/icon_search.png" alt="search" @click="handleSearch" />
-          <InputText placeholder="Search" type="text" v-model="search" />
+          <InputText placeholder="hi" type="text" v-model="search" />
         </template>
       </Menubar>
     </div>
