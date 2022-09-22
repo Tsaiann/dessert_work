@@ -5,15 +5,15 @@ html, body {
 #app {
   position: relative;
   height: 100%;
+  &::webkit-scrollbar{
+    display: none;
+  }
   .home {
     @include flexBox(column, flex-start, flex-start);
     width: 100%;
     background: rgb(246, 246, 246);
     font-family: 'Noto Sans TC', 'Microsoft JhengHei', 'Hei', sans-serif;
     color: $darkGray;
-    ::webkit-scrollbar{
-      display: none;
-    }
     img{
       display: block;
     }
