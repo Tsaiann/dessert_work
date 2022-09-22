@@ -60,6 +60,7 @@
 .order{
   @include size(100%, 760px);
   .orderData{
+    height: 300px;
     .goods_detail{
       img{
         width: 20%;
@@ -222,6 +223,8 @@
   }
 }
 .orderData{
+  max-height: 300px;
+  overflow: scroll;
   .goods_detail{
     @include flexBox(row, center, flex-start);
     margin: 20px 0 20px 17px;

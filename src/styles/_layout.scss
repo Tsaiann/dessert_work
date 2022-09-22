@@ -1,13 +1,44 @@
 html, body {
   height: 100%;
+  &::webkit-scrollbar{
+    display: none;
+  }
+  .button_submit{
+    opacity: 0.8;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    &.confirm{
+      background: #DACDBC;
+      color: #000;
+      &:hover{
+        color: white;
+        background: #C3996D;
+      }
+    }
+    &.cancel{
+      background: rgb(246, 240, 240);
+      color: $darkGray;
+      &:hover{
+        color: $darkGray;
+        background: #d5d4d2;
+      }
+    }
+    &.normal{
+      background: #c69e98;
+      color: #000;
+      &:hover{
+        color: #fff;
+        background: #ac8079;
+      }
+    }
+  }
 }
 
 #app {
   position: relative;
   height: 100%;
-  &::webkit-scrollbar{
-    display: none;
-  }
   .home {
     @include flexBox(column, flex-start, flex-start);
     width: 100%;
@@ -42,37 +73,6 @@ html, body {
     }
     i{
       cursor: pointer;
-    }
-    .button_submit{
-      opacity: 0.8;
-      border: 0;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 18px;
-      &.confirm{
-        background: #DACDBC;
-        color: #000;
-        &:hover{
-          color: white;
-          background: #C3996D;
-        }
-      }
-      &.cancel{
-        background: rgb(246, 240, 240);
-        color: $darkGray;
-        &:hover{
-          color: $darkGray;
-          background: #d5d4d2;
-        }
-      }
-      &.normal{
-        background: #c69e98;
-        color: #000;
-        &:hover{
-          color: #fff;
-          background: #ac8079;
-        }
-      }
     }
     .guide{
       border-bottom: 2px solid $middleGray;
