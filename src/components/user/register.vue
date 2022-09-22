@@ -2,8 +2,8 @@
   <div class="register">
     <Toast position="center" />
     <div class="register-button">
-      <p>註冊會員</p>
       <span @click="$router.push({ name: 'Login' })">會員登入</span>
+      <p>註冊會員</p>
     </div>
     <div class="register-data">
       <div>

@@ -19,7 +19,7 @@ export default {
   setup() {
     const guideData = reactive([
       {
-        label: '會員專區',
+        label: '會員登入與註冊',
         to: '/user'
       }
     ])

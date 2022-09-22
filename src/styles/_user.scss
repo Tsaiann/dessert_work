@@ -23,7 +23,7 @@
       padding: 20px 0;
     }
     p{
-      border-right: 1px solid $darkGray;
+      border-left: 1px solid $darkGray;
       border-bottom: 1px solid $darkGray;
       background: $lightGray;
     }
@@ -71,6 +71,10 @@
         @include text($middleGray,16,400);
         width: 100%;
         text-align: center;
+        cursor: pointer;
+        &:hover{
+          color: #000;
+        }
       }
     }
   }
@@ -90,7 +94,7 @@
       padding: 20px 0;
     }
     span{
-      border-left: 1px solid $darkGray;
+      border-right: 1px solid $darkGray;
       border-bottom: 1px solid $darkGray;
       background: $lightGray;
     }

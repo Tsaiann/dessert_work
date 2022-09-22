@@ -23,7 +23,7 @@
           </div>
         </template>
         <template #item="slotProps">
-          <div class="product-item" @click="$router.push({ name: 'GoodsDetail' })">
+          <div class="product-item" @click="checkGoodsDetail(slotProps.data.ID)">
             <div class="product-item-content">
               <div>
                 <img :src="slotProps.data.ImageUrls[0].Url" alt="" />
@@ -80,10 +80,12 @@
 import { ref, reactive, computed, onMounted } from 'vue'
 import { getGoodsList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'Content',
   setup() {
+    const router = useRouter()
     let homeImgs = [{ src: require('../assets/home/home01.png') }, { src: require('../assets/home/home02.png') }, { src: require('../assets/home/home03.png') }]
     let showHomeImg = ref(0)
     let transitionName = ref('right-in')
@@ -109,7 +111,7 @@ export default {
       goodsListSearch: {
         ID: 0,
         Page: 0,
-        PageLimit: 0,
+        PageLimit: 10,
         GoodsName: '',
         GoodsType: 0
       }
@@ -138,6 +140,14 @@ export default {
         numScroll: 1
       }
     ])
+    const checkGoodsDetail = (id) => {
+      localStorage.setItem('goodsDetailID', id)
+      if (id === 47 || id === 48 || id === 49 || id === 50 || id === 51 || id === 52) {
+        router.push({ name: 'SpecsDetail' })
+      } else {
+        router.push({ name: 'GoodsDetail' })
+      }
+    }
     return {
       homeImgs,
       showHomeImg,
@@ -146,7 +156,8 @@ export default {
       currentIndex,
       responsiveOptions,
       state,
-      getAllGoodsList
+      getAllGoodsList,
+      checkGoodsDetail
     }
   }
 }

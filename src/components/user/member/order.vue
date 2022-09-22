@@ -27,10 +27,10 @@
             <div></div>
             <p>商品資訊</p>
           </div>
-          <div class="goods_detail" v-for="(item, i) in state.orderDetailList.Items" :key="i">
-            <img src="../../../assets/home/cake_item01.png" alt="cake" />
+          <div class="goods_detail" v-for="(item, i) in state.orderDetailList.OrderItem" :key="i">
+            <img :src="renderOrderImg(item.ImageUrls[0].Url)" alt="cake" />
             <div data-width="100%" data-space-left="1rem">
-              <h3>{{ item.Goods.Name }}</h3>
+              <h3>{{ item.Name }}</h3>
               <p>NT {{ item.TimestampPice }}</p>
             </div>
             <div data-width="20%">
@@ -88,6 +88,7 @@ export default {
     const detailDialog = ref(false)
     //獲得所有訂單資料
     const getOrder = onMounted(() => {
+      state.allGoodsList = JSON.parse(localStorage.getItem('goodsInfo'))
       let data = {}
       callApi(getOrderList, data, (res) => {
         state.orderList = [...res.data.Data]
@@ -120,7 +121,6 @@ export default {
       const data = { ID: id }
       callApi(orderDetail, data, (res) => {
         state.orderDetailList = res.data.Data
-        console.log(state.orderDetailList)
         goodsChange()
         detailDialog.value = true
       })
@@ -131,12 +131,16 @@ export default {
     const goodsChange = () => {
       const goodsData = JSON.parse(localStorage.getItem('goodsInfo'))
       for (let i in goodsData) {
-        for (let e in state.orderDetailList.Items) {
-          if (state.orderDetailList.Items[e].GoodsID === goodsData[i].ID) {
-            state.orderDetailList.Items[e].Goods.Name = goodsData[i].Name
+        for (let j in state.orderDetailList.OrderItem) {
+          if (state.orderDetailList.OrderItem[j].GoodsID == goodsData[i].ID) {
+            state.orderDetailList.OrderItem[j].Name = goodsData[i].Name
+            console.log(state.orderDetailList.OrderItem)
           }
         }
       }
+    }
+    const renderOrderImg = (img) => {
+      return process.env.VUE_APP_BASE_API + '/imgs/' + img
     }
     return {
       getOrder,
@@ -145,7 +149,8 @@ export default {
       detailDialog,
       state,
       getOrderDetail,
-      openDialog
+      openDialog,
+      renderOrderImg
     }
   }
 }

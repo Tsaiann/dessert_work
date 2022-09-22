@@ -2,8 +2,8 @@
   <div class="login">
     <Toast position="center" />
     <div class="login-button">
-      <p @click="$router.push({ name: 'Register' })">註冊會員</p>
       <span>會員登入</span>
+      <p @click="$router.push({ name: 'Register' })">註冊會員</p>
     </div>
     <div class="login-data">
       <p>帳號</p>
@@ -16,10 +16,6 @@
       </div>
       <div class="smbit">
         <button class="button_submit confirm" @click="hanleLogin">登入</button>
-        <div class="field-checkbox">
-          <Checkbox id="binary" v-model="state.checked" :binary="true" />
-          <label for="binary">保持登入</label>
-        </div>
         <p>忘記密碼嗎？</p>
       </div>
     </div>

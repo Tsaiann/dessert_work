@@ -1,18 +1,17 @@
 <template>
   <div class="cart container">
     <Toast position="center" />
-    <Toast position="center" group="bc" @close="onReject">
-      <template #message="slotProps">
-        <div class="row horizontal flex flex-column">
+    <Toast position="center" group="goodsDelete">
+      <template #message="slot">
+        <div class="row horizontal">
           <div data-width="100%">
-            <div class="row vertical center" data-space-bottom="1rem">
-              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
-              <h4>{{ slotProps.message.summary }}</h4>
-              <p>{{ slotProps.message.detail }}</p>
+            <div class="row vertical center">
+              <i class="pi pi-exclamation-circle" style="font-size: 3rem" data-space-bottom="1rem"></i>
+              <h4>{{ slot.message.summary }}</h4>
             </div>
             <div class="row horizontal center">
-              <Button class="p-button-success" label="是" @click="onConfirm(slotProps.message.ID)" data-space-right="1rem"></Button>
-              <Button class="p-button-secondary" label="否" @click="onReject"></Button>
+              <Button class="p-button-success" label="取消" @click="onReject()" data-space-right="1rem"></Button>
+              <Button class="p-button-secondary" label="確定" @click="onConfirm(slot.message.ID)"></Button>
             </div>
           </div>
         </div>
@@ -26,7 +25,9 @@
       <div class="cart-data">
         <h2>購物車</h2>
         <DataTable :value="state.goodsList" responsiveLayout="scroll">
-          <Column field="Goods.Name" header="商品名稱" bodyStyle="width: 250px"></Column>
+          <Column field="Goods.Name" header="商品名稱" bodyStyle="width: 250px">
+            <p>ddddddd</p>
+          </Column>
           <Column field="TimestampPice" header="價格"></Column>
           <Column header="數量" headerStyle="text-align: center">
             <template #body="{ data }">
@@ -91,7 +92,7 @@
             <p>NT {{ orderTotal }}</p>
           </div>
         </div>
-        <Dialog header="優惠券" v-model:visible="dialogDiscountVisible" :style="{ width: '500px' }">
+        <Dialog header="優惠券" v-model:visible="dialogDiscountVisible" :style="{ width: '500px' }" class="cart_dialog">
           <div class="row horizontal wrap space_between">
             <div class="dialog-discount">
               <h2>NT $100</h2>
@@ -221,16 +222,15 @@ export default {
     })
     //刪除購物車資料
     const deleteCartData = async (id) => {
-      toast.add({ severity: 'warn', summary: '確定要刪除商品？', group: 'bc', ID: id })
+      toast.add({ severity: 'success', summary: '確定要刪除商品？', group: 'goodsDelete', ID: id })
     }
     const onReject = () => {
-      toast.removeGroup('bc')
+      toast.removeGroup('goodsDelete')
     }
     const onConfirm = async (id) => {
       const data = { ID: id }
       await callApi(deleteGoodsCart, data, () => {
-        toast.add({ severity: 'success', summary: '已刪除', detail: 'Message Content' })
-        toast.removeGroup('bc')
+        toast.removeGroup('goodsDelete')
         getCartData()
       })
       await reload()
@@ -242,7 +242,7 @@ export default {
         store.commit('cartModules/SET_CARTTOTAL', orderTotal.value)
         router.push({ name: 'FillInfo' })
       } else {
-        toast.add({ severity: 'error', summary: '請選擇送貨與付款方式', detail: 'Message Content' })
+        toast.add({ severity: 'error', summary: '請選擇送貨與付款方式', group: 'errorBox' })
       }
     }
     //每筆商品的金額總數

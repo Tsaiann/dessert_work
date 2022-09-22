@@ -183,10 +183,32 @@
     @include flexBox(row, center, space-between);
     padding: 30px 40px;
     border-bottom: 1px solid $darkGray;
+    cursor: pointer;
+    &:hover{
+      h2{
+        color: #000;
+      }
+      p{
+        color: #9c8870;
+      }
+    }
     img{
       width: 20%;
     }
-    div{
+    .iconList{
+      @include flexBox(column, center, flex-start);
+      width: 80px;
+      cursor: pointer;
+      &:hover{
+        color: #000;
+      }
+      i{
+        border: 1px solid $darkGray;
+        padding: 5px;
+        border-radius: 5px;
+      }
+    }
+    &_text{
       width: 100%;
       h2{
         font-size: 20px;
@@ -195,19 +217,6 @@
         color: #C7B299;
         font-weight: bolder;
         font-size: 18px;
-      }
-      .iconList{
-        @include flexBox(column, center, flex-start);
-        width: 80px;
-        cursor: pointer;
-        &:hover{
-          color: #000;
-        }
-        i{
-          border: 1px solid $darkGray;
-          padding: 5px;
-          border-radius: 5px;
-        }
       }
     }
   }

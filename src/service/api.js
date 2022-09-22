@@ -195,7 +195,7 @@ export const updateCartInfo = (data) =>
     data: data
   })
 
-// 獲得訂單詳細資料
+// 獲得優惠卷詳細資料
 export const benefitsList = (data) =>
   request({
     url: '/member/center/benefits',

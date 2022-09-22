@@ -7,7 +7,6 @@
     <div class="goods-detail">
       <card v-for="(item, i) in state.goodsList" :key="i" :list="item" />
     </div>
-    <Paginator :rows="9"></Paginator>
   </div>
 </template>
 <script>

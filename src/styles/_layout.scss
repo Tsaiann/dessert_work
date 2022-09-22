@@ -6,86 +6,141 @@ html, body {
   position: relative;
   height: 100%;
   .home {
-      @include flexBox(column, flex-start, flex-start);
-      width: 100%;
-      background: rgb(246, 246, 246);
-      font-family: 'Noto Sans TC', 'Microsoft JhengHei', 'Hei', sans-serif;
-      color: $darkGray;
-      img{
-        display: block;
-      }
-      .container{
-      	max-width: 1000px;
-        margin: auto;
-      }
-      .p-breadcrumb{
-        background: none;
-        border: none;
-      }
-      .p-menubar{
-        background: none;
-        border: none;
-      }
-      ::-webkit-scrollbar{
-        display: none;
-      }
-      .horizon{
-        border-top: 1px solid $middleGray;
-      }
-      h1{
-        color: #754C24;
-        font-size: 24px;
-        font-weight: 500;
-      }
-      i{
-        cursor: pointer;
-      }
-      .button_submit{
-        opacity: 0.8;
-        border: 0;
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 18px;
-        &.confirm{
-          background: #DACDBC;
-          color: #000;
-          &:hover{
-            color: white;
-            background: #C3996D;
-          }
+    @include flexBox(column, flex-start, flex-start);
+    width: 100%;
+    background: rgb(246, 246, 246);
+    font-family: 'Noto Sans TC', 'Microsoft JhengHei', 'Hei', sans-serif;
+    color: $darkGray;
+    img{
+      display: block;
+    }
+    .container{
+      max-width: 1000px;
+      margin: auto;
+    }
+    .p-breadcrumb{
+      background: none;
+      border: none;
+    }
+    .p-menubar{
+      background: none;
+      border: none;
+    }
+    ::-webkit-scrollbar{
+      display: none;
+    }
+    .horizon{
+      border-top: 1px solid $middleGray;
+    }
+    h1{
+      color: #754C24;
+      font-size: 24px;
+      font-weight: 500;
+    }
+    i{
+      cursor: pointer;
+    }
+    .button_submit{
+      opacity: 0.8;
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      &.confirm{
+        background: #DACDBC;
+        color: #000;
+        &:hover{
+          color: white;
+          background: #C3996D;
         }
-        &.cancel{
-          background: rgb(246, 240, 240);
+      }
+      &.cancel{
+        background: rgb(246, 240, 240);
+        color: $darkGray;
+        &:hover{
           color: $darkGray;
-          &:hover{
-            color: $darkGray;
-            background: #d5d4d2;
-          }
+          background: #d5d4d2;
         }
-        &.normal{
-          background: #c69e98;
-          color: #000;
-          &:hover{
-            color: #fff;
-            background: #ac8079;
+      }
+      &.normal{
+        background: #c69e98;
+        color: #000;
+        &:hover{
+          color: #fff;
+          background: #ac8079;
+        }
+      }
+    }
+    .guide{
+      border-bottom: 2px solid $middleGray;
+      padding-bottom: 0;
+      width: 100%;
+      nav{
+        ul{
+          li{
+            margin-bottom: 0;
+          }
+          span{
+            margin-left: 0;
           }
         }
       }
-      .guide{
-        border-bottom: 2px solid $middleGray;
-        padding-bottom: 0;
-        width: 100%;
-        nav{
-          ul{
-            li{
-              margin-bottom: 0;
-            }
-            span{
-              margin-left: 0;
-            }
-          }
-        }
-      }
+    }
+    .p-toast{
+      opacity: 1;
+    }
   }
 }
-
+.p-toast{
+  opacity: 1;
+  width: 300px !important;
+  .p-toast-message{
+    border: none !important;
+    background: #fff !important;
+    width: 300px;
+    &-content{
+      padding: 10px !important;
+      div{
+        padding: 15px 10px 10px 10px;
+        h4{
+          font-size: 20px;
+        }
+        nav{
+          background: #000;
+          position: absolute;
+          opacity: 0.3;
+          z-index: -9;
+          width: 100vw;
+          height: 100vw;
+        }
+      }
+    }
+  }
+  .p-toast-message{
+    &.p-toast-message-success{
+      .p-toast-icon-close{
+        display: none;
+      }
+      .pi-times{
+        color: #000;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+      }
+      .p-button-success, .p-button-secondary{
+        background: $lightGray;
+        font-size: 12px;
+        color: #000;
+        border: 1px solid $middleGray;
+      }
+    }
+    &.p-toast-message-error{
+      padding-left: 28px;
+      h4{
+        font-size: 15px;
+        white-space: nowrap;
+      }
+    }
+  }
+}

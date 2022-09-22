@@ -7,11 +7,10 @@
     <div class="goods-detail">
       <card v-for="(item, i) in state.goodsList" :key="i" :list="item" />
     </div>
-    <Paginator :rows="9"></Paginator>
   </div>
 </template>
 <script>
-import { reactive, onMounted } from 'vue'
+import { reactive, onMounted, inject } from 'vue'
 import { getGoodsList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import card from '@/components/goods/card'
@@ -23,6 +22,7 @@ export default {
     card
   },
   setup() {
+    const reload = inject('reload')
     const router = useRouter()
     const state = reactive({
       goodsList: [],

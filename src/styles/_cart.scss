@@ -186,14 +186,17 @@
 .p-dialog .p-dialog-footer button{
   width: 300px;
 }
-.p-dialog-content{
-  height: 300px;
-  overflow: scroll;
+.cart_dialog{
+  .p-dialog-content{
+    height: 300px;
+    overflow: scroll;
+  }
 }
 
 .p-toast .p-toast-message.p-toast-message-warn{
   background: $lightGray;
   opacity: 1;
+  border: none;
 }
 .p-datatable{
   max-height: 350px;

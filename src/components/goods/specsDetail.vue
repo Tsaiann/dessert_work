@@ -17,13 +17,18 @@
           <h2>{{ state.goodsData.Name }}</h2>
           <hr />
           <p>建議售價 NT{{ state.goodsData.UnitPrice }}</p>
-          <div class="specs">
-            <div class="row horizontal bottom_left" data-space-bottom="2rem">
+          <div class="specs_exception">
+            <div class="row horizontal bottom_left" data-space-bottom="1.5rem">
               <h3 data-space-right="1rem">選擇規格</h3>
-              <span>( 可選1種 )</span>
+              <span>( 最多可選{{ state.specsCount }}種 )</span>
             </div>
-            <input id="checkbox" type="checkbox" v-model="state.check" />
-            <label for="checkbox" class="specs-customize">{{ state.specs }}</label>
+            <div class="field-checkbox">
+              <div v-for="(item, i) in state.newGoodsData" :key="i" class="field-checkbox-item">
+                <input :id="item.ID" type="checkbox" name="specs" :value="item.ID" v-model="state.allSpecsCheckedID" @click="handleSpecsMax($event)" />
+                <label :for="item.ID">{{ item.Specs }}</label>
+                <input class="specsCount" type="number" v-model="item.Num" max="99" min="1" />
+              </div>
+            </div>
           </div>
           <div>
             <h3>購買數量</h3>
@@ -32,7 +37,6 @@
               <InputNumber class="p-inputtext-sm" v-model="state.count" />
               <i class="pi pi-plus" style="color: red" @click="countChange('plus')"></i>
             </div>
-            <Textarea v-model="state.remark" rows="5" cols="30" data-width="100%" placeholder="有任何額外需求請打在此處" />
             <div class="like" v-if="state.like === false" @click="handleAddLike">
               <i class="pi pi-heart" data-space-left="1rem"></i>
               <span data-space-left="0.5rem">加入到收藏清單</span>
@@ -64,32 +68,32 @@
         <div class="wire"></div>
       </div>
       <div class="goods-about_item">
-        <div class="row vertical center" @click="aboutGoodsRouter(52)">
-          <img src="../../assets/goods/macaron02.jpg" alt="" />
-          <h2>馬卡龍</h2>
+        <div class="row vertical center" @click="aboutGoodsRouter(54)">
+          <img src="../../assets/goods/meringueTart0.jpg" alt="tart" />
+          <h2>蛋白霜檸檬塔</h2>
           <p>NT 80</p>
         </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(49)">
-          <img src="../../assets/goods/cupcake01.jpg" alt="" />
-          <h2>杯子蛋糕</h2>
-          <p>NT 70</p>
+        <div class="row vertical center" @click="aboutGoodsRouter(53)">
+          <img src="../../assets/goods/strawberryTart.jpg" alt="tart" />
+          <h2>法式卡士達草莓塔</h2>
+          <p>NT 120</p>
         </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(50)">
-          <img src="../../assets/goods/macaronBox5-01.jpg" alt="" />
-          <h2>馬卡龍禮盒 - 5入</h2>
-          <p>NT 400</p>
+        <div class="row vertical center" @click="aboutGoodsRouter(55)">
+          <img src="../../assets/goods/poundCake01.jpg" alt="poundCake" />
+          <h2>蜜漬柳橙磅蛋糕</h2>
+          <p>NT 80</p>
         </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(47)">
-          <img src="../../assets/goods/cupcakeBox4-01.jpg" alt="" />
-          <h2>杯子蛋糕禮盒 - 4入</h2>
-          <p>NT 280</p>
+        <div class="row vertical center" @click="aboutGoodsRouter(41)">
+          <img src="../../assets/goods/strawberryChiffon01.jpg" alt="chiffon" />
+          <h2>草莓香草戚風蛋糕</h2>
+          <p>NT 580</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { reactive, onMounted, inject, ref } from 'vue'
+import { reactive, onMounted, inject, computed } from 'vue'
 import { callApi } from '@/utils/callApi'
 import { useStore } from 'vuex'
 import { addGoodsCart, addLikeList, allLikeList, getImg, getGoodsList } from '@/service/api'
@@ -98,7 +102,7 @@ import { useRouter } from 'vue-router'
 import guideLine from '@/components/guideLine.vue'
 
 export default {
-  name: 'GoodsDetail',
+  name: 'SpecsDetail',
   components: {
     guideLine
   },
@@ -107,20 +111,17 @@ export default {
     const toast = useToast()
     const router = useRouter()
     const state = reactive({
-      check: false,
       goodsData: [],
+      newGoodsData: [],
       imgList: [],
-      specs: '',
+      allSpecsCheckedID: [],
+      currentSpecsChecked: [],
+      checkedStatus: [],
       count: 1,
-      remark: '',
+      specsCount: null,
       cartForm: {
         GoodsID: null,
-        Specs: [
-          {
-            SpecID: null,
-            Num: null
-          }
-        ]
+        Specs: []
       },
       like: false
     })
@@ -130,13 +131,14 @@ export default {
       callApi(getGoodsList, data, (res) => {
         state.goodsData = res.data.Data
         state.cartForm.GoodsID = state.goodsData.ID
-        state.cartForm.Specs[0].SpecID = state.goodsData.GoodsSpecs[1].ID
-        state.specs = state.goodsData.GoodsSpecs[1].Specs
+        state.specsCount = state.goodsData.GoodsSpecs[0].Specs
         guideData[1].label = state.goodsData.Name
+        state.newGoodsData = state.goodsData.GoodsSpecs.slice(1)
         getImg()
         likeStatus()
       })
     })
+    //獲得照片
     const getImg = () => {
       for (let i in state.goodsData.ImageUrls) {
         const url = state.goodsData.ImageUrls[i].Url
@@ -165,14 +167,25 @@ export default {
     const addCart = async () => {
       const userInfo = localStorage.getItem('userInfo')
       if (userInfo !== null) {
-        if (state.check == true) {
-          state.cartForm.Specs[0].Num = state.count
+        checkSpecs()
+        const totalNum = state.cartForm.Specs.reduce((pre, cur) => {
+          return pre + cur.Num
+        }, 0)
+        if (totalNum == state.specsCount) {
+          state.cartForm.Specs.unshift({
+            SpecID: state.goodsData.GoodsSpecs[0].ID,
+            Num: state.count
+          })
           const data = state.cartForm
           callApi(addGoodsCart, data, () => {
             toast.add({ severity: 'success', summary: '已加入購物車！', group: 'goods_addcart' })
+            state.cartForm.Specs = []
           })
         } else {
-          toast.add({ severity: 'error', summary: '請選擇規格', group: 'errorBox' })
+          toast.add({ severity: 'error', summary: '規格有誤，請再次確認！', group: 'errorBox' })
+          state.cartForm.Specs = []
+          console.log(state.specsCount)
+          console.log(totalNum)
         }
       } else {
         toast.add({ severity: 'error', summary: '請先登入會員！', group: 'errorBox' })
@@ -182,15 +195,23 @@ export default {
     const handleBuy = async () => {
       const userInfo = localStorage.getItem('userInfo')
       if (userInfo !== null) {
-        if (state.check == true) {
-          state.cartForm.Specs[0].Num = state.count
-          const data = state.cartForm
-          await callApi(addGoodsCart, data, () => {
-            router.push({ name: 'Cart' })
+        checkSpecs()
+        const totalNum = state.cartForm.Specs.reduce((pre, cur) => {
+          return pre + cur.Num
+        }, 0)
+        if (totalNum == state.specsCount) {
+          state.cartForm.Specs.unshift({
+            SpecID: state.goodsData.GoodsSpecs[0].ID,
+            Num: state.count
           })
-          await reload()
+          const data = state.cartForm
+          callApi(addGoodsCart, data, () => {
+            router.push({ name: 'Cart' })
+            state.cartForm.Specs = []
+          })
         } else {
-          toast.add({ severity: 'error', summary: '請選擇規格', group: 'errorBox' })
+          toast.add({ severity: 'error', summary: '規格有誤，請再次確認！', group: 'errorBox' })
+          state.cartForm.Specs = []
         }
       } else {
         toast.add({ severity: 'error', summary: '請先登入會員！', group: 'errorBox' })
@@ -208,10 +229,7 @@ export default {
         toast.add({ severity: 'error', summary: '請先登入會員！', group: 'errorBox' })
       }
     }
-    const onConfirm = () => {
-      toast.removeGroup('goodsDetail')
-      reload()
-    }
+    //判斷收藏清單裡是否已有資料
     const likeStatus = () => {
       const data = ''
       callApi(allLikeList, data, (res) => {
@@ -223,24 +241,52 @@ export default {
         }
       })
     }
+    //相關產品的路由跳轉
     const aboutGoodsRouter = (id) => {
       localStorage.setItem('goodsDetailID', id)
-      router.push({ name: 'SpecsDetail' })
+      router.push({ name: 'GoodsDetail' })
     }
-    const test = () => {
-      console.log(state.specsCheckedID)
+    //限制商品規格的數量
+    const handleSpecsMax = (event) => {
+      if (event.target.checked === true) {
+        if (state.currentSpecsChecked.length < state.goodsData.GoodsSpecs[0].Specs) {
+          state.currentSpecsChecked.push(event.target.value)
+          console.log(state.currentSpecsChecked)
+        } else {
+          event.target.checked = false
+          toast.add({ severity: 'error', summary: '已超過數量！', group: 'errorBox' })
+        }
+      } else if (event.target.checked === false) {
+        state.currentSpecsChecked = state.currentSpecsChecked.filter((item) => {
+          return item !== event.target.value
+        })
+        console.log(state.currentSpecsChecked)
+      }
+    }
+    const checkSpecs = () => {
+      for (let i in state.goodsData.GoodsSpecs) {
+        for (let j in state.allSpecsCheckedID) {
+          if (state.goodsData.GoodsSpecs[i].ID === state.allSpecsCheckedID[j]) {
+            state.cartForm.Specs.push({
+              SpecID: state.goodsData.GoodsSpecs[i].ID,
+              Num: state.goodsData.GoodsSpecs[i].Num
+            })
+          }
+        }
+      }
     }
     return {
       state,
       getGoodDetail,
       guideData,
       likeStatus,
-      onConfirm,
       handleAddLike,
       handleBuy,
       addCart,
       countChange,
-      aboutGoodsRouter
+      aboutGoodsRouter,
+      handleSpecsMax,
+      checkSpecs
     }
   }
 }

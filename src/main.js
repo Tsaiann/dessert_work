@@ -11,6 +11,7 @@ import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import '@/styles/style.scss'
 
+import ConfirmDialog from 'primevue/confirmdialog'
 import Dialog from 'primevue/dialog'
 import Toast from 'primevue/toast'
 import Message from 'primevue/message'
@@ -32,6 +33,7 @@ import Dropdown from 'primevue/dropdown'
 import Textarea from 'primevue/textarea'
 import Carousel from 'primevue/carousel'
 import Galleria from 'primevue/galleria'
+import ConfirmationService from 'primevue/confirmationservice'
 
 const app = createApp(App)
 app.use(store)
@@ -39,6 +41,8 @@ app.use(router)
 app.use(VueAxios, axios)
 app.use(useRouter, router)
 app.use(PrimeVue)
+app.use(ConfirmationService)
+app.component('ConfirmDialog', ConfirmDialog)
 app.component('Menubar', Menubar)
 app.component('Toast', Toast)
 app.component('Textarea', Textarea)
