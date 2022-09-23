@@ -61,7 +61,7 @@
         </div>
       </template>
     </Toast>
-    <div class="row vertical v_center container sideTop">
+    <div class="container sideTop">
       <div class="logo" @click="$router.push({ name: 'Content' })"></div>
       <h3 @click="$router.push({ name: 'Content' })">Seasonal Fructification</h3>
       <div class="icon row horizontal center">
@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted, inject } from 'vue'
+import { ref, reactive, onMounted, inject } from 'vue'
 import { getGoodsCart, deleteGoodsCart } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useRouter } from 'vue-router'

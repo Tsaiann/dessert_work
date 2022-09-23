@@ -6,6 +6,7 @@
 	z-index: 100;
 	.sideTop{
 		padding: 20px 0;
+		@include flexBox(column, center, center);
 		h3{
 			@include text(#000, 20, 100);
 			font-family: 'Apple Chancery';
@@ -245,4 +246,70 @@
 			}
 		}  
   }
+}
+@media(max-width: 960px) {
+	.header{
+		.sideTop{
+			@include flexBox(row, flex-start, flex-start);
+			margin: 0 0 0 10px !important;
+			padding: 15px 0;
+			.logo{
+				@include size(30px, 30px);
+					margin: 0 10px 0 0;
+			}
+			.icon{
+				@include position(15px, 10px, '', '');
+				.pi.pi-shopping-cart, .pi-user{
+					font-size: 1.7rem;
+				}
+				.pi-user{
+					font-size: 1.3rem;
+				}
+				.cart_count{
+					@include size(17px, 17px);
+				}
+				input[type="checkbox"]{
+					width: 1px;
+					height: 1px;
+					position: absolute;
+					top: 10%;
+					left: 30%;
+				}
+				.float-block_member{
+					@include size(150px, 120px);
+					@include flexBox(column, center, center);
+					position: absolute;
+					top: 55px;
+					left: -31px;
+					background: #fff;
+					z-index: 99999;
+					border: 2px solid $middleGray;
+					display: none;
+					cursor: auto;
+					button{
+						width: 80%;
+						border: 1px solid $lightGray;
+						margin-top: 10px;
+						border-radius: 5px;
+						padding: 5px 0;
+						background: #e4d8c7;
+						cursor: pointer;
+						&:hover{
+							color: white;
+							background: #C3996D;
+						}
+					}
+				}
+				input[type="checkbox"]{
+					&:checked ~ label{
+						.float-block_member{
+							display: block;
+							@include flexBox(column, center, center);
+						}
+					}
+				}
+			}
+		}
+
+	}
 }

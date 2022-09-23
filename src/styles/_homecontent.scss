@@ -3,6 +3,13 @@
   .card{
     max-width: 1000px;
     margin: 0 auto 100px auto;
+    .p-carousel-container{
+      height: 330px;
+      .p-carousel-items-content{
+        @include flexBox(row, center, space-between);
+        padding-left: 20px;
+      }
+    }
     .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
       background-color: #d5b087;
       border-radius: 10px;
@@ -31,18 +38,13 @@
     }
     .product-item {
       width: 90%;
-      position: relative;
+      box-sizing: border-box;
+      transition: all .2s ease-in;
       cursor: pointer;
       &:hover{
-        &::after{
-          content: '';
-          width: 202px;
-          height: 300px;
-          background: #fff;
-          position: absolute;
-          top: 0;
-          opacity: 0.3;
-        }
+        position: relative;
+        transform: scale(1.02);
+        box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
       }
       .product-item-content {
         border: 1px solid $middleGray;
@@ -54,11 +56,11 @@
         h4{
           margin: 20px 0 10px 0;
           font-weight: 400;
-          font-size: 18px;
+          font-size: 16px;
         }
         h6{
           margin-bottom: 10px;
-          font-size: 18px;
+          font-size: 16px;
           color: #603814;
         }
       }
@@ -174,7 +176,7 @@
     }
   }
   .brand{
-   padding: 100px 0;
+   padding: 100px 20px;
     @include flexBox(row, flex-end, space-between);
     li{
       @include flexBox(column, center, center);
@@ -186,15 +188,17 @@
     }
   }
   .cakeType{
-    @include flexBox(row, flex-start,space-between);
+    @include flexBox(row, flex-start, center);
     max-width: 800px;
     margin: 0 auto 100px auto;
+    padding: 0 0 0 30px;
     .item{
       position: relative;
       cursor: pointer;
-      &:before, &:after{
+      margin-right: 30px;
+      &::before, &::after{
         content: "";
-        @include size(160px, 280px);
+        @include size(73%, 84%);
         @include position(25px, '', '', 28px);
         border-style: solid;
         border-color: #fff;
@@ -202,18 +206,18 @@
       }
       &::after{
         content: '';
-        width: 162px;
+        width: 74%;
         border-width: 1px 0 1px 0;
         transform:  scaleX(0);
       }
       &::before{
         content: '';
-        height: 282px;
+        height: 85%;
         border-width: 0 1px 0 1px;
         transform:  scaleY(0);
       }
       &:hover{
-        &:after, &:before{
+        &::after, &::before{
           transform: scale(1,1);
         }
       }
@@ -227,9 +231,71 @@
         @include position(57%, '', '', 50%);
         color: #fff;
         transform: translate(-50%,-50%);
+        white-space: nowrap;
       }
       img{
-        width: 220px;
+        width: 100%;
+      }
+    }
+  }
+}
+@media(max-width: 800px) {
+  .content{
+    .cakeType{
+      @include flexBox(column, center, center);
+      .item{
+        width: 300px;
+        height: 300px;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 30px;
+        &::before, &::after{
+          @include size(240px, 240px);
+          @include position(30px, '', '', 30px);
+        }
+        &::after{
+          width: 242px;
+        }
+        &::before{
+          height: 242px;
+          z-index: 9;
+        }
+        p{
+          font-size: 16px;
+        }
+        span{
+          font-size: 16px;
+        }
+        img{
+          position: absolute;
+          bottom: -20%;
+        }
+      }
+    }
+    .brand{
+      @include flexBox(row, flex-end, center);
+      flex-wrap: wrap;
+      padding: 0 10px 50px 10px;
+      li{
+        width: 30%;
+        margin: 0 30px 30px 30px;
+      }
+    }
+  }
+}
+
+@media(max-width: 607px) {
+  .content{
+    .card{
+      .product-item{
+        .product-item-content{
+          h4{
+            font-size: 10px;
+          }
+          h6{
+            font-size: 10px;
+          }
+        }
       }
     }
   }
