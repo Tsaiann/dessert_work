@@ -27,7 +27,10 @@
       <h1 data-space-bottom="1rem">運送相關問題</h1>
       <ul data-space-bottom="3rem">
         <li>
-          <p>‧ 商品運送方式為何？ / 消費多少金額可以免運費？ / 請問最快到貨日為幾天？ / 到貨日期及地址可以更動嗎？</p>
+          <p>‧ 商品運送方式為何？</p>
+          <p>‧ 消費多少金額可以免運費？</p>
+          <p>‧ 請問最快到貨日為幾天？</p>
+          <p>‧ 到貨日期及地址可以更動嗎？</p>
           <span>在本站的<a href="#/delivery">宅配需知</a>說明可以得到更多詳細的內容。</span>
         </li>
       </ul>
@@ -46,7 +49,7 @@
         </li>
       </ul>
       <h1 data-space-bottom="1rem">線上客服服務時間</h1>
-      <ul data-space-bottom="3rem">
+      <ul data-space-bottom="3rem" class="service">
         <li>‧ 線上客服回覆時間：週一 ~ 週五 早上9 : 00 ~ 晚上18 : 00</li>
         <li>‧ 客服聯絡電話：02-2876-7897</li>
         <li>‧ 客服意見反應信箱：season99@gmail.com</li>

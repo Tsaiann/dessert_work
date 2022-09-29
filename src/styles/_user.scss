@@ -1,6 +1,7 @@
 .user{
   width: 100%;
   line-height: 1.5;
+  padding: 0 20px;
   .user-page{
     width: 100%;
     background: #fff;
@@ -8,11 +9,11 @@
     margin-bottom: 100px;
   }
 }
-.login{
+.login, .register{
   width: 70%;
   margin: auto;
   border: 1px solid $darkGray;
-  .login-button{
+  .login-button, .register-button{
     @include flexBox(row, flex-start, flex-start);
     width: 100%;
     cursor: pointer;
@@ -22,6 +23,10 @@
       text-align: center;
       padding: 20px 0;
     }
+  }
+}
+.login{
+  .login-button{
     p{
       border-left: 1px solid $darkGray;
       border-bottom: 1px solid $darkGray;
@@ -31,7 +36,7 @@
   .login-data{
     width: 80%;
     margin: auto;
-    padding: 50px 0;
+    padding: 30px 0;
     p{
       font-size: 18px;
       margin: 15px 0 5px 0;
@@ -80,19 +85,7 @@
   }
 }
 .register{
-  width: 70%;
-  margin: auto;
-  border: 1px solid $darkGray;
   .register-button{
-    @include flexBox(row, flex-start, flex-start);
-    width: 100%;
-    cursor: pointer;
-    p, span{
-      width: 50%;
-      font-size: 22px;
-      text-align: center;
-      padding: 20px 0;
-    }
     span{
       border-right: 1px solid $darkGray;
       border-bottom: 1px solid $darkGray;
@@ -102,7 +95,7 @@
   .register-data{
     width: 80%;
     margin: auto;
-    padding: 50px 0;
+    padding: 30px 0;
     .p-calendar .p-component .p-inputwrapper{
       width: 200px;
     }
@@ -127,4 +120,24 @@
 .button_submit{
   @include size(300px, 40px);
   margin: 10px 0;
+}
+@media(max-width: 800px) {
+  .login, .register{
+    width: 100%;
+  }
+}
+@media(max-width: 607px) {
+  .login, .register{
+    .login-button, .register-button{
+      p, span{
+        font-size: 18px;
+        padding: 10px 0;
+      }
+    }
+  }
+  .user{
+    .user-page{
+      padding: 50px;
+    }
+  }
 }

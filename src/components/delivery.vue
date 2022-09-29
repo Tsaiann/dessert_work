@@ -1,12 +1,14 @@
 <template>
-  <div class="delivery container">
+  <div class="container">
     <guideLine :data="guideData" />
-    <div data-space-left="1rem">
+    <div class="delivery">
       <h1 data-space-bottom="0.5rem">蛋糕宅配須知</h1>
       <p data-space-bottom="1.5rem">
         目前我們配合黑貓宅急便做蛋糕宅配運送，為了確保商品的新鮮及配送安全，全程都會使用低溫冷凍配送，因此如果蛋糕內容含有新鮮水果及無法冷凍的食材就不能選擇宅配運送。
       </p>
-      <div class="delivery-img"></div>
+      <div class="delivery-img">
+        <img src="../assets/other/delivery.png" alt="delivery" />
+      </div>
       <ul class="delivery-list">
         <li>＊ 可指定到貨日：時間為週二至週六，因應黑貓宅急便週日公休政策，所以週日及週一無法指定到貨。</li>
         <li>＊ 訂單送出後，請在24小時內完成付款，付款完成才開始安排訂單製作。</li>

@@ -41,7 +41,7 @@
         </div>
         <img src="../../assets/other/foodData_chocolate.png" alt="chocolate" />
       </div>
-      <div class="row vertical center">
+      <div class="row vertical center bowl">
         <img src="../../assets/other/foodData_bowl.png" alt="bowl" />
       </div>
     </div>

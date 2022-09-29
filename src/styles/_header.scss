@@ -268,13 +268,6 @@
 				.cart_count{
 					@include size(17px, 17px);
 				}
-				input[type="checkbox"]{
-					width: 1px;
-					height: 1px;
-					position: absolute;
-					top: 10%;
-					left: 30%;
-				}
 				.float-block_member{
 					@include size(150px, 120px);
 					@include flexBox(column, center, center);

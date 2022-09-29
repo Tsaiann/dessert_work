@@ -19,7 +19,7 @@
     <div class="row horizontal v_center" data-space-bottom="2rem">
       <i class="pi pi-user" style="font-size: 1.5rem"></i>
       <p data-space-left="1rem">{{ state.memberForm.account }}</p>
-      <div class="member-level">銅級會員</div>
+      <div class="member-level">{{ state.benefitsList.level }}</div>
     </div>
     <div class="row horizontal v_center" data-space-bottom="1rem">
       <i class="pi pi-pencil" style="font-size: 1rem"></i>
@@ -83,18 +83,20 @@
 
 <script>
 import { onMounted, reactive, computed, inject } from 'vue'
-import { memberData, updateMemberData } from '@/service/api'
+import { memberData, updateMemberData, benefitsList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { resetForm } from '@/utils/resetForm'
 import { useToast } from 'primevue/usetoast'
 import { email, required, minLength } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
+import { useStore } from 'vuex'
 
 export default {
   name: 'Homepage',
   setup() {
     const reload = inject('reload')
     const toast = useToast()
+    const store = useStore()
     const state = reactive({
       memberForm: {
         account: '',
@@ -106,7 +108,13 @@ export default {
         Password: ''
       },
       checked: true,
-      pwdConfirm: ''
+      pwdConfirm: '',
+      benefits: {},
+      benefitsList: {
+        level: '',
+        nextLevel: '',
+        nextLevelCash: ''
+      }
     })
     const rules = computed(() => {
       return {
@@ -116,6 +124,7 @@ export default {
       }
     })
     const v$ = useVuelidate(rules, state.memberForm)
+    //取得該會員資料
     const getMemberData = onMounted(async () => {
       const data = ''
       await callApi(memberData, data, (res) => {
@@ -124,12 +133,15 @@ export default {
         state.memberForm.Phone = res.data.Data.Phone
         state.memberForm.Address = res.data.Data.Address
         state.memberForm.account = res.data.Data.Account
+        console.log(res)
       })
     })
+    //重新填寫會員資料
     const handleReset = () => {
       resetForm(state.memberForm)
       getMemberData()
     }
+    //會員資料更新
     const handleMemberUpdate = async () => {
       v$.value.$validate()
       const data = state.memberForm
@@ -150,6 +162,37 @@ export default {
     const onConfirm = () => {
       reload()
     }
+    //得到優惠券資料
+    const getBenefitsData = onMounted(() => {
+      const data = ''
+      callApi(benefitsList, data, (res) => {
+        state.benefits = { ...res.data.Data }
+        levelChange()
+      })
+    })
+    //根據消費金額確認會員等級
+    const levelChange = () => {
+      const total = state.benefits.Consumption
+      if (total < 5000) {
+        state.benefitsList.level = ' 銅級會員'
+        state.benefitsList.nextLevel = '銀級會員'
+        state.benefitsList.nextLevelCash = 5000 - total
+        store.commit('memberModules/SET_USERBENEFITS', state.benefitsList)
+      } else if (total < 10000 && total >= 5000) {
+        state.benefitsList.level = ' 銀級會員'
+        state.benefitsList.nextLevel = '金級會員'
+        state.benefitsList.nextLevelCash = 10000 - total
+        store.commit('memberModules/SET_USERBENEFITS', state.benefitsList)
+      } else if (total < 20000 && total >= 1000) {
+        state.benefitsList.state.level = ' 金級會員'
+        state.benefitsList.nextLevel = '白金會員'
+        state.benefitsList.nextLevelCash = 20000 - total
+        store.commit('memberModules/SET_USERBENEFITS', state.benefitsList)
+      } else {
+        state.benefitsList.state.level = ' 白金會員'
+        store.commit('memberModules/SET_USERBENEFITS', state.benefitsList)
+      }
+    }
     return {
       state,
       getMemberData,
@@ -157,7 +200,8 @@ export default {
       handleMemberUpdate,
       v$,
       rules,
-      onConfirm
+      onConfirm,
+      getBenefitsData
     }
   }
 }

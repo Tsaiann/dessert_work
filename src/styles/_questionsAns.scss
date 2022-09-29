@@ -17,3 +17,23 @@
     }
   }
 }
+
+@media(max-width: 800px) {
+  .QA{
+    ul{
+      padding: 0 20px 0 5px;
+    }
+  }
+}
+@media(max-width: 607px) {
+  .QA{
+    p{
+      @include textIndent(-20, 20);
+    }
+    .service{
+      li{
+        @include textIndent(-20, 20);
+      }
+    }
+  }
+}

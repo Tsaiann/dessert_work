@@ -9,6 +9,11 @@ export const memberModules = {
       phone: '',
       birthday: null,
       token: ''
+    },
+    benefits: {
+      level: '',
+      nextLevel: '',
+      nextLevelCash: ''
     }
   },
 
@@ -36,17 +41,12 @@ export const memberModules = {
         JSON.stringify({ id: payload.Info.ID, account: payload.Info.Account, username: payload.Info.Name, token: payload.Token })
       )
     },
-    LOGOUT(state) {
-      state.memberStatus = {
-        id: null,
-        account: '',
-        username: '',
-        email: '',
-        phone: '',
-        birthday: null,
-        token: ''
-      }
-      localStorage.removeItem('userInfo')
+    SET_USERBENEFITS(state, payload) {
+      console.log('memberStatus store', payload)
+      state.benefits.level = payload.level
+      state.benefits.nextLevel = payload.nextLevel
+      state.benefits.nextLevelCash = payload.nextLevelCash
+      localStorage.setItem('userBenefits', JSON.stringify({ level: payload.level, nextLevel: payload.nextLevel, nextLevelCash: payload.nextLevelCash }))
     }
   },
 

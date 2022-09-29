@@ -57,37 +57,18 @@ export default {
     const state = reactive({
       benefits: {},
       userForm: {
-        level: '',
-        nextLevel: '',
-        nextLevelCash: ''
+        level: JSON.parse(localStorage.getItem('userBenefits')).level,
+        nextLevel: JSON.parse(localStorage.getItem('userBenefits')).nextLevel,
+        nextLevelCash: JSON.parse(localStorage.getItem('userBenefits')).nextLevelCash
       }
     })
+    //得到資料
     const getBenefitsData = onMounted(() => {
       const data = ''
       callApi(benefitsList, data, (res) => {
         state.benefits = { ...res.data.Data }
-        console.log(state.benefits)
-        levelChange()
       })
     })
-    const levelChange = () => {
-      const total = state.benefits.Consumption
-      if (total < 5000) {
-        state.userForm.level = ' 銅級會員'
-        state.userForm.nextLevel = '銀級會員'
-        state.userForm.nextLevelCash = 5000 - total
-      } else if (total < 10000 && total >= 5000) {
-        state.userForm.state.level = ' 銀級會員'
-        state.userForm.nextLevel = '金級會員'
-        state.userForm.nextLevelCash = 10000 - total
-      } else if (total < 20000 && total >= 1000) {
-        state.userForm.state.level = ' 金級會員'
-        state.userForm.nextLevel = '白金會員'
-        state.userForm.nextLevelCash = 20000 - total
-      } else {
-        state.userForm.state.level = ' 白金會員'
-      }
-    }
     return {
       state,
       getBenefitsData

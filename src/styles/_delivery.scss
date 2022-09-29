@@ -1,11 +1,14 @@
 .delivery{
   line-height: 1.5;
-  &-img{
-    @include size(600px, 300px);
+  padding: 0 20px;
+  .delivery-img{
+    @include flexBox(row, center, center);
     margin: auto;
-    background-image: url(../assets/other/delivery.png);
-    background-size: contain;
-    background-repeat: no-repeat;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    img{
+      max-width: 95%;
+    }
   }
   &-list{
     margin-bottom: 2rem;

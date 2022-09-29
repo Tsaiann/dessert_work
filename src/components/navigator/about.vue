@@ -4,7 +4,8 @@
     <div class="about-page" data-space-bottom="5rem">
       <h1 data-space-bottom="5rem">關於季菓</h1>
       <div class="about-content">
-        <div class="row horizontal">
+        <div class="about-content-item">
+          <div class="media_block"></div>
           <img src="../../assets/other/about.png" alt="about" data-space-right="3rem" />
           <img src="../../assets/other/about_word.png" alt="about" data-space-right="1rem" />
           <div>
