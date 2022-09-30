@@ -164,25 +164,6 @@
     }
   }
 }
-.dialog-discount{
-  width: 48%;
-  border: 1px solid $middleGray;
-  text-align: center;
-  padding: 15px 10px;
-  margin-bottom: 20px;
-  line-height: 1.5;
-  cursor: pointer;
-  &:hover{
-    color: #fff;
-    background: #C7B299;
-  }
-  h2{
-    font-size: 30px;
-  }
-  p{
-    font-size: 14px;
-  }
-}
 .p-dialog .p-dialog-footer button{
   width: 300px;
 }
@@ -190,6 +171,41 @@
   .p-dialog-content{
     height: 300px;
     overflow: scroll;
+    .discount_item{
+      position: relative;
+      input[type="checkbox"]{
+        position: absolute;
+        @include size(10px, 10px);
+        z-index: -1;
+      }
+      input[type="checkbox"]{
+				&:checked ~ label{
+					.dialog-discount{
+            color: #fff;
+            background: #C7B299;
+          }
+				}
+			}
+      .dialog-discount{
+        width: 100%;
+        border: 1px solid $middleGray;
+        text-align: center;
+        padding: 15px 10px;
+        margin-bottom: 20px;
+        line-height: 1.5;
+        cursor: pointer;
+        &:hover{
+          color: #fff;
+          background: #C7B299;
+        }
+        h2{
+          font-size: 30px;
+        }
+        p{
+          font-size: 14px;
+        }
+      }
+    }
   }
 }
 

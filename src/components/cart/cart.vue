@@ -25,9 +25,7 @@
       <div class="cart-data">
         <h2>購物車</h2>
         <DataTable :value="state.goodsList" responsiveLayout="scroll">
-          <Column field="Goods.Name" header="商品名稱" bodyStyle="width: 250px">
-            <p>ddddddd</p>
-          </Column>
+          <Column field="Goods.Name" header="商品名稱" bodyStyle="width: 250px"></Column>
           <Column field="TimestampPice" header="價格"></Column>
           <Column header="數量" headerStyle="text-align: center">
             <template #body="{ data }">
@@ -81,7 +79,7 @@
           </div>
           <div class="row horizontal space_between">
             <p>優惠券</p>
-            <InputText type="text" class="p-inputtext-sm" />
+            <p v-if="state.discountID.length === 1">NT -{{ state.discountFee }}</p>
           </div>
           <div class="row horizontal h_end">
             <span @click="dialogDiscountVisible = true">使用優惠券</span>
@@ -94,16 +92,21 @@
         </div>
         <Dialog header="優惠券" v-model:visible="dialogDiscountVisible" :style="{ width: '500px' }" class="cart_dialog">
           <div class="row horizontal wrap space_between">
-            <div class="dialog-discount">
-              <h2>NT $100</h2>
-              <p>單筆消費滿500元即可使用一張</p>
-              <p>使用日期：2023/12/31</p>
+            <div v-for="(item, i) in state.benefits" :key="i" class="discount_item">
+              <input :id="item.ID" type="checkbox" :value="item.ID" v-model="state.discountID" @click="handleSpecsMax($event, item.Amount)" />
+              <label :for="item.ID">
+                <div class="dialog-discount">
+                  <h2>NT ${{ state.benefits[i].Amount }}</h2>
+                  <p>單筆消費滿500元即可使用一張</p>
+                  <p>使用日期：2023/12/31</p>
+                </div>
+              </label>
             </div>
           </div>
           <template #footer>
             <div class="row horizontal">
               <button class="button_submit cancel" @click="dialogDiscountVisible = false">取消</button>
-              <button class="button_submit confirm">確定</button>
+              <button class="button_submit confirm" @click="dialogDiscountVisible = false">確定</button>
             </div>
           </template>
         </Dialog>
@@ -120,7 +123,7 @@ import { reactive, ref, onMounted, computed, inject } from 'vue'
 import guideLine from '@/components/guideLine.vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
-import { getGoodsCart, deleteGoodsCart, updateCartInfo } from '@/service/api'
+import { getGoodsCart, deleteGoodsCart, updateCartInfo, benefitsList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useStore } from 'vuex'
 
@@ -135,6 +138,8 @@ export default {
     const router = useRouter()
     const toast = useToast()
     const state = reactive({
+      discountID: [],
+      benefits: [],
       goodsList: [],
       updateCartForm: {
         ID: 0,
@@ -150,6 +155,7 @@ export default {
       deliveryValue: null,
       paymentValue: null,
       deliveryFee: 0,
+      discountFee: null,
       total: 0
     })
     const payItems = reactive([
@@ -209,7 +215,7 @@ export default {
       for (let i in state.goodsList) {
         total += state.goodsList[i].total
       }
-      return total + state.deliveryFee
+      return total + state.deliveryFee - state.discountFee
     })
     //取得購物車資料
     const getCartData = onMounted(() => {
@@ -279,10 +285,36 @@ export default {
         })
       }
     }
-
+    //得到優惠券資料
+    const getBenefitsData = onMounted(() => {
+      const data = ''
+      callApi(benefitsList, data, (res) => {
+        state.benefits = [...res.data.Data.DiscountTicket]
+        console.log(state.benefits)
+      })
+    })
+    //限制商品規格的數量
+    const handleSpecsMax = (event, fee) => {
+      if (event.target.checked === true) {
+        if (state.discountID.length == 1) {
+          event.target.checked = false
+          toast.add({ severity: 'error', summary: '已超過數量！', group: 'errorBox' })
+        } else {
+          state.discountFee = fee
+        }
+      } else {
+        state.discountFee = null
+      }
+    }
+    const test = () => {
+      console.log(state.discountID)
+    }
     return {
       state,
+      handleSpecsMax,
+      test,
       changeCart,
+      getBenefitsData,
       guideData,
       steps,
       sentItems,

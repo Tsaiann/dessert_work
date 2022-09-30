@@ -8,7 +8,8 @@ export const cartModules = {
       phone: '',
       addr: '',
       total: '',
-      mark: ''
+      mark: '',
+      discount: null
     }
   },
 
@@ -19,7 +20,8 @@ export const cartModules = {
       console.log('cartPayment store', payload)
       state.cartStatus.payment = payload.paymentValue
       state.cartStatus.delivery = payload.deliveryValue
-      localStorage.setItem('cartInfo', JSON.stringify({ payment: payload.paymentValue, delivery: payload.deliveryValue }))
+      state.cartStatus.discount = payload.discountID[0]
+      localStorage.setItem('cartInfo', JSON.stringify({ payment: payload.paymentValue, delivery: payload.deliveryValue, discount: payload.discountID[0] }))
     },
     SET_CARTTOTAL(state, payload) {
       state.cartStatus.total = payload

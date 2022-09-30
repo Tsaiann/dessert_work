@@ -9,37 +9,15 @@
       <span>再消費NT ${{ state.userForm.nextLevelCash }}即可升等為{{ state.userForm.nextLevel }}</span>
     </div>
     <div class="row horizontal space_between wrap">
-      <div class="discount-coupon">
+      <div class="discount-coupon" v-for="(item, i) in state.benefits" :key="i">
         <div class="discount-coupon_header">
           <span></span>
         </div>
         <div class="discount-coupon_content">
-          <h2>NT $100</h2>
+          <h2>${{ state.benefits[i].Amount }}</h2>
           <p>單筆消費滿500元即可使用一張</p>
           <p>單筆消費限用一張折價券</p>
-          <p>使用期限：2022/12/31</p>
-        </div>
-      </div>
-      <div class="discount-coupon">
-        <div class="discount-coupon_header">
-          <span></span>
-        </div>
-        <div class="discount-coupon_content">
-          <h2>NT $100</h2>
-          <p>單筆消費滿500元即可使用一張</p>
-          <p>單筆消費限用一張折價券</p>
-          <p>使用期限：2022/12/31</p>
-        </div>
-      </div>
-      <div class="discount-coupon">
-        <div class="discount-coupon_header">
-          <span></span>
-        </div>
-        <div class="discount-coupon_content">
-          <h2>NT $100</h2>
-          <p>單筆消費滿500元即可使用一張</p>
-          <p>單筆消費限用一張折價券</p>
-          <p>使用期限：2022/12/31</p>
+          <p>使用期限：2023/12/31</p>
         </div>
       </div>
     </div>
@@ -55,7 +33,7 @@ export default {
   name: 'Discount',
   setup() {
     const state = reactive({
-      benefits: {},
+      benefits: [],
       userForm: {
         level: JSON.parse(localStorage.getItem('userBenefits')).level,
         nextLevel: JSON.parse(localStorage.getItem('userBenefits')).nextLevel,
@@ -66,7 +44,7 @@ export default {
     const getBenefitsData = onMounted(() => {
       const data = ''
       callApi(benefitsList, data, (res) => {
-        state.benefits = { ...res.data.Data }
+        state.benefits = [...res.data.Data.DiscountTicket]
       })
     })
     return {
