@@ -69,12 +69,12 @@ export default {
           await router.push({ name: 'Member' })
           await reload()
         }).catch(() => {
-          toast.add({ severity: 'error', summary: '輸入錯入，請重新輸入！', detail: 'Message Content', life: 3000 })
+          toast.add({ severity: 'error', summary: '輸入錯入，請重新輸入！', group: 'errorBox' })
           removeLogin()
           callOtp()
         })
       } else {
-        toast.add({ severity: 'error', summary: '欄位不可為空！', detail: 'Message Content', life: 3000 })
+        toast.add({ severity: 'error', summary: '欄位不可為空！', group: 'errorBox' })
         removeLogin()
         callOtp()
       }

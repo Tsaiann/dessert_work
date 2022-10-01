@@ -89,14 +89,14 @@ export default {
       }
       if (!v$.value.$error) {
         await callApi(createMember, data, async () => {
-          toast.add({ severity: 'success', summary: '註冊成功！', detail: 'Message Content', life: 5000 })
+          toast.add({ severity: 'success', summary: '註冊成功！', group: 'goods_addcart' })
           await router.push({ name: 'Login' })
         }).catch(() => {
-          toast.add({ severity: 'error', summary: '註冊失敗，請重新輸入', detail: 'Message Content' })
+          toast.add({ severity: 'error', summary: '註冊失敗，請重新輸入', group: 'errorBox' })
           resetForm(state.registerForm)
         })
       } else {
-        toast.add({ severity: 'error', summary: '註冊失敗，請重新輸入', detail: 'Message Content' })
+        toast.add({ severity: 'error', summary: '註冊失敗，請重新輸入', group: 'errorBox' })
         resetForm(state.registerForm)
       }
     }

@@ -22,7 +22,7 @@
 				cursor: pointer;
 		}
 		.icon{
-			@include position(80px, 50px, '', '');
+			@include position(80px, 250px, '', '');
 			width: 130px;
 			.pi.pi-shopping-cart, .pi-user{
 				font-size: 2rem;
