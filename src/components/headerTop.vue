@@ -78,6 +78,9 @@
             <li v-for="(item, i) in goodsTypeList" :key="i" @click="routerChange(item.path)">{{ item.name }}</li>
           </ul>
           <div @click="memberRouterChangeMedia">會員專區</div>
+          <ul v-if="memberStatus !== null">
+            <li v-for="(item, i) in memberList" :key="i" @click="routerChange(item.path)">{{ item.name }}</li>
+          </ul>
           <div @click="$router.push({ name: 'QuestionsAns' })">常見Q&A</div>
           <div @click="$router.push({ name: 'FoodData' })">菓實資料庫</div>
         </div>
@@ -148,6 +151,7 @@ export default {
     const goodsCount = ref(1)
     const search = ref('')
     const confirmUserInfo = ref(null)
+    const memberStatus = localStorage.getItem('userInfo')
     const routerList = reactive([
       {
         label: '關於季菓',
@@ -229,6 +233,33 @@ export default {
         to: '/products/other'
       }
     ])
+    const memberList = reactive([
+      {
+        name: '我的帳戶',
+        path: 'Homepage',
+        to: '/member/homepage'
+      },
+      {
+        name: '訂單查詢',
+        path: 'Order',
+        to: '/member/order'
+      },
+      {
+        name: '收藏清單',
+        path: 'Like',
+        to: '/member/like'
+      },
+      {
+        name: '詢問紀錄',
+        path: 'Ask',
+        to: '/member/ask'
+      },
+      {
+        name: '專屬優惠',
+        path: 'Discount',
+        to: '/member/discount'
+      }
+    ])
     // 獲得所有購物車資料
     const getCartData = onMounted(() => {
       const userInfo = localStorage.getItem('userInfo')
@@ -265,7 +296,7 @@ export default {
       if (userInfo === null) {
         router.push({ name: 'User' })
       } else {
-        router.push({ name: 'Member' })
+        return
       }
     }
     // 刪除購物車商品
@@ -339,6 +370,7 @@ export default {
         getLikeList()
       })
     }
+    //media點擊時跳轉到相對應的路由
     const routerChange = async (path) => {
       await router.push({ name: path })
       await reload()
@@ -347,6 +379,8 @@ export default {
       reload()
     }
     return {
+      memberStatus,
+      memberList,
       reReload,
       routerChange,
       closeCheckbox,

@@ -1,6 +1,7 @@
 .member{
   width: 100%;
   line-height: 1.5;
+  padding: 0 10px;
   .member-page{
     @include pageAsideMenu;
     .member-list{
@@ -286,5 +287,14 @@
   }
   p{
     color: #bda68b;
+  }
+}
+@media(max-width: 960px) {
+  .member{
+    .member-page{
+      .member-list{
+        margin: auto;
+      }
+    }
   }
 }
