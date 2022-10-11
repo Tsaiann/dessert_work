@@ -64,22 +64,22 @@
         <div class="wire"></div>
       </div>
       <div class="goods-about_item">
-        <div class="row vertical center" @click="aboutGoodsRouter(52)">
+        <div class="row vertical center" @click="aboutGoodsRouter(10)">
           <img src="../../assets/goods/macaron02.jpg" alt="" />
           <h2>馬卡龍</h2>
           <p>NT 80</p>
         </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(49)">
+        <div class="row vertical center" @click="aboutGoodsRouter(7)">
           <img src="../../assets/goods/cupcake01.jpg" alt="" />
           <h2>杯子蛋糕</h2>
           <p>NT 70</p>
         </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(50)">
+        <div class="row vertical center" @click="aboutGoodsRouter(11)">
           <img src="../../assets/goods/macaronBox5-01.jpg" alt="" />
           <h2>馬卡龍禮盒 - 5入</h2>
           <p>NT 400</p>
         </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(47)">
+        <div class="row vertical center" @click="aboutGoodsRouter(8)">
           <img src="../../assets/goods/cupcakeBox4-01.jpg" alt="" />
           <h2>杯子蛋糕禮盒 - 4入</h2>
           <p>NT 280</p>

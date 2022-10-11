@@ -18,13 +18,13 @@
       </div>
       <div>
         <p>帳號*</p>
-        <InputText type="text" v-model="state.registerForm.account" placeholder="請輸入您的帳號" />
-        <span v-if="v$.account.$error"> {{ '請輸入帳號' }} </span>
+        <InputText type="text" v-model="state.registerForm.account" placeholder="請輸入最少6位以上" />
+        <span v-if="v$.account.$error"> {{ '帳號請輸入最少6位以上' }} </span>
       </div>
       <div>
         <p>密碼*</p>
-        <InputText type="password" v-model="state.registerForm.password" placeholder="請輸入您的密碼" />
-        <span v-if="v$.password.$error"> {{ '請輸入密碼' }} </span>
+        <InputText type="password" v-model="state.registerForm.password" placeholder="請輸入最少8位以上" />
+        <span v-if="v$.password.$error"> {{ '密碼請輸入最少8位以上' }} </span>
       </div>
       <div>
         <p>密碼確認*</p>
@@ -33,7 +33,7 @@
       </div>
       <div>
         <p>聯絡電話*</p>
-        <InputText type="text" v-model="state.registerForm.phone" placeholder="請輸入您的聯絡電話" />
+        <InputText type="number" v-model="state.registerForm.phone" placeholder="請輸入您的聯絡電話" />
         <span v-if="v$.phone.$error"> {{ '請輸入聯絡電話' }} </span>
       </div>
       <div class="row vertical center">
@@ -93,11 +93,11 @@ export default {
           await router.push({ name: 'Login' })
         }).catch(() => {
           toast.add({ severity: 'error', summary: '註冊失敗，請重新輸入', group: 'errorBox' })
-          resetForm(state.registerForm)
+          //resetForm(state.registerForm)
         })
       } else {
         toast.add({ severity: 'error', summary: '註冊失敗，請重新輸入', group: 'errorBox' })
-        resetForm(state.registerForm)
+        //resetForm(state.registerForm)
       }
     }
     return {

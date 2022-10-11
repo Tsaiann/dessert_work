@@ -62,6 +62,31 @@
       </template>
     </Toast>
     <div class="container sideTop">
+      <input id="checkboxMenu" type="checkbox" v-model="menuChecked" />
+      <label for="checkboxMenu" class="customize_menu">
+        <div class="media_menu" data-space-right="1rem"></div>
+        <div class="side-menu-bg"></div>
+        <div class="side-menu">
+          <div class="logo">
+            <img src="../assets/home/logo.png" alt="logo" />
+            <p>Seasonal Fructification</p>
+            <i class="pi pi-times"></i>
+          </div>
+          <div @click="$router.push({ name: 'About' })">關於季菓</div>
+          <div class="exception">商品分類</div>
+          <ul>
+            <li @click="$router.push({ name: 'Goods' })">所有商品</li>
+            <li @click="$router.push({ name: 'Hot' })">熱銷排行</li>
+            <li @click="$router.push({ name: 'Chiffon' })">戚風蛋糕</li>
+            <li @click="$router.push({ name: 'Cupcake' })">杯子蛋糕</li>
+            <li @click="$router.push({ name: 'Macaron' })">馬卡龍</li>
+            <li @click="$router.push({ name: 'Other' })">其他</li>
+          </ul>
+          <div @click="memberRouterChangeMedia">會員專區</div>
+          <div @click="$router.push({ name: 'QuestionsAns' })">常見Q&A</div>
+          <div @click="$router.push({ name: 'FoodData' })">菓實資料庫</div>
+        </div>
+      </label>
       <div class="logo" @click="$router.push({ name: 'Content' })"></div>
       <h3 @click="$router.push({ name: 'Content' })">Seasonal Fructification</h3>
       <div class="icon row horizontal center">
@@ -96,6 +121,7 @@
             <p>{{ goodsList.length }}</p>
           </div>
         </i>
+        <i class="pi pi-search"></i>
       </div>
     </div>
     <div class="menu">
@@ -175,18 +201,19 @@ export default {
       }
     ])
     const memberChecked = ref(false)
+    const menuChecked = ref(false)
     // 獲得所有購物車資料
     const getCartData = onMounted(() => {
-      const data = ''
-      callApi(getGoodsCart, data, (res) => {
-        goodsList.value = [...res.data.Data]
-        console.log(goodsList.value)
-      })
       const userInfo = localStorage.getItem('userInfo')
       if (userInfo === null) {
         return
       } else {
         confirmUserInfo.value = true
+        const data = ''
+        callApi(getGoodsCart, data, (res) => {
+          goodsList.value = [...res.data.Data]
+          console.log(goodsList.value)
+        })
       }
     })
     // 點擊會員icon判斷有沒有登入會員跳換路由
@@ -205,6 +232,15 @@ export default {
         routerList[2].to = '/member'
       }
     })
+    // 判斷menu中會員是否登入來跳轉路由(手機)
+    const memberRouterChangeMedia = () => {
+      const userInfo = localStorage.getItem('userInfo')
+      if (userInfo === null) {
+        router.push({ name: 'User' })
+      } else {
+        router.push({ name: 'Member' })
+      }
+    }
     // 刪除購物車商品
     const deleteCartData = async (id) => {
       toast.add({ severity: 'success', summary: '確定要刪除商品？', group: 'cartGoodsDelete', ID: id })
@@ -278,6 +314,7 @@ export default {
     }
     return {
       closeCheckbox,
+      menuChecked,
       routerList,
       goodsList,
       handleMember,
@@ -297,7 +334,8 @@ export default {
       memberRouter,
       handleReset,
       onConfirmLogout,
-      onConfirmLike
+      onConfirmLike,
+      memberRouterChangeMedia
     }
   }
 }

@@ -6,6 +6,7 @@
 	z-index: 100;
 	.sideTop{
 		padding: 20px 0;
+		width: 100%;
 		@include flexBox(column, center, center);
 		h3{
 			@include text(#000, 20, 100);
@@ -22,9 +23,9 @@
 				cursor: pointer;
 		}
 		.icon{
-			@include position(80px, 250px, '', '');
+			@include position(80px, 10px, '', '');
 			width: 130px;
-			.pi.pi-shopping-cart, .pi-user{
+			.pi.pi-shopping-cart, .pi-user, .pi-search{
 				font-size: 2rem;
 				color: rgb(88, 88, 88);
 				padding: 3px;
@@ -35,6 +36,11 @@
 				margin-right: 5px;
 				border-radius: 100%;
 				border: 2px solid rgb(88, 88, 88);
+			}
+			.pi-search{
+				font-size: 1.6rem;
+				margin-left: 8px;
+				display: none;
 			}
 			&_cart{
 				position: relative;
@@ -54,18 +60,13 @@
 				font-weight: 500;
 			}
 			input[type="checkbox"]{
-				width: 1px;
-				height: 1px;
-				position: absolute;
-				top: 10%;
-				left: 30%;
+				@include size(1px,1px);
+				@include position(10%,30%,'','');
 			}
 			.float-block_member{
 				@include size(150px, 120px);
 				@include flexBox(column, center, center);
-				position: absolute;
-				top: 55px;
-				left: -31px;
+				@include position(55px, 10px, '', '');
 				background: #fff;
 				z-index: 99999;
 				border: 2px solid $middleGray;
@@ -159,6 +160,67 @@
 				transform: translate(-45.5%, 0);
 			}
 		}
+		.media_menu{
+			display: none;
+		}
+		#checkboxMenu{
+			display: none;
+		}
+		.side-menu-bg{
+			@include size(100vw, 100vh);
+			@include position(0,0,0,0);
+			background: #000;
+			z-index: 99999;
+			opacity: 0.3;
+			display: none;
+		}
+		.side-menu{
+			@include size(300px, 100vh);
+			@include position(0,0,0,0);
+			overflow: scroll;
+			background: $lightGray;
+			z-index: 999999999;
+			transform: translateX(-200%);
+			transition: 1s;
+			.logo{
+				@include flexBox(row, center, flex-start);
+				background: none;
+				height: 60px;
+				padding-left: 10px;
+				p{
+					margin: 0 10px;
+					width: 75%;
+				}
+				img{
+					width: 10%;
+				}
+			}
+			div{
+				width: 100%;
+				line-height: 3;
+				background: #E8D7C5;
+				padding-left: 20px;
+				border-bottom: 1px solid $darkGray;
+				color: rgb(68, 66, 66);
+				cursor: pointer;
+			}
+			.exception{
+				cursor: default;
+			}
+			ul{
+				width: 100%;
+				line-height: 3;
+
+				li{
+					border-bottom: 1px solid $darkGray;
+					padding-left: 30px;
+					cursor: pointer;
+					&:hover{
+						color: #000;
+					}
+				}
+			}
+		}
   }
 	.p-menubar .p-menubar-root-list>.p-menuitem > .p-menuitem-link:not(.p-disabled):hover{
 		background: none;
@@ -250,15 +312,35 @@
 @media(max-width: 960px) {
 	.header{
 		.sideTop{
-			@include flexBox(row, flex-start, flex-start);
-			margin: 0 0 0 10px !important;
-			padding: 15px 0;
+			@include flexBox(row, center, flex-start);
+			padding: 15px 15px;
+			border-bottom: 1px solid #000;
+			box-shadow: 0px 0px 3px  #808080;
+			position: relative;
+			input[type="checkbox"]{
+				@include size(1px,1px);
+				@include position('','','','');
+			}
+			input[type="checkbox"]{
+				&:checked ~ label{
+					.side-menu-bg{
+						display: block;
+					}
+					.side-menu{
+						transform: translateX(0);
+					}
+				}
+			}
 			.logo{
 				@include size(30px, 30px);
 					margin: 0 10px 0 0;
 			}
+			h3{
+				margin: 0;
+				font-size: 14px;
+			}
 			.icon{
-				@include position(15px, 10px, '', '');
+				@include position(15px, 0px, '', '');
 				.pi.pi-shopping-cart, .pi-user{
 					font-size: 1.7rem;
 				}
@@ -268,41 +350,43 @@
 				.cart_count{
 					@include size(17px, 17px);
 				}
+				.pi-search{
+					display: block;
+				}
 				.float-block_member{
 					@include size(150px, 120px);
 					@include flexBox(column, center, center);
-					position: absolute;
-					top: 55px;
-					left: -31px;
-					background: #fff;
-					z-index: 99999;
-					border: 2px solid $middleGray;
+					@include position(46px, 30px, '', '');
 					display: none;
-					cursor: auto;
-					button{
-						width: 80%;
-						border: 1px solid $lightGray;
-						margin-top: 10px;
-						border-radius: 5px;
-						padding: 5px 0;
-						background: #e4d8c7;
-						cursor: pointer;
-						&:hover{
-							color: white;
-							background: #C3996D;
-						}
-					}
 				}
-				input[type="checkbox"]{
-					&:checked ~ label{
-						.float-block_member{
-							display: block;
-							@include flexBox(column, center, center);
-						}
+			}
+			.media_menu{
+				display: block;
+				@include size(18px, 16px);
+				border-top: 2px solid $darkGray;
+				border-bottom: 2px solid $darkGray;
+				position: relative;
+				&::after{
+					content: '';
+					@include size(18px, 2px);
+					background: $darkGray;
+					@include position(5px,'','','')
+				}
+				&:hover{
+					border-color: #c09973;
+					cursor: pointer;
+					&::after{
+						background: #c09973;
 					}
 				}
 			}
+			.float-block{
+				@include position(46px, -50px, '', '');
+				width: 300px;
+			}
 		}
-
+		.menu{
+			display: none;
+		}
 	}
 }

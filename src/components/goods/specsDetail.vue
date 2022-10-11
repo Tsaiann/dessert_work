@@ -68,22 +68,22 @@
         <div class="wire"></div>
       </div>
       <div class="goods-about_item">
-        <div class="row vertical center" @click="aboutGoodsRouter(54)">
+        <div class="row vertical center" @click="aboutGoodsRouter(15)">
           <img src="../../assets/goods/meringueTart0.jpg" alt="tart" />
           <h2>蛋白霜檸檬塔</h2>
           <p>NT 80</p>
         </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(53)">
+        <div class="row vertical center" @click="aboutGoodsRouter(14)">
           <img src="../../assets/goods/strawberryTart.jpg" alt="tart" />
           <h2>法式卡士達草莓塔</h2>
           <p>NT 120</p>
         </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(55)">
+        <div class="row vertical center" @click="aboutGoodsRouter(16)">
           <img src="../../assets/goods/poundCake01.jpg" alt="poundCake" />
-          <h2>蜜漬柳橙磅蛋糕</h2>
+          <h2>柳橙糖霜磅蛋糕</h2>
           <p>NT 80</p>
         </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(41)">
+        <div class="row vertical center" @click="aboutGoodsRouter(1)">
           <img src="../../assets/goods/strawberryChiffon01.jpg" alt="chiffon" />
           <h2>草莓香草戚風蛋糕</h2>
           <p>NT 580</p>

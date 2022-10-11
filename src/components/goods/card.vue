@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div>
     <div class="goods-detail_item">
       <img :src="list.ImageUrls[0].Url" alt="" />
       <div class="icon">
@@ -43,7 +43,11 @@
                 <h3 data-space-right="1rem">選擇規格</h3>
                 <span>( 最多可選{{ state.specsCount }}種 )</span>
               </div>
-              <div class="field-checkbox">
+              <div class="specs" v-if="state.newGoodsData.length == 1">
+                <input id="checkbox" type="checkbox" v-model="state.check" />
+                <label for="checkbox" class="specs-customize">{{ state.newGoodsData[0].Specs }}</label>
+              </div>
+              <div class="field-checkbox" v-else>
                 <div v-for="(item, i) in state.newGoodsData" :key="i" class="field-checkbox-item">
                   <input :id="item.ID" type="checkbox" name="specs" :value="item.ID" v-model="state.allSpecsCheckedID" @click="handleSpecsMax($event)" />
                   <label :for="item.ID">{{ item.Specs }}</label>
@@ -96,25 +100,16 @@ export default {
       cartForm: {
         GoodsID: null,
         Specs: []
-      }
+      },
+      check: false
     })
     const goodsList = props.list
     // 增加進購物車
     const addCart = async (list) => {
       const userInfo = localStorage.getItem('userInfo')
       if (userInfo !== null) {
-        if (list.ID === 47 || list.ID === 48 || list.ID === 49 || list.ID === 50 || list.ID === 51 || list.ID === 52) {
-          getGoodDetail(list.ID)
-          state.visibleDialog = true
-        } else {
-          state.cartForm.GoodsID = list.ID
-          state.cartForm.Specs.push({ SpecID: list.GoodsSpecs[1].ID, Num: 1 })
-          const data = state.cartForm
-          await callApi(addGoodsCart, data, async () => {
-            toast.add({ severity: 'success', summary: '已加入購物車！', group: 'goods_addcart' })
-            state.cartForm.Specs = []
-          })
-        }
+        getGoodDetail(list.ID)
+        state.visibleDialog = true
       } else {
         toast.add({ severity: 'error', summary: '請先登入會員！', group: 'errorBox' })
       }
@@ -123,7 +118,7 @@ export default {
     //商品詳細頁面
     const checkGoodsDetail = (id) => {
       localStorage.setItem('goodsDetailID', id)
-      if (id === 47 || id === 48 || id === 49 || id === 50 || id === 51 || id === 52) {
+      if (id === 7 || id === 8 || id === 9 || id === 10 || id === 11 || id === 12) {
         router.push({ name: 'SpecsDetail' })
       } else {
         router.push({ name: 'GoodsDetail' })
@@ -139,6 +134,7 @@ export default {
         state.cartForm.GoodsID = state.goodsData.ID
         state.specsCount = state.goodsData.GoodsSpecs[0].Specs
         state.newGoodsData = state.goodsData.GoodsSpecs.slice(1)
+        console.log(state.newGoodsData)
         getImg()
       })
     }
@@ -190,24 +186,39 @@ export default {
     const addCartDialog = async () => {
       const userInfo = localStorage.getItem('userInfo')
       if (userInfo !== null) {
-        checkSpecs()
-        const totalNum = state.cartForm.Specs.reduce((pre, cur) => {
-          return pre + cur.Num
-        }, 0)
-        if (totalNum == state.specsCount) {
-          state.cartForm.Specs.unshift({
-            SpecID: state.goodsData.GoodsSpecs[0].ID,
-            Num: state.count
-          })
-          const data = state.cartForm
-          callApi(addGoodsCart, data, () => {
-            toast.add({ severity: 'success', summary: '已加入購物車！', group: 'goods_addcart' })
-            state.cartForm.Specs = []
-            state.visibleDialog = false
-          })
+        if (state.newGoodsData.length == 1) {
+          if (state.check == true) {
+            state.cartForm.Specs.push({
+              SpecID: state.newGoodsData[0].ID,
+              Num: state.count
+            })
+            const data = state.cartForm
+            callApi(addGoodsCart, data, () => {
+              toast.add({ severity: 'success', summary: '已加入購物車！', group: 'goods_addcart' })
+            })
+          } else {
+            toast.add({ severity: 'error', summary: '請選擇規格', group: 'errorBox' })
+          }
         } else {
-          toast.add({ severity: 'error', summary: '規格有誤，請再次確認！', group: 'errorBox' })
-          state.cartForm.Specs = []
+          checkSpecs()
+          const totalNum = state.cartForm.Specs.reduce((pre, cur) => {
+            return pre + cur.Num
+          }, 0)
+          if (totalNum == state.specsCount) {
+            state.cartForm.Specs.unshift({
+              SpecID: state.goodsData.GoodsSpecs[0].ID,
+              Num: state.count
+            })
+            const data = state.cartForm
+            callApi(addGoodsCart, data, () => {
+              toast.add({ severity: 'success', summary: '已加入購物車！', group: 'goods_addcart' })
+              state.cartForm.Specs = []
+              state.visibleDialog = false
+            })
+          } else {
+            toast.add({ severity: 'error', summary: '規格有誤，請再次確認！', group: 'errorBox' })
+            state.cartForm.Specs = []
+          }
         }
       } else {
         toast.add({ severity: 'error', summary: '請先登入會員！', group: 'errorBox' })

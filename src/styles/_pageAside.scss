@@ -1,13 +1,14 @@
 @mixin pageAsideMenu{
   width: 100%;
-    @include flexBox(row, flex-start, space-between);
+    @include flexBox(row, flex-start, flex-start);
     margin-bottom: 100px;
     ul{
       @include flexBox(column, center, flex-start);
-      @include size(20%, 350px);
+      @include size(19%, 350px);
       border: 2px solid $middleGray;
       padding-top: 20px;
       background: #fff;
+      margin: 0 20px 0 15px;
       li{
         cursor: pointer;
         position: relative;

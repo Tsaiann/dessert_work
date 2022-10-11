@@ -31,9 +31,18 @@ html, body {
       }
     }
   }
+  input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 body::-webkit-scrollbar {
   display: none;
+}
+h1{
+  color: #754C24;
+  font-size: 24px;
+  font-weight: 500;
 }
 #app {
   position: relative;
@@ -50,6 +59,7 @@ body::-webkit-scrollbar {
     .container{
       max-width: 1000px;
       margin: auto;
+      position: relative;
     }
     .p-breadcrumb{
       background: none;
@@ -64,11 +74,6 @@ body::-webkit-scrollbar {
     }
     .horizon{
       border-top: 1px solid $middleGray;
-    }
-    h1{
-      color: #754C24;
-      font-size: 24px;
-      font-weight: 500;
     }
     i{
       cursor: pointer;
