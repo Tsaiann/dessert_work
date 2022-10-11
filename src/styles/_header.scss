@@ -96,7 +96,7 @@
 			}
 		}
 		.float-block{
-			@include position(55px, -140px, '', '');
+			@include position(55px,-35px, '', '');
 			width: 350px;
 			min-height: 80px;
 			max-height: 400px;
@@ -175,7 +175,7 @@
 			display: none;
 		}
 		.side-menu{
-			@include size(300px, 100vh);
+			@include size(280px, 100vh);
 			@include position(0,0,0,0);
 			overflow: scroll;
 			background: $lightGray;

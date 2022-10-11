@@ -75,12 +75,7 @@
           <div @click="$router.push({ name: 'About' })">關於季菓</div>
           <div class="exception">商品分類</div>
           <ul>
-            <li @click="$router.push({ name: 'Goods' })">所有商品</li>
-            <li @click="$router.push({ name: 'Hot' })">熱銷排行</li>
-            <li @click="$router.push({ name: 'Chiffon' })">戚風蛋糕</li>
-            <li @click="$router.push({ name: 'Cupcake' })">杯子蛋糕</li>
-            <li @click="$router.push({ name: 'Macaron' })">馬卡龍</li>
-            <li @click="$router.push({ name: 'Other' })">其他</li>
+            <li v-for="(item, i) in goodsTypeList" :key="i" @click="routerChange(item.path)">{{ item.name }}</li>
           </ul>
           <div @click="memberRouterChangeMedia">會員專區</div>
           <div @click="$router.push({ name: 'QuestionsAns' })">常見Q&A</div>
@@ -202,6 +197,38 @@ export default {
     ])
     const memberChecked = ref(false)
     const menuChecked = ref(false)
+    const goodsTypeList = reactive([
+      {
+        name: '所有商品',
+        path: 'Goods',
+        to: '/products/goods'
+      },
+      {
+        name: '熱銷排行',
+        path: 'Hot',
+        to: '/products/hot'
+      },
+      {
+        name: '戚風蛋糕',
+        path: 'Chiffon',
+        to: '/products/chiffon'
+      },
+      {
+        name: '杯子蛋糕',
+        path: 'Cupcake',
+        to: '/products/cupcake'
+      },
+      {
+        name: '馬卡龍',
+        path: 'Macaron',
+        to: '/products/macaron'
+      },
+      {
+        name: '其他',
+        path: 'Other',
+        to: '/products/other'
+      }
+    ])
     // 獲得所有購物車資料
     const getCartData = onMounted(() => {
       const userInfo = localStorage.getItem('userInfo')
@@ -312,7 +339,16 @@ export default {
         getLikeList()
       })
     }
+    const routerChange = async (path) => {
+      await router.push({ name: path })
+      await reload()
+    }
+    const reReload = () => {
+      reload()
+    }
     return {
+      reReload,
+      routerChange,
       closeCheckbox,
       menuChecked,
       routerList,
@@ -335,7 +371,8 @@ export default {
       handleReset,
       onConfirmLogout,
       onConfirmLike,
-      memberRouterChangeMedia
+      memberRouterChangeMedia,
+      goodsTypeList
     }
   }
 }

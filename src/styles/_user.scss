@@ -121,7 +121,7 @@
   }
 }
 .button_submit{
-  @include size(300px, 40px);
+  @include size(80%, 40px);
   margin: 10px 0;
 }
 @media(max-width: 800px) {
@@ -140,7 +140,9 @@
   }
   .user{
     .user-page{
-      padding: 50px;
+      width: 100%;
+      margin: 0 auto 100px auto;
+      padding: 0;
     }
   }
 }

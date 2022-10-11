@@ -14,7 +14,7 @@
 
 <script>
 import guideLine from '@/components/guideLine.vue'
-import { reactive } from 'vue'
+import { reactive, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 export default {
   name: 'Products',
@@ -25,8 +25,8 @@ export default {
     const router = useRouter()
     const guideData = reactive([
       {
-        label: '所有商品',
-        to: '/products/goods'
+        label: '',
+        to: router.currentRoute.value.fullPath
       }
     ])
     const goodsTypeList = reactive([
@@ -66,7 +66,17 @@ export default {
       guideData[0].to = to
       router.push({ name: path })
     }
+    //根據當前路由來替換指引條的名稱
+    const changeRouterName = onMounted(() => {
+      for (let i in goodsTypeList) {
+        if (goodsTypeList[i].path == router.currentRoute.value.name) {
+          guideData[0].label = goodsTypeList[i].name
+          console.log(router)
+        }
+      }
+    })
     return {
+      changeRouterName,
       goodsTypeList,
       guideData,
       routerChange

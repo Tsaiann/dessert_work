@@ -56,12 +56,12 @@
           margin-right: 20px;
           h2{
             font-weight: 400;
-            font-size: 16px;
+            font-size: 15px;
             margin: 8px 0 0 0;
           }
           p{
             color: #603814;
-            font-size: 16px;
+            font-size: 15px;
           }
           &:hover{
             .icon{
@@ -154,7 +154,6 @@
         h2{
           font-weight: 400;
           font-size: 20px;
-          letter-spacing: 3px;
           margin: 10px 0 0 0;
         }
         p{
@@ -506,16 +505,17 @@
           padding-left: 25px;
         }
         .goods-detail{
-         @include flexBox(row, flex-start, space-evenly);
+         @include flexBox(row, flex-start, space-between);
          padding-left: 0;
+         margin: 0 40px;
          div{
-           width: 40%;
+           width: 45%;
           .goods-detail_item{
             width: 100%;
             .icon{
               @include position(50%,'','',50%);
-              transform: translate(-40%, -80%);
-              width: 180px;
+              transform: translate(-45%, -80%);
+              width: 160px;
               cursor: pointer;
               i{
                 background: #d6aea3;

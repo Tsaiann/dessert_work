@@ -132,7 +132,7 @@ export default {
         state.goodsData = res.data.Data
         state.cartForm.GoodsID = state.goodsData.ID
         state.specsCount = state.goodsData.GoodsSpecs[0].Specs
-        guideData[1].label = state.goodsData.Name
+        guideData[0].label = state.goodsData.Name
         state.newGoodsData = state.goodsData.GoodsSpecs.slice(1)
         getImg()
         likeStatus()
@@ -146,10 +146,6 @@ export default {
       }
     }
     const guideData = reactive([
-      {
-        label: '所有商品',
-        to: '/products'
-      },
       {
         label: null,
         to: '/goodsDetail'
@@ -231,15 +227,20 @@ export default {
     }
     //判斷收藏清單裡是否已有資料
     const likeStatus = () => {
-      const data = ''
-      callApi(allLikeList, data, (res) => {
-        console.log(res)
-        for (let i in res.data.Data) {
-          if (res.data.Data[i].GoodsID === state.cartForm.GoodsID) {
-            state.like = true
+      const userInfo = localStorage.getItem('userInfo')
+      if (userInfo === null) {
+        return
+      } else {
+        const data = ''
+        callApi(allLikeList, data, (res) => {
+          console.log(res)
+          for (let i in res.data.Data) {
+            if (res.data.Data[i].GoodsID === state.cartForm.GoodsID) {
+              state.like = true
+            }
           }
-        }
-      })
+        })
+      }
     }
     //相關產品的路由跳轉
     const aboutGoodsRouter = (id) => {

@@ -132,7 +132,7 @@ export default {
         state.cartForm.GoodsID = state.goodsData.ID
         state.cartForm.Specs[0].SpecID = state.goodsData.GoodsSpecs[1].ID
         state.specs = state.goodsData.GoodsSpecs[1].Specs
-        guideData[1].label = state.goodsData.Name
+        guideData[0].label = state.goodsData.Name
         getImg()
         likeStatus()
       })
@@ -144,10 +144,6 @@ export default {
       }
     }
     const guideData = reactive([
-      {
-        label: '所有商品',
-        to: '/products'
-      },
       {
         label: null,
         to: '/goodsDetail'
@@ -213,15 +209,20 @@ export default {
       reload()
     }
     const likeStatus = () => {
-      const data = ''
-      callApi(allLikeList, data, (res) => {
-        console.log(res)
-        for (let i in res.data.Data) {
-          if (res.data.Data[i].GoodsID === state.cartForm.GoodsID) {
-            state.like = true
+      const userInfo = localStorage.getItem('userInfo')
+      if (userInfo === null) {
+        return
+      } else {
+        const data = ''
+        callApi(allLikeList, data, (res) => {
+          console.log(res)
+          for (let i in res.data.Data) {
+            if (res.data.Data[i].GoodsID === state.cartForm.GoodsID) {
+              state.like = true
+            }
           }
-        }
-      })
+        })
+      }
     }
     const aboutGoodsRouter = (id) => {
       localStorage.setItem('goodsDetailID', id)
