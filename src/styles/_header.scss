@@ -205,7 +205,7 @@
 			overflow: scroll;
 			background: $lightGray;
 			z-index: 999999999;
-			transform: translateX(-200%);
+			transform: translateX(-400%);
 			transition: 1s;
 			.logo{
 				@include flexBox(row, center, flex-start);
