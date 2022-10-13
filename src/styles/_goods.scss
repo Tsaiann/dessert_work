@@ -58,6 +58,7 @@
             font-weight: 400;
             font-size: 15px;
             margin: 8px 0 0 0;
+            cursor: pointer;
           }
           p{
             color: #603814;
@@ -79,6 +80,14 @@
               top: 0;
               position: absolute;
             }
+          }
+          .media-icon{
+            display: none;
+            width: 100%;
+            height: 85%;
+            @include position(0,0,0,0);
+            background: #fff;
+            opacity: 0.5;
           }
           .icon{
             display: none;
@@ -519,9 +528,15 @@
             .icon{
               display: none;
             }
+            h2{
+              z-index: 99;
+            }
             &:hover{
               &::after{
                 display: none;
+              }
+              .media-icon{
+                display: block;
               }
             }
           }

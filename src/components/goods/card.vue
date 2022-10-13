@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div class="goods-detail_item" @click="checkGoodsDetail(list.ID)">
+    <div class="goods-detail_item">
       <img :src="list.ImageUrls[0].Url" alt="" />
+      <div class="media-icon" @click="checkGoodsDetail(list.ID)"></div>
       <div class="icon">
         <div class="row vertical center" @click="checkGoodsDetail(list.ID)">
           <i class="pi pi-search-plus" style="font-size: 1.4rem"></i>
@@ -12,7 +13,7 @@
           <p>加入購物車</p>
         </div>
       </div>
-      <h2>{{ list.Name }}</h2>
+      <h2 @click="checkGoodsDetail(list.ID)">{{ list.Name }}</h2>
       <p>NT {{ list.UnitPrice }}</p>
     </div>
     <Dialog

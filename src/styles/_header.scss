@@ -202,10 +202,11 @@
 		.side-menu{
 			@include size(280px, 100vh);
 			@include position(0,0,0,0);
+			visibility: hidden;
 			overflow: scroll;
 			background: $lightGray;
 			z-index: 999999999;
-			transform: translateX(-400%);
+			transform: translateX(-200%);
 			transition: 1s;
 			.logo{
 				@include flexBox(row, center, flex-start);
@@ -352,6 +353,7 @@
 						display: block;
 					}
 					.side-menu{
+						visibility: visible;
 						transform: translateX(0);
 					}
 				}
