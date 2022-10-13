@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="goods-detail_item">
+    <div class="goods-detail_item" @click="checkGoodsDetail(list.ID)">
       <img :src="list.ImageUrls[0].Url" alt="" />
       <div class="icon">
         <div class="row vertical center" @click="checkGoodsDetail(list.ID)">

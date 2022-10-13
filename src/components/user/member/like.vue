@@ -17,6 +17,14 @@
         </div>
       </template>
     </Toast>
+    <div class="member-title" data-space-left="1.5rem">
+      <div></div>
+      <h2>收藏清單</h2>
+    </div>
+    <div class="like-notice" v-if="state.likeList.length == 0">
+      <p>還沒有收藏的商品，趕快去選購吧</p>
+      <button class="button_submit confirm" @click="$router.push({ name: 'Goods' })">GO!</button>
+    </div>
     <div class="likeList" v-for="(item, i) in state.likeList" :key="i">
       <img :src="state.imgList[i]" alt="cake" data-space-right="2rem" @click="changeRouter(item.GoodsID)" />
       <div class="likeList_text" @click="changeRouter(item.GoodsID)">
@@ -89,7 +97,7 @@ export default {
     //跳轉商品頁面
     const changeRouter = (id) => {
       localStorage.setItem('goodsDetailID', id)
-      if (id === 47 || id === 48 || id === 49 || id === 50 || id === 51 || id === 52) {
+      if (id == 7 || id == 8 || id == 9 || id == 10 || id == 11 || id == 12) {
         router.push({ name: 'SpecsDetail' })
       } else {
         router.push({ name: 'GoodsDetail' })

@@ -2,6 +2,20 @@
   width: 100%;
   line-height: 1.5;
   padding: 0 10px;
+  .member-title{
+    @include flexBox(row, center, flex-start);
+    div{
+      width: 4px;
+      height: 35px;
+      background: #DEC6AB;
+      margin: 20px 10px 20px 0;
+    }
+    h2{
+      font-size: 20px;
+      letter-spacing: 4px;
+      font-weight: 400;
+    }
+  }
   .member-page{
     @include pageAsideMenu;
     .member-list{
@@ -86,6 +100,11 @@
 
 .discount{
   padding: 40px 30px;
+  p{
+    font-size: 20px;
+    text-align: center;
+    color: $middleGray;
+  }
   &-data{
     border: 1px solid #C7B299;
     padding: 20px;
@@ -105,6 +124,7 @@
       color: #C7B299;
       font-size: 24px;
       margin-bottom: 10px;
+      text-align: left;
     }
     div{
       @include size(100%, 30px);
@@ -123,7 +143,7 @@
         font-size: 10px;
       }
       span{
-        @include size(0, 29px);
+        height: 29px;
         display: block;
         border-radius: 4px;
         background: #C7B299;
@@ -181,10 +201,23 @@
   }
 }
 .like{
+  &-notice{
+    @include flexBox(row, center, center);
+    p{
+      font-size: 20px;
+      margin-right: 10px;
+    }
+    button{
+      width: 6%;
+      height: 30px;
+      font-size: 16px;
+    }
+  }
   .likeList{
     @include flexBox(row, center, space-between);
     padding: 30px 40px;
     border-bottom: 1px solid $darkGray;
+    height: 100%;
     cursor: pointer;
     &:hover{
       h2{
@@ -212,6 +245,8 @@
     }
     &_text{
       width: 100%;
+      height: 133px;
+      @include flexBox(column,flex-start,center);
       h2{
         font-size: 20px;
       }

@@ -119,7 +119,15 @@
             <p>{{ goodsList.length }}</p>
           </div>
         </i>
-        <i class="pi pi-search"></i>
+        <input id="checkboxSearch" type="checkbox" v-model="searchChecked" />
+        <label for="checkboxSearch" class="specs-customize_member">
+          <i class="pi pi-search">
+            <div class="float-block_search">
+              <InputText placeholder="Search" type="text" v-model="search" />
+              <button class="button_submit confirm" @click="handleSearch">搜尋</button>
+            </div>
+          </i>
+        </label>
       </div>
     </div>
     <div class="menu">
@@ -200,6 +208,7 @@ export default {
       }
     ])
     const memberChecked = ref(false)
+    const searchChecked = ref(false)
     const menuChecked = ref(false)
     const goodsTypeList = reactive([
       {
@@ -379,6 +388,7 @@ export default {
       reload()
     }
     return {
+      searchChecked,
       memberStatus,
       memberList,
       reReload,

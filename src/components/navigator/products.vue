@@ -71,7 +71,6 @@ export default {
       for (let i in goodsTypeList) {
         if (goodsTypeList[i].path == router.currentRoute.value.name) {
           guideData[0].label = goodsTypeList[i].name
-          console.log(router)
         }
       }
     })

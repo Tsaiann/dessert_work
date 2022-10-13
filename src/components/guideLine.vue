@@ -14,7 +14,7 @@ export default {
     const pageData = props.data
     const home = reactive({
       icon: 'pi pi-home',
-      to: '/'
+      to: '/content'
     })
     return {
       pageData,

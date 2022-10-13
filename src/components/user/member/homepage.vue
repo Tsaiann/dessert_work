@@ -1,21 +1,5 @@
 <template>
   <div class="homepage container">
-    <Toast position="center" group="bc">
-      <template #message="slotProps">
-        <div class="row horizontal flex flex-column">
-          <div data-width="100%">
-            <div class="row vertical center" data-space-bottom="1rem">
-              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
-              <h4>{{ slotProps.message.summary }}</h4>
-              <p>{{ slotProps.message.detail }}</p>
-            </div>
-            <div class="row horizontal center">
-              <Button class="p-button-success" label="確定" @click="onConfirm" data-space-right="1rem"></Button>
-            </div>
-          </div>
-        </div>
-      </template>
-    </Toast>
     <div class="row horizontal v_center" data-space-bottom="2rem">
       <i class="pi pi-user" style="font-size: 1.5rem"></i>
       <p data-space-left="1rem">{{ state.memberForm.account }}</p>
@@ -103,7 +87,7 @@ export default {
         Name: '',
         Email: '',
         Phone: '',
-        Birthday: null,
+        Birthday: '',
         Address: '',
         Password: ''
       },
@@ -133,7 +117,6 @@ export default {
         state.memberForm.Phone = res.data.Data.Phone
         state.memberForm.Address = res.data.Data.Address
         state.memberForm.account = res.data.Data.Account
-        console.log(res)
       })
     })
     //重新填寫會員資料
@@ -147,15 +130,15 @@ export default {
       const data = state.memberForm
       if (!v$.value.$error && state.memberForm.Name !== '' && state.memberForm.Email !== '') {
         if (state.memberForm.Password !== state.pwdConfirm) {
-          toast.add({ severity: 'error', summary: '所輸入的確認密碼有誤，請重新輸入', detail: 'Message Content' })
+          toast.add({ severity: 'error', summary: '輸入錯入，請重新輸入！', group: 'errorBox' })
         } else {
           callApi(updateMemberData, data, () => {
             getMemberData()
-            toast.add({ severity: 'success', summary: '更新成功！', detail: 'Message Content', group: 'bc' })
+            toast.add({ severity: 'success', summary: '更新成功！', group: 'goods_addcart' })
           })
         }
       } else {
-        toast.add({ severity: 'error', summary: '必填欄位不可為空或填寫錯誤', detail: 'Message Content' })
+        toast.add({ severity: 'error', summary: '必填欄位填寫錯誤', group: 'errorBox' })
         resetForm(state.registerForm)
       }
     }
@@ -183,7 +166,7 @@ export default {
         state.benefitsList.nextLevel = '金級會員'
         state.benefitsList.nextLevelCash = 10000 - total
         store.commit('memberModules/SET_USERBENEFITS', state.benefitsList)
-      } else if (total < 20000 && total >= 1000) {
+      } else if (total < 20000 && total >= 10000) {
         state.benefitsList.state.level = ' 金級會員'
         state.benefitsList.nextLevel = '白金會員'
         state.benefitsList.nextLevelCash = 20000 - total

@@ -63,13 +63,16 @@
             color: #603814;
             font-size: 15px;
           }
+          img{
+            max-height: 215px;
+          }
           &:hover{
             .icon{
               @include flexBox(row, flex-start,flex-start);
             }
             &::after{
               content: "";
-              @include size(210px,215px);
+              @include size(210px,218px);
               background: #fff;
               opacity: 0.5;
               z-index: 9;
@@ -504,36 +507,21 @@
         .goods-detail{
          @include flexBox(row, flex-start, space-between);
          padding-left: 0;
-         margin: 0 40px;
+         margin: 0 30px;
          div{
-           width: 45%;
+           width: 47%;
           .goods-detail_item{
             width: 100%;
+            cursor: pointer;
+            img{
+              max-height: 296px;
+            }
             .icon{
-              @include position(50%,'','',50%);
-              transform: translate(-45%, -80%);
-              width: 160px;
-              cursor: pointer;
-              i{
-                background: #d6aea3;
-                border-radius: 5px;
-                padding: 10px;
-                color: #000;
-                &:hover{
-                  background: #fff;
-                  color: #000;
-                }
-              }
-              p{
-                font-size: 13px;
-                font-weight: 800;
-                color: #000;
-              }
+              display: none;
             }
             &:hover{
               &::after{
-                content: "";
-                @include size(100%,84%);
+                display: none;
               }
             }
           }

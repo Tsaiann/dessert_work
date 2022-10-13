@@ -4,12 +4,17 @@
       <h2>會員累積消費 - {{ state.userForm.level }}</h2>
       <p>NT ${{ state.benefits.Consumption }}</p>
       <div>
-        <span></span>
+        <span :style="progress()"></span>
       </div>
       <span>再消費NT ${{ state.userForm.nextLevelCash }}即可升等為{{ state.userForm.nextLevel }}</span>
     </div>
+    <div class="member-title">
+      <div></div>
+      <h2>優惠券</h2>
+    </div>
+    <p v-if="state.discount == 0">目前還沒有可以使用的優惠券</p>
     <div class="row horizontal space_between wrap">
-      <div class="discount-coupon" v-for="(item, i) in state.benefits" :key="i">
+      <div class="discount-coupon" v-for="(item, i) in state.benefits.DiscountTicket" :key="i">
         <div class="discount-coupon_header">
           <span></span>
         </div>
@@ -25,7 +30,7 @@
 </template>
 
 <script>
-import { reactive, onMounted } from 'vue'
+import { reactive, onMounted, computed } from 'vue'
 import { benefitsList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 
@@ -33,7 +38,9 @@ export default {
   name: 'Discount',
   setup() {
     const state = reactive({
-      benefits: [],
+      progress: 0,
+      benefits: {},
+      discount: 0,
       userForm: {
         level: JSON.parse(localStorage.getItem('userBenefits')).level,
         nextLevel: JSON.parse(localStorage.getItem('userBenefits')).nextLevel,
@@ -44,12 +51,19 @@ export default {
     const getBenefitsData = onMounted(() => {
       const data = ''
       callApi(benefitsList, data, (res) => {
-        state.benefits = [...res.data.Data.DiscountTicket]
+        state.benefits = { ...res.data.Data }
+        state.progress = 10000 / state.benefits.Consumption
+        state.discount = state.benefits.DiscountTicket.length
+        console.log(state.discount)
       })
     })
+    const progress = () => {
+      return `width: calc(100% / ${state.progress})`
+    }
     return {
       state,
-      getBenefitsData
+      getBenefitsData,
+      progress
     }
   }
 }
