@@ -41,11 +41,11 @@
         <InputText type="password" v-model="state.memberForm.Password" />
       </div>
       <div class="member-detail" data-space-bottom="2rem">
-        <p>再次確認新密碼</p>
+        <p>確認新密碼</p>
         <InputText type="password" v-model="state.pwdConfirm" />
       </div>
       <hr />
-      <div class="member-detail">
+      <div class="member-detail_exception">
         <p>電子報</p>
         <div class="field-radiobutton">
           <RadioButton id="news1" name="news" :value="true" v-model="state.checked" />

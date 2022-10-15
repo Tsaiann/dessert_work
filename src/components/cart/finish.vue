@@ -39,7 +39,7 @@
         </div>
         <div class="finish-footer">
           <i class="pi pi-info-circle" style="font-size: 1.2rem"></i>
-          <span data-space-left="0.5rem">請在時間內，至指定門市取貨。若逾期未取將可能列為黑名單，影響您在本商店訂購的權利！</span>
+          <span data-space-left="0.5rem">請在時間內至指定門市取貨。若逾期未取將列為黑名單，影響您在本商店訂購的權利！</span>
         </div>
       </div>
       <div class="finish-button">
