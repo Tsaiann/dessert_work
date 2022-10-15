@@ -2,7 +2,7 @@
   <div class="container products">
     <guideLine :data="guideData" />
     <div class="goods-main">
-      <div class="row horizontal center">
+      <div class="goods-main-above">
         <div data-width="70%" data-space-right="2rem" class="goods_galleria">
           <Galleria :value="state.imgList" :numVisible="state.imgList.length">
             <template #item="slotProps">
@@ -25,7 +25,7 @@
             <div class="field-checkbox">
               <div v-for="(item, i) in state.newGoodsData" :key="i" class="field-checkbox-item">
                 <input :id="item.ID" type="checkbox" name="specs" :value="item.ID" v-model="state.allSpecsCheckedID" @click="handleSpecsMax($event)" />
-                <label :for="item.ID">{{ item.Specs }}</label>
+                <label :for="item.ID">{{ item.Specs }}：</label>
                 <input class="specsCount" type="number" v-model="item.Num" max="99" min="1" />
               </div>
             </div>
@@ -48,14 +48,21 @@
           </div>
         </div>
       </div>
-      <div class="row horizontal center" data-space-bottom="2rem" data-space-top="2rem">
+      <div class="button_buy media">
+        <button class="button_submit normal" data-width="50%" @click="addCart()">加入購物車</button>
+        <button class="button_submit confirm" data-width="50%" @click="handleBuy()">直接購買</button>
+      </div>
+      <div class="button_buy">
         <button class="button_submit normal" data-width="50%" @click="addCart()">加入購物車</button>
         <button class="button_submit confirm" data-width="50%" @click="handleBuy()">直接購買</button>
       </div>
     </div>
     <div class="goods-data">
-      <div class="row horizontal center" data-space-bottom="1rem">
-        <h1 data-width="50%">商品詳細資訊</h1>
+      <div class="row horizontal h_center">
+        <div data-width="50%" class="row vertical center">
+          <h1 data-width="100%">商品詳細資訊</h1>
+          <div class="color-block"></div>
+        </div>
         <h1 data-width="50%" @click="$router.push({ name: 'Delivery' })">送貨及付款方式</h1>
       </div>
       <div class="wire"></div>
@@ -64,36 +71,34 @@
     </div>
     <div class="goods-about">
       <div>
-        <h1 data-width="100%" data-space-bottom="1rem">相關產品</h1>
+        <div data-width="100%" class="row vertical center">
+          <h1 data-width="100%">相關產品</h1>
+          <div class="color-block"></div>
+        </div>
         <div class="wire"></div>
       </div>
-      <div class="goods-about_item">
-        <div class="row vertical center" @click="aboutGoodsRouter(15)">
-          <img src="../../assets/goods/meringueTart0.jpg" alt="tart" />
-          <h2>蛋白霜檸檬塔</h2>
-          <p>NT 80</p>
-        </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(14)">
-          <img src="../../assets/goods/strawberryTart.jpg" alt="tart" />
-          <h2>法式卡士達草莓塔</h2>
-          <p>NT 120</p>
-        </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(16)">
-          <img src="../../assets/goods/poundCake01.jpg" alt="poundCake" />
-          <h2>柳橙糖霜磅蛋糕</h2>
-          <p>NT 80</p>
-        </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(1)">
-          <img src="../../assets/goods/strawberryChiffon01.jpg" alt="chiffon" />
-          <h2>草莓香草戚風蛋糕</h2>
-          <p>NT 580</p>
-        </div>
+      <div class="carousel">
+        <Carousel :value="goodsList" :numVisible="4" :responsiveOptions="responsiveOptions">
+          <template #item="slotProps">
+            <div class="product-item" @click="aboutGoodsRouter(slotProps.data.id)">
+              <div class="product-item-content">
+                <div>
+                  <img :src="slotProps.data.src" alt="" />
+                </div>
+                <div>
+                  <h4>{{ slotProps.data.name }}</h4>
+                  <h6>NT {{ slotProps.data.price }}</h6>
+                </div>
+              </div>
+            </div>
+          </template>
+        </Carousel>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { reactive, onMounted, inject, computed } from 'vue'
+import { reactive, onMounted, inject, computed, ref } from 'vue'
 import { callApi } from '@/utils/callApi'
 import { useStore } from 'vuex'
 import { addGoodsCart, addLikeList, allLikeList, getImg, getGoodsList } from '@/service/api'
@@ -125,6 +130,32 @@ export default {
       },
       like: false
     })
+    const goodsList = reactive([
+      {
+        id: 15,
+        name: '蛋白霜檸檬塔',
+        price: 80,
+        src: require('../../assets/goods/meringueTart0.jpg')
+      },
+      {
+        id: 14,
+        name: '卡士達草莓塔',
+        price: 120,
+        src: require('../../assets/goods/strawberryTart.jpg')
+      },
+      {
+        id: 16,
+        name: '柳橙糖霜磅蛋糕',
+        price: 80,
+        src: require('../../assets/goods/poundCake01.jpg')
+      },
+      {
+        id: 1,
+        name: '草莓香草戚風蛋糕',
+        price: 580,
+        src: require('../../assets/goods/strawberryChiffon01.jpg')
+      }
+    ])
     //獲得該商品詳細資料
     const getGoodDetail = onMounted(() => {
       const data = { ID: localStorage.getItem('goodsDetailID') * 1 }
@@ -276,7 +307,29 @@ export default {
         }
       }
     }
+    const responsiveOptions = ref([
+      {
+        breakpoint: '900px',
+        numVisible: 3,
+        numScroll: 2
+      },
+      {
+        breakpoint: '700px',
+        numVisible: 2,
+        numScroll: 2
+      },
+      {
+        breakpoint: '500px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ])
+    const test = (id) => {
+      console.log(id)
+    }
     return {
+      test,
+      responsiveOptions,
       state,
       getGoodDetail,
       guideData,
@@ -287,7 +340,8 @@ export default {
       countChange,
       aboutGoodsRouter,
       handleSpecsMax,
-      checkSpecs
+      checkSpecs,
+      goodsList
     }
   }
 }

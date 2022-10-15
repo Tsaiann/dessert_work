@@ -2,8 +2,8 @@
   <div class="container products">
     <guideLine :data="guideData" />
     <div class="goods-main">
-      <div class="row horizontal center">
-        <div data-width="70%" data-space-right="2rem" class="goods_galleria">
+      <div class="goods-main-above">
+        <div data-width="70%" class="goods_galleria">
           <Galleria :value="state.imgList" :numVisible="state.imgList.length">
             <template #item="slotProps">
               <img :src="slotProps.item.url" :alt="slotProps.item.Ident" />
@@ -44,14 +44,21 @@
           </div>
         </div>
       </div>
-      <div class="row horizontal center" data-space-bottom="2rem" data-space-top="2rem">
+      <div class="button_buy media">
+        <button class="button_submit normal" data-width="50%" @click="addCart()">加入購物車</button>
+        <button class="button_submit confirm" data-width="50%" @click="handleBuy()">直接購買</button>
+      </div>
+      <div class="button_buy">
         <button class="button_submit normal" data-width="50%" @click="addCart()">加入購物車</button>
         <button class="button_submit confirm" data-width="50%" @click="handleBuy()">直接購買</button>
       </div>
     </div>
     <div class="goods-data">
-      <div class="row horizontal center" data-space-bottom="1rem">
-        <h1 data-width="50%">商品詳細資訊</h1>
+      <div class="row horizontal h_center">
+        <div data-width="50%" class="row vertical center">
+          <h1 data-width="100%">商品詳細資訊</h1>
+          <div class="color-block"></div>
+        </div>
         <h1 data-width="50%" @click="$router.push({ name: 'Delivery' })">送貨及付款方式</h1>
       </div>
       <div class="wire"></div>
@@ -60,30 +67,28 @@
     </div>
     <div class="goods-about">
       <div>
-        <h1 data-width="100%" data-space-bottom="1rem">相關產品</h1>
+        <div data-width="100%" class="row vertical center">
+          <h1 data-width="100%">相關產品</h1>
+          <div class="color-block"></div>
+        </div>
         <div class="wire"></div>
       </div>
-      <div class="goods-about_item">
-        <div class="row vertical center" @click="aboutGoodsRouter(10)">
-          <img src="../../assets/goods/macaron02.jpg" alt="" />
-          <h2>馬卡龍</h2>
-          <p>NT 80</p>
-        </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(7)">
-          <img src="../../assets/goods/cupcake01.jpg" alt="" />
-          <h2>杯子蛋糕</h2>
-          <p>NT 70</p>
-        </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(11)">
-          <img src="../../assets/goods/macaronBox5-01.jpg" alt="" />
-          <h2>馬卡龍禮盒 - 5入</h2>
-          <p>NT 400</p>
-        </div>
-        <div class="row vertical center" @click="aboutGoodsRouter(8)">
-          <img src="../../assets/goods/cupcakeBox4-01.jpg" alt="" />
-          <h2>杯子蛋糕禮盒 - 4入</h2>
-          <p>NT 280</p>
-        </div>
+      <div class="carousel">
+        <Carousel :value="goodsList" :numVisible="4" :responsiveOptions="responsiveOptions">
+          <template #item="slotProps">
+            <div class="product-item" @click="aboutGoodsRouter(slotProps.data.id)">
+              <div class="product-item-content">
+                <div>
+                  <img :src="slotProps.data.src" alt="" />
+                </div>
+                <div>
+                  <h4>{{ slotProps.data.name }}</h4>
+                  <h6>NT {{ slotProps.data.price }}</h6>
+                </div>
+              </div>
+            </div>
+          </template>
+        </Carousel>
       </div>
     </div>
   </div>
@@ -91,8 +96,7 @@
 <script>
 import { reactive, onMounted, inject, ref } from 'vue'
 import { callApi } from '@/utils/callApi'
-import { useStore } from 'vuex'
-import { addGoodsCart, addLikeList, allLikeList, getImg, getGoodsList } from '@/service/api'
+import { addGoodsCart, addLikeList, allLikeList, getGoodsList } from '@/service/api'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
 import guideLine from '@/components/guideLine.vue'
@@ -124,6 +128,32 @@ export default {
       },
       like: false
     })
+    const goodsList = reactive([
+      {
+        id: 10,
+        name: '馬卡龍',
+        price: 80,
+        src: require('../../assets/goods/macaron02.jpg')
+      },
+      {
+        id: 7,
+        name: '杯子蛋糕',
+        price: 70,
+        src: require('../../assets/goods/cupcake01.jpg')
+      },
+      {
+        id: 11,
+        name: '馬卡龍禮盒 - 5入',
+        price: 400,
+        src: require('../../assets/goods/macaronBox5-01.jpg')
+      },
+      {
+        id: 8,
+        name: '杯子蛋糕禮盒 - 4入',
+        price: 280,
+        src: require('../../assets/goods/cupcakeBox4-01.jpg')
+      }
+    ])
     //獲得該商品詳細資料
     const getGoodDetail = onMounted(() => {
       const data = { ID: localStorage.getItem('goodsDetailID') * 1 }
@@ -228,13 +258,29 @@ export default {
       localStorage.setItem('goodsDetailID', id)
       router.push({ name: 'SpecsDetail' })
     }
-    const test = () => {
-      console.log(state.specsCheckedID)
-    }
+    const responsiveOptions = ref([
+      {
+        breakpoint: '900px',
+        numVisible: 3,
+        numScroll: 2
+      },
+      {
+        breakpoint: '700px',
+        numVisible: 2,
+        numScroll: 2
+      },
+      {
+        breakpoint: '500px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ])
     return {
       state,
       getGoodDetail,
       guideData,
+      goodsList,
+      responsiveOptions,
       likeStatus,
       onConfirm,
       handleAddLike,

@@ -19,12 +19,12 @@
     <Dialog
       class="goods_dialog"
       v-model:visible="state.visibleDialog"
-      :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
+      :breakpoints="{ '960px': '60vw' }"
       :style="{ width: '800px', height: '490px' }"
       :modal="true"
     >
       <div class="dialog_main">
-        <div class="row horizontal">
+        <div class="dialog_above">
           <div class="goods_galleria">
             <Galleria :value="state.imgList" :numVisible="state.imgList.length">
               <template #item="slotProps">
@@ -67,7 +67,7 @@
           </div>
         </div>
         <div class="row horizontal center">
-          <button class="button_submit normal" data-space-right="1rem" data-width="100%" @click="addCartDialog()">加入購物車</button>
+          <button class="button_submit normal" data-width="95%" @click="addCartDialog()">加入購物車</button>
         </div>
       </div>
     </Dialog>
@@ -107,15 +107,9 @@ export default {
     const goodsList = props.list
     // 增加進購物車
     const addCart = async (list) => {
-      const userInfo = localStorage.getItem('userInfo')
-      if (userInfo !== null) {
-        getGoodDetail(list.ID)
-        state.visibleDialog = true
-      } else {
-        toast.add({ severity: 'error', summary: '請先登入會員！', group: 'errorBox' })
-      }
+      getGoodDetail(list.ID)
+      state.visibleDialog = true
     }
-
     //商品詳細頁面
     const checkGoodsDetail = (id) => {
       localStorage.setItem('goodsDetailID', id)
