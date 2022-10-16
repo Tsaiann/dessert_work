@@ -3,7 +3,7 @@
     <guideLine :data="guideData" />
     <div class="goods-main">
       <div class="goods-main-above">
-        <div data-width="70%" data-space-right="2rem" class="goods_galleria">
+        <div data-width="70%" class="goods_galleria">
           <Galleria :value="state.imgList" :numVisible="state.imgList.length">
             <template #item="slotProps">
               <img :src="slotProps.item.url" :alt="slotProps.item.Ident" />

@@ -44,28 +44,24 @@
           </Column>
         </DataTable>
       </div>
-      <div class="row horizontal center">
+      <div class="order-options">
         <div class="send">
           <h2>送貨以及付款方式</h2>
           <p>送貨方式</p>
-          <Dropdown
-            v-model="state.deliveryValue"
-            :options="sentItems"
-            optionLabel="name"
-            optionValue="name"
-            placeholder="請選擇送貨方式"
-            :style="{ width: '94%' }"
-            @change="feeMethodSelect()"
-          />
+          <div class="sent_options">
+            <Dropdown
+              v-model="state.deliveryValue"
+              :options="sentItems"
+              optionLabel="name"
+              optionValue="name"
+              placeholder="請選擇送貨方式"
+              @change="feeMethodSelect()"
+            />
+          </div>
           <p>付款方式</p>
-          <Dropdown
-            v-model="state.paymentValue"
-            :options="payItems"
-            optionValue="name"
-            optionLabel="name"
-            placeholder="請選擇付款方式"
-            :style="{ width: '94%' }"
-          />
+          <div class="sent_options">
+            <Dropdown v-model="state.paymentValue" :options="payItems" optionValue="name" optionLabel="name" placeholder="請選擇付款方式" />
+          </div>
         </div>
         <div class="info">
           <h2>訂單資訊</h2>
@@ -111,8 +107,8 @@
           </template>
         </Dialog>
       </div>
-      <div class="row horizontal h_end" data-space-top="2rem" data-width="90%">
-        <button class="button_submit confirm" @click="handleNextPage()">前往結賬</button>
+      <div class="row horizontal h_end" data-width="80%" style="margin: 20px auto">
+        <button class="button_submit confirm exception" @click="handleNextPage()">前往結賬</button>
       </div>
     </div>
   </div>

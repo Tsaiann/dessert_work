@@ -51,7 +51,7 @@
           <RadioButton id="news1" name="news" :value="true" v-model="state.checked" />
           <label for="news1" data-space-left="0.5rem">訂閱</label>
         </div>
-        <div data-space-left="2rem">
+        <div data-space-left="1rem">
           <RadioButton id="news2" name="news" :value="false" v-model="state.checked" />
           <label for="news2" data-space-left="0.5rem">不訂閱</label>
         </div>

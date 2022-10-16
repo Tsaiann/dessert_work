@@ -93,11 +93,9 @@ export default {
           await router.push({ name: 'Login' })
         }).catch(() => {
           toast.add({ severity: 'error', summary: '註冊失敗，請重新輸入', group: 'errorBox' })
-          //resetForm(state.registerForm)
         })
       } else {
         toast.add({ severity: 'error', summary: '註冊失敗，請重新輸入', group: 'errorBox' })
-        //resetForm(state.registerForm)
       }
     }
     return {
