@@ -51,8 +51,8 @@
               <div class="field-checkbox" v-else>
                 <div v-for="(item, i) in state.newGoodsData" :key="i" class="field-checkbox-item">
                   <input :id="item.ID" type="checkbox" name="specs" :value="item.ID" v-model="state.allSpecsCheckedID" @click="handleSpecsMax($event)" />
-                  <label :for="item.ID">{{ item.Specs }}</label>
-                  <input class="specsCount" type="number" v-model="item.Num" max="99" min="1" />
+                  <label :for="item.ID">{{ item.Specs }}：</label>
+                  <input class="specsCount" type="number" v-model="item.Num" max="99" min="1" placeholder="數量" />
                 </div>
               </div>
             </div>

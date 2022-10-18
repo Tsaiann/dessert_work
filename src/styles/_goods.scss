@@ -280,6 +280,10 @@
             width: 30px;
             height: 20px;
             pointer-events: none;
+            &::placeholder{
+              color:rgb(212, 212, 212);
+              font-size: 10px;
+            }
           }
           input[type=checkbox]{
             &:checked ~ label{
@@ -481,6 +485,10 @@
           height: 20px;
           pointer-events: none;
           background: #fff;
+          &::placeholder{
+            color:rgb(212, 212, 212);
+            font-size: 10px;
+          }
         }
         input[type=checkbox]{
           &:checked ~ label{
