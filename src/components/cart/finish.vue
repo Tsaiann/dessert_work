@@ -31,7 +31,7 @@
             <p>收件地址：</p>
             <p>{{ recipientForm.addr }}</p>
           </div>
-          <hr style="border-color: #eae2d8" />
+          <hr />
           <div class="row horizontal space_between" data-space-bottom="1rem">
             <span>合計：</span>
             <p>{{ recipientForm.total }}</p>
