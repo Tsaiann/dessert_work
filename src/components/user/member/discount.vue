@@ -42,9 +42,9 @@ export default {
       benefits: {},
       discount: 0,
       userForm: {
-        level: JSON.parse(localStorage.getItem('userBenefits')).level,
-        nextLevel: JSON.parse(localStorage.getItem('userBenefits')).nextLevel,
-        nextLevelCash: JSON.parse(localStorage.getItem('userBenefits')).nextLevelCash
+        level: JSON.parse(localStorage.getItem('memberBenefits')).level,
+        nextLevel: JSON.parse(localStorage.getItem('memberBenefits')).nextLevel,
+        nextLevelCash: JSON.parse(localStorage.getItem('memberBenefits')).nextLevelCash
       }
     })
     //得到資料
