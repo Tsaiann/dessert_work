@@ -179,8 +179,8 @@ export default {
     }
     //加入到購物車
     const addCartDialog = async () => {
-      const userInfo = localStorage.getItem('userInfo')
-      if (userInfo !== null) {
+      const memberInfo = localStorage.getItem('memberInfo')
+      if (memberInfo !== null) {
         if (state.newGoodsData.length == 1) {
           if (state.check == true) {
             state.cartForm.Specs.push({

@@ -187,13 +187,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+  const memberInfo = JSON.parse(localStorage.getItem('memberInfo'))
   if (to.meta.requiresAuth) {
-    if (userInfo.token !== '' && userInfo) {
+    if (memberInfo.token !== '' && memberInfo) {
       next()
     } else {
       next({ name: 'Login' })
-      localStorage.removeItem('userInfo')
+      localStorage.removeItem('memberInfo')
     }
   } else {
     next()

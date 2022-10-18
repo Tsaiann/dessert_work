@@ -20,7 +20,7 @@ export const memberModules = {
   getters: {
     getToken(state) {
       if (!state.token) {
-        state.memberStatus.token = localStorage.getItem('userInfo').token
+        state.memberStatus.token = localStorage.getItem('memberInfo').token
       }
       return state.memberStatus.token
     }
@@ -37,7 +37,7 @@ export const memberModules = {
       state.memberStatus.birthday = payload.Info.Birthday
       state.memberStatus.token = payload.Token
       localStorage.setItem(
-        'userInfo',
+        'memberInfo',
         JSON.stringify({ id: payload.Info.ID, account: payload.Info.Account, username: payload.Info.Name, token: payload.Token })
       )
     },
@@ -46,7 +46,7 @@ export const memberModules = {
       state.benefits.level = payload.level
       state.benefits.nextLevel = payload.nextLevel
       state.benefits.nextLevelCash = payload.nextLevelCash
-      localStorage.setItem('userBenefits', JSON.stringify({ level: payload.level, nextLevel: payload.nextLevel, nextLevelCash: payload.nextLevelCash }))
+      localStorage.setItem('memberBenefits', JSON.stringify({ level: payload.level, nextLevel: payload.nextLevel, nextLevelCash: payload.nextLevelCash }))
     }
   },
 

@@ -159,7 +159,7 @@ export default {
     const goodsCount = ref(1)
     const search = ref('')
     const confirmUserInfo = ref(null)
-    const memberStatus = localStorage.getItem('userInfo')
+    const memberStatus = localStorage.getItem('memberInfo')
     const routerList = reactive([
       {
         label: '關於季菓',
@@ -271,8 +271,8 @@ export default {
     ])
     // 獲得所有購物車資料
     const getCartData = onMounted(() => {
-      const userInfo = localStorage.getItem('userInfo')
-      if (userInfo === null) {
+      const memberInfo = localStorage.getItem('memberInfo')
+      if (memberInfo === null) {
         return
       } else {
         confirmUserInfo.value = true
@@ -285,15 +285,15 @@ export default {
     })
     // 點擊會員icon判斷有沒有登入會員跳換路由
     const handleMember = () => {
-      const userInfo = localStorage.getItem('userInfo')
-      if (userInfo === null) {
+      const memberInfo = localStorage.getItem('memberInfo')
+      if (memberInfo === null) {
         router.push({ name: 'User' })
       }
     }
     // 判斷menu中會員是否登入來跳轉路由
     const memberRouterChange = onMounted(() => {
-      const userInfo = localStorage.getItem('userInfo')
-      if (userInfo === null) {
+      const memberInfo = localStorage.getItem('memberInfo')
+      if (memberInfo === null) {
         routerList[2].to = '/user'
       } else {
         routerList[2].to = '/member'
@@ -301,8 +301,8 @@ export default {
     })
     // 判斷menu中會員是否登入來跳轉路由(手機)
     const memberRouterChangeMedia = () => {
-      const userInfo = localStorage.getItem('userInfo')
-      if (userInfo === null) {
+      const memberInfo = localStorage.getItem('memberInfo')
+      if (memberInfo === null) {
         router.push({ name: 'User' })
       } else {
         return

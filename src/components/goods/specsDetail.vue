@@ -192,8 +192,8 @@ export default {
     }
     //加入到購物車
     const addCart = async () => {
-      const userInfo = localStorage.getItem('userInfo')
-      if (userInfo !== null) {
+      const memberInfo = localStorage.getItem('memberInfo')
+      if (memberInfo !== null) {
         checkSpecs()
         const totalNum = state.cartForm.Specs.reduce((pre, cur) => {
           return pre + cur.Num
@@ -220,8 +220,8 @@ export default {
     }
     //直接購買（跳轉結帳）
     const handleBuy = async () => {
-      const userInfo = localStorage.getItem('userInfo')
-      if (userInfo !== null) {
+      const memberInfo = localStorage.getItem('memberInfo')
+      if (memberInfo !== null) {
         checkSpecs()
         const totalNum = state.cartForm.Specs.reduce((pre, cur) => {
           return pre + cur.Num
@@ -246,8 +246,8 @@ export default {
     }
     //加入到收藏清單
     const handleAddLike = () => {
-      const userInfo = localStorage.getItem('userInfo')
-      if (userInfo !== null) {
+      const memberInfo = localStorage.getItem('memberInfo')
+      if (memberInfo !== null) {
         const data = { GoodsID: state.cartForm.GoodsID }
         callApi(addLikeList, data, () => {
           state.like = true
@@ -258,8 +258,8 @@ export default {
     }
     //判斷收藏清單裡是否已有資料
     const likeStatus = () => {
-      const userInfo = localStorage.getItem('userInfo')
-      if (userInfo === null) {
+      const memberInfo = localStorage.getItem('memberInfo')
+      if (memberInfo === null) {
         return
       } else {
         const data = ''
