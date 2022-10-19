@@ -20,6 +20,18 @@
         </template>
       </Column>
     </DataTable>
+    <div class="order-media" v-for="(item, i) in state.orderList" :key="i">
+      <h1>訂單編號： {{ item.ID }}</h1>
+      <div class="row horizontal center space_between">
+        <ul>
+          <li>訂單日期： {{ item.CheckoutAt }}</li>
+          <li>訂單狀態： {{ item.OrderStage }}</li>
+          <li>寄送日期： {{ item.DeliveryStage }}</li>
+          <li>寄送方式： {{ item.DeliveryMethod }}</li>
+        </ul>
+        <Button type="button" class="p-button-outlined p-button-secondary p-button-sm" @click="openDialog(item.ID)">詳細資料</Button>
+      </div>
+    </div>
     <Dialog header="訂單資料" v-model:visible="detailDialog" :style="{ width: '600px' }">
       <div data-inset="0.5rem">
         <div class="orderData">
@@ -109,9 +121,9 @@ export default {
     const orderStage = () => {
       for (let i in state.orderList) {
         const stage = state.orderList[i].OrderStage
-        if (stage === 0) {
+        if (stage == 0) {
           state.orderList[i].OrderStage = '未出貨'
-        } else {
+        } else if (stage == 1) {
           state.orderList[i].OrderStage = '已出貨'
         }
       }

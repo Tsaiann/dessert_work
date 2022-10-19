@@ -2,7 +2,7 @@
   width: 100%;
   @include flexBox(row, flex-start, flex-start);
   margin-bottom: 100px;
-  ul{
+  .aside-menu{
     @include flexBox(column, center, flex-start);
     @include size(19%, 350px);
     border: 2px solid $middleGray;
@@ -40,7 +40,7 @@
     }
   }
   @media(max-width: 960px) {
-    ul{
+    .aside-menu{
       display: none;
     }
   }

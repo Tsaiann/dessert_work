@@ -2,7 +2,7 @@
   <div class="member container">
     <guideLine :data="guideData" />
     <div class="member-page">
-      <ul>
+      <ul class="aside-menu">
         <li v-for="(item, i) in memberList" :key="i" @click="routerChange(item.name, item.path, item.to)">{{ item.name }}</li>
       </ul>
       <div class="member-list">
