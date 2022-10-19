@@ -233,7 +233,7 @@
   }
   .likeList{
     @include flexBox(row, center, space-between);
-    padding: 30px 40px;
+    padding: 20px 40px 30px 30px;
     border-bottom: 1px solid $darkGray;
     height: 100%;
     cursor: pointer;
@@ -246,7 +246,7 @@
       }
     }
     img{
-      width: 130px;
+      width: 150px;
     }
     .iconList{
       @include flexBox(column, center, flex-start);
@@ -400,12 +400,15 @@
   }
   .like{
     .likeList{
-      padding: 30px 20px;
+      padding-top: 5px;
+      padding-right: 10px;
       img{
         width: 100px;
         margin-right: 10px;
       }
-
+      span{
+        display: none;
+      }
     }
   }
 }
