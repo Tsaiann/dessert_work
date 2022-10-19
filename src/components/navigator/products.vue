@@ -2,7 +2,7 @@
   <div class="products container">
     <guideLine :data="guideData" />
     <div class="goods-page">
-      <ul>
+      <ul class="aside-menu">
         <li v-for="(item, i) in goodsTypeList" :key="i" @click="routerChange(item.name, item.path, item.to)">{{ item.name }}</li>
       </ul>
       <div class="goods-list">
