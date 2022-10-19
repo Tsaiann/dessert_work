@@ -22,27 +22,31 @@
       <div class="card" data-space-bottom="2rem">
         <Steps :model="steps" />
       </div>
+      <h2 class="exception_title">購物車</h2>
       <div class="cart-data">
-        <h2>購物車</h2>
-        <DataTable :value="state.goodsList" responsiveLayout="scroll">
-          <Column field="Goods.Name" header="商品名稱" bodyStyle="width: 250px"></Column>
-          <Column field="TimestampPice" header="價格"></Column>
-          <Column header="數量" headerStyle="text-align: center">
-            <template #body="{ data }">
-              <div class="cart-data-count">
-                <i class="pi pi-minus" style="font-size: 0.5rem" @click="changeCart('minus', data)"></i>
-                <InputNumber v-model="data.Specs[0].Num" class="p-inputtext-sm"></InputNumber>
-                <i class="pi pi-plus" style="font-size: 0.5rem" @click="changeCart('plus', data)"></i>
-              </div>
-            </template>
-          </Column>
-          <Column field="total" header="小計"></Column>
-          <Column bodyStyle="text-align: center; overflow: visible;">
-            <template #body="{ data }">
-              <i class="pi pi-times" @click="deleteCartData(data.ID)"></i>
-            </template>
-          </Column>
-        </DataTable>
+        <ul class="cart-data-title">
+          <li data-width="50%">商品詳情</li>
+          <li data-width="17%">單價</li>
+          <li data-width="18%">數量</li>
+          <li data-width="16%">小計</li>
+        </ul>
+        <div class="cart-data-content" v-for="(item, i) in state.goodsList" :key="i">
+          <div class="cart-data-content_detail">
+            <img :src="renderCartImg(item.ImageUrls[0].Url)" :alt="item.ImageUrls[0].Ident" />
+            <div>
+              <h3>{{ item.Goods.Name }}</h3>
+              <span>{{}}</span>
+            </div>
+          </div>
+          <div class="cart-data-content_price">NT {{ item.TimestampPice }}</div>
+          <div class="cart-data-count">
+            <i class="pi pi-minus" style="font-size: 0.5rem" @click="changeCart('minus', item)"></i>
+            <InputNumber v-model="item.Specs[0].Num" class="p-inputtext-sm"></InputNumber>
+            <i class="pi pi-plus" style="font-size: 0.5rem" @click="changeCart('plus', item)"></i>
+          </div>
+          <div class="cart-data-content_total">NT {{ item.total }}</div>
+          <i class="pi pi-times" @click="deleteCartData(item.ID)"></i>
+        </div>
       </div>
       <div class="order-options">
         <div class="send">
@@ -302,13 +306,14 @@ export default {
         state.discountFee = null
       }
     }
-    const test = () => {
-      console.log(state.discountID)
+    //傳回來的圖片加上正確網址
+    const renderCartImg = (img) => {
+      return process.env.VUE_APP_BASE_API + '/imgs/' + img
     }
     return {
       state,
+      renderCartImg,
       handleSpecsMax,
-      test,
       changeCart,
       getBenefitsData,
       guideData,
