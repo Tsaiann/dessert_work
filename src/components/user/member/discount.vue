@@ -19,10 +19,10 @@
           <span></span>
         </div>
         <div class="discount-coupon_content">
-          <h2>${{ state.benefits[i].Amount }}</h2>
-          <p>單筆消費滿500元即可使用一張</p>
+          <h2>${{ item.Amount }}</h2>
+          <p>單筆消費滿1000元即可使用一張</p>
           <p>單筆消費限用一張折價券</p>
-          <p>使用期限：2023/12/31</p>
+          <p>使用期限：2022/12/31</p>
         </div>
       </div>
     </div>

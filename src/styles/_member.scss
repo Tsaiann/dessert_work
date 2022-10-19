@@ -118,7 +118,7 @@
 }
 
 .discount{
-  padding: 40px 30px;
+  padding: 30px;
   p{
     font-size: 20px;
     text-align: center;
@@ -131,13 +131,6 @@
     h2{
       @include title-h2;
       position: relative;
-      &::before{
-        content:'(永久有效)';
-        @include position('','',3px,270px);
-        font-size: 16px;
-        color: #754C24;
-        opacity: 0.7;
-      }
     }
     p{
       color: #C7B299;
@@ -182,11 +175,10 @@
     }
   }  
   &-coupon{
-    @include flexBox(row, flex-start, flex-start);
-    width: 350px;
+    @include flexBox(row, center, center);
     margin-bottom: 20px;
     &_header{
-      @include size(90px,140px);
+      @include size(80px,140px);
       position: relative;
       background: linear-gradient(90deg, transparent 0, transparent 0.1875rem, #e9d7c0 0);
       span {
@@ -209,12 +201,16 @@
       }
     }
     &_content{
-      @include size(260px, 140px);
+      height: 140px;
       border: 1px solid #e9d7c0;
       padding: 10px;
+      @include flexBox(column, center, center);
       h2{
         color: #C7B299;
-        font-size: 26px;
+        font-size: 24px;
+      }
+      p{
+        font-size: 16px;
       }
     }
   }
@@ -374,6 +370,22 @@
       }
     }
   }
+  .discount{
+    &-coupon{
+      width: 48%;
+      min-width: 270px;
+      &_content{
+        width: 100%; 
+        h2{
+          color: #C7B299;
+          font-size: 24px;
+        }
+        p{
+          font-size: 13px;
+        }
+      }
+    }
+  }
 }
 @media(max-width: 700px) {
   .order{
@@ -382,6 +394,11 @@
     }
     &-media{
       display: block;
+    }
+  }
+  .discount{
+    &-coupon{
+      width: 100%;
     }
   }
 }
@@ -411,5 +428,21 @@
         display: none;
       }
     }
+  }
+  .discount{
+    padding: 15px;
+    &-data{
+      padding: 10px;
+      h2{
+        font-size: 18px;
+      }
+      p{
+        font-size: 16px;
+        margin-bottom: 30px;
+      }
+      span{
+        font-size: 14px;
+      }
+    } 
   }
 }
