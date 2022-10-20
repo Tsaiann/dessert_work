@@ -34,7 +34,7 @@
             <img :src="renderCartImg(item.ImageUrls[0].Url)" :alt="item.ImageUrls[0].Ident" />
             <div>
               <h3>{{ item.Goods.Name }}</h3>
-              <span>{{}}</span>
+              <span>{{ item.specsName }}</span>
               <p class="cart-data-content_price">NT{{ item.TimestampPice }}</p>
             </div>
           </div>
@@ -51,7 +51,7 @@
             <img :src="renderCartImg(item.ImageUrls[0].Url)" :alt="item.ImageUrls[0].Ident" />
             <div data-width="65%">
               <h3>{{ item.Goods.Name }}</h3>
-              <span>{{}}</span>
+              <span>{{ item.specsName }}</span>
               <p class="cart-data-content_price">NT{{ item.TimestampPice }}</p>
             </div>
             <i class="pi pi-times" @click="deleteCartData(item.ID)"></i>
@@ -115,16 +115,16 @@
               <label :for="item.ID">
                 <div class="dialog-discount">
                   <h2>NT ${{ state.benefits[i].Amount }}</h2>
-                  <p>單筆消費滿500元即可使用一張</p>
-                  <p>使用日期：2023/12/31</p>
+                  <p>單筆消費滿1000元即可使用一張</p>
+                  <p>使用日期：2022/12/31</p>
                 </div>
               </label>
             </div>
           </div>
           <template #footer>
-            <div class="row horizontal">
-              <button class="button_submit cancel" @click="dialogDiscountVisible = false">取消</button>
-              <button class="button_submit confirm" @click="dialogDiscountVisible = false">確定</button>
+            <div class="row horizontal" data-space-top="1rem">
+              <button class="button_submit cancel" @click="discountButton('cancel')">取消</button>
+              <button class="button_submit confirm" @click="discountButton('confirm')">確定</button>
             </div>
           </template>
         </Dialog>
@@ -155,10 +155,13 @@ export default {
     const reload = inject('reload')
     const router = useRouter()
     const toast = useToast()
+    const dialogDiscountVisible = ref(false)
     const state = reactive({
       discountID: [],
       benefits: [],
       goodsList: [],
+      goodsSpecs: [], // 所有規格
+      currentSpecs: [],
       updateCartForm: {
         ID: 0,
         GoodsID: 0,
@@ -215,7 +218,6 @@ export default {
         to: '/finish'
       }
     ])
-    const dialogDiscountVisible = ref(false)
     //根據選擇的寄送方式運費不同
     const feeMethodSelect = () => {
       if (state.deliveryValue === '自取') {
@@ -241,9 +243,49 @@ export default {
       callApi(getGoodsCart, data, (res) => {
         state.goodsList = [...res.data.Data]
         totalCount()
+        specsChange()
         console.log(state.goodsList)
       })
     })
+    //得到所有商品規格
+    const getGoodsSpecs = onMounted(() => {
+      const goodsInfo = JSON.parse(localStorage.getItem('goodsInfo'))
+      let specs = goodsInfo.map((item) => {
+        return item.GoodsSpecs
+      })
+      state.goodsSpecs = specs.flat(Infinity)
+    })
+    //針對一筆商品內規格作轉換(chiffon/other)
+    const specsCommon = (orderSpecs) => {
+      for (let i in state.goodsSpecs) {
+        if (orderSpecs.Specs[0].SpecID == state.goodsSpecs[i].ID) {
+          orderSpecs.specsName = state.goodsSpecs[i].Specs
+        }
+      }
+    }
+    //針對一筆商品內規格作轉換(macaron/cupcake)
+    const specsAdded = (orderSpecs) => {
+      for (let i in orderSpecs.Specs) {
+        for (let j in state.goodsSpecs) {
+          if (orderSpecs.Specs[i].SpecID == state.goodsSpecs[j].ID) {
+            orderSpecs.specsName.push(state.goodsSpecs[j].Specs)
+          }
+        }
+      }
+      orderSpecs.specsName.splice(0, 1)
+      orderSpecs.specsName = orderSpecs.specsName.join()
+    }
+    //取得訂單中規格超過一筆的資料
+    const specsChange = () => {
+      for (let i in state.goodsList) {
+        if (state.goodsList[i].Specs.length > 1) {
+          state.goodsList[i].specsName = []
+          specsAdded(state.goodsList[i])
+        } else if (state.goodsList[i].Specs.length == 1) {
+          specsCommon(state.goodsList[i])
+        }
+      }
+    }
     //刪除購物車資料
     const deleteCartData = async (id) => {
       toast.add({ severity: 'success', summary: '確定要刪除商品？', group: 'goodsDelete', ID: id })
@@ -314,15 +356,33 @@ export default {
     //限制商品規格的數量
     const handleSpecsMax = (event, fee) => {
       if (event.target.checked === true) {
-        if (state.discountID.length == 1) {
-          event.target.checked = false
-          toast.add({ severity: 'error', summary: '已超過數量！', group: 'errorBox' })
+        if (allGoodsTotal.value >= 1000) {
+          if (state.discountID.length == 1) {
+            event.target.checked = false
+            toast.add({ severity: 'error', summary: '已超過數量！', group: 'errorBox' })
+          } else {
+            state.discountFee = fee
+          }
         } else {
-          state.discountFee = fee
+          event.target.checked = false
+          toast.add({ severity: 'error', summary: '消費金額未達到！', group: 'errorBox' })
         }
       } else {
         state.discountFee = null
       }
+    }
+    const discountButton = (method) => {
+      const obj = {
+        cancel: () => {
+          state.discountFee = null
+          state.discountID = []
+          dialogDiscountVisible.value = false
+        },
+        confirm: () => {
+          dialogDiscountVisible.value = false
+        }
+      }
+      obj[method]()
     }
     //傳回來的圖片加上正確網址
     const renderCartImg = (img) => {
@@ -330,6 +390,9 @@ export default {
     }
     return {
       state,
+      discountButton,
+      getGoodsSpecs,
+      specsChange,
       renderCartImg,
       handleSpecsMax,
       changeCart,

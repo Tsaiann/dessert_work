@@ -135,6 +135,7 @@ export default {
         Address: ''
       },
       recipientForm: {
+        Discounts: [],
         Recipient: '',
         Phone: '',
         Addr: '',
@@ -176,6 +177,7 @@ export default {
       toast.removeGroup('cartCheckout')
     }
     const onConfirmCheckout = async () => {
+      state.recipientForm.Discounts.push(JSON.parse(localStorage.getItem('cartInfo')).discount)
       const data = state.recipientForm
       callApi(submitGoodsCart, data, () => {
         store.commit('cartModules/SET_CARTINFO', state.recipientForm)
