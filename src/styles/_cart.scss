@@ -264,6 +264,10 @@
   .p-dialog-content{
     height: 300px;
     overflow: scroll;
+    .discount-content{
+      @include flexBox(row, flex-start, space-between);
+      flex-wrap: wrap;
+    }
     .discount_item{
       position: relative;
       input[type="checkbox"]{
@@ -410,6 +414,16 @@
         hr{
           width: 100%;
         }
+      }
+    }
+  }
+}
+@media(max-width: 550px){
+  .cart_dialog{
+    .p-dialog-content{
+      .discount-content{
+        @include flexBox(row, flex-start, center);
+        flex-wrap: wrap;
       }
     }
   }

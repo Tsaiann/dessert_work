@@ -108,8 +108,8 @@
             <p>NT {{ orderTotal }}</p>
           </div>
         </div>
-        <Dialog header="優惠券" v-model:visible="dialogDiscountVisible" :style="{ width: '500px' }" class="cart_dialog">
-          <div class="row horizontal wrap space_between">
+        <Dialog header="優惠券" v-model:visible="dialogDiscountVisible" :style="{ width: '500px' }" :breakpoints="{ '550px': '60vw' }" class="cart_dialog">
+          <div class="discount-content">
             <div v-for="(item, i) in state.benefits" :key="i" class="discount_item">
               <input :id="item.ID" type="checkbox" :value="item.ID" v-model="state.discountID" @click="handleSpecsMax($event, item.Amount)" />
               <label :for="item.ID">
