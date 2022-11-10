@@ -117,14 +117,6 @@ const routes = [
             }
           },
           {
-            path: 'ask',
-            name: 'Ask',
-            component: () => import('../components/user/member/ask.vue'),
-            meta: {
-              requiresAuth: true
-            }
-          },
-          {
             path: 'discount',
             name: 'Discount',
             component: () => import('../components/user/member/discount.vue'),
