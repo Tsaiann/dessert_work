@@ -16,7 +16,6 @@
       </div>
       <div class="smbit">
         <button class="button_submit confirm" @click="hanleLogin">登入</button>
-        <p>忘記密碼嗎？</p>
       </div>
     </div>
   </div>
