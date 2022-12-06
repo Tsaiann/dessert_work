@@ -1,0 +1,176 @@
+.products{
+  .goods-main{
+    margin: 0 20px;
+    .goods-main-above{
+      @include flexBox(row, center, center);
+      margin-bottom: 20px;
+    }
+    .goods_galleria{
+      @include size(80%, 470px);
+      .p-galleria-item{
+        img{
+          width: 90%;
+        }
+      }
+      .p-galleria-item-wrapper{
+        height: 400px;
+      }
+      .p-galleria-thumbnail-wrapper{
+        @include size(240px, 90px);
+        padding-left: 15px;
+      }
+  
+      .p-galleria-thumbnail-container{
+        img{
+          @include size(100%, 60px);
+          border: 1px solid $middleGray;
+          padding: 5px;
+        }
+      }
+    }
+    .normal{
+      margin-right: 20px;
+    }
+    &-content{
+      width: 100%;
+      min-height: 470px;
+      h2{
+        @include text(#000, 24, 400);
+      }
+      p{
+        @include text($middleBrown, 18, 400);
+        text-align: right;
+      }
+      h3{
+        font-size: 18px;
+        font-weight: normal;
+      }
+      .specs{
+        height: 140px;
+        &-customize{
+          border: 1px solid $middleGray;
+          border-radius: 10px;
+          background: none;
+          color: #000;
+          position: relative;
+          padding: 10px 30px;
+          cursor: pointer;
+          &:hover{
+            border: 1px solid #dbc6ac;
+            color: #dbc6ac;
+          }
+        }
+        input[type="checkbox"]{
+          @include size(10px, 10px);
+          @include position(0, null, null, 0);
+          z-index: -1;
+          &:checked ~ label{
+            background: #e3d5c4;
+            color: #000;
+          }
+        }
+      }
+      .specs_exception{
+        min-height: 240px;
+        margin-top: 10px;
+        .field-checkbox{
+          @include flexBox(row, center, flex-start);
+          margin-left: 10px;
+          flex-wrap: wrap;
+          &-item{
+            @include flexBox(row, center, flex-start);
+            margin: 0 0 20px 0;
+            width: 150px;
+            label{
+              white-space:nowrap;
+            }
+          }
+          input[type=checkbox],input[type=number]{
+            width: 15px;
+            margin: 0 5px 0 10px;
+            height: 15px;
+            background: #f6f6f6;
+            border: 0;
+            border-bottom: 1px solid $middleGray;
+            text-align: center;
+          }
+          input[type=number]{
+            width: 30px;
+            height: 20px;
+            pointer-events: none;
+            &::placeholder{
+              color:rgb(212, 212, 212);
+              font-size: 10px;
+            }
+          }
+          input[type=checkbox]{
+            &:checked ~ label{
+              color: #000;
+            }
+            &:checked ~ input[type=number]{
+              border-bottom: 1px solid #000;
+              pointer-events: all;
+            }
+          }
+        }
+      }
+      &__count{
+        @include size(100%, 40px);
+        border: 1px solid rgb(219, 216, 216);
+        background: $lightGray;
+        margin: 10px 0 10px 0;
+        @include flexBox(row, center, space-between);
+        i{
+          margin: 0 10px;
+          cursor: pointer;
+        }
+        input{
+          @include size(30px,38px);
+          border: none;
+          text-align: center;
+          &:focus{
+            box-shadow: none;
+          }
+        }
+      }
+      .like, .like_finish{
+        @include flexBox(row, center, flex-start);
+        border: 1px solid $middleGray;
+        width: 200px;
+        padding: 5px 7px;
+        border-radius: 50px;
+        background: #fff;
+        cursor: pointer;
+        &_finish{
+          i{
+            color: 	#ee7272;
+          }
+        }
+      }
+    }
+    .button_buy{
+      @include flexBox(row, center, space-between);
+      margin-bottom: 30px;
+      button{
+        width: 48%;
+        font-size: 18px;
+        padding: 8px 0;
+      }
+      &.media{
+        bottom: 0;
+        left: 0;
+        display: none;
+        position: fixed;
+        background: #fff;
+        width: 100%;
+        z-index: 99;
+        margin: auto;
+        box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+        button{
+          width: 48%;
+          margin: 5px;
+        }
+      }
+    }
+  }
+}
