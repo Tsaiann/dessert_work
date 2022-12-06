@@ -6,7 +6,7 @@
         <p data-space-top="0.5rem">Seasonal Fructification</p>
       </div>
       <div class="footer-content">
-        <p>聯絡我們</p>
+        <h2>聯絡我們</h2>
         <ul>
           <li>服務時間：9:00 - 18:00</li>
           <li>客服專線：02-2876-7897</li>
@@ -14,7 +14,7 @@
         </ul>
       </div>
       <div class="footer-content">
-        <p>客戶服務</p>
+        <h2>客戶服務</h2>
         <ul class="serve">
           <li @click="$router.push({ name: 'Delivery' })">宅配須知</li>
           <li @click="$router.push({ name: 'Private' })">服務條款細則與隱私權保護</li>
