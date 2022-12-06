@@ -10,7 +10,7 @@
       text-align: center;
       margin-right: 120px;
       h2{
-        @include text(#754C24,18, 600);
+        @include text($darkBrown,18, 600);
       }
     }
   }
@@ -53,9 +53,6 @@
       div{
         margin: auto;
       }
-    }
-    .bowl{
-      display: none;
     }
   }
 }
