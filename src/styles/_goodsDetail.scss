@@ -45,9 +45,7 @@
         text-align: right;
       }
       h3{
-        @include text($darkGray, 18, 400);
-        font-size: 18px;
-        font-weight: normal;
+        @include text($darkGray, 18, 500);
       }
       .specs{
         height: 140px;
@@ -90,21 +88,18 @@
             }
           }
           input[type=checkbox],input[type=number]{
-            width: 15px;
+            @include size(15px, 15px);
             margin: 0 5px 0 10px;
-            height: 15px;
             background: #f6f6f6;
             border: 0;
             border-bottom: 1px solid $middleGray;
             text-align: center;
           }
           input[type=number]{
-            width: 30px;
-            height: 20px;
+            @include size(30px, 20px);
             pointer-events: none;
             &::placeholder{
-              color:rgb(212, 212, 212);
-              font-size: 10px;
+              @include text($middleGray,10,normal);
             }
           }
           input[type=checkbox]{
@@ -161,8 +156,7 @@
         padding: 8px 0;
       }
       &.media{
-        bottom: 0;
-        left: 0;
+        @include position('','',0,0);
         display: none;
         position: fixed;
         background: #fff;
@@ -233,6 +227,9 @@
     background: $middleGray;
     position: relative;
     margin-bottom: 30px;
+  }
+  h1{
+    text-align: center;
   }
 }
 
