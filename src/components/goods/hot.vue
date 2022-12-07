@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="goods-title">
+    <div class="goods-list-title">
       <div></div>
       <h2>熱銷排行</h2>
     </div>
@@ -35,7 +35,6 @@ export default {
       const data = state.goodsListSearch
       callApi(getGoodsList, data, (res) => {
         state.goodsList = [...res.data.Data]
-        console.log(state.goodsList)
       })
     })
     return {

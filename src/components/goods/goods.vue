@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="goods-title">
+    <div class="goods-list-title">
       <div></div>
       <h2>所有商品</h2>
     </div>
@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import { reactive, onMounted, inject } from 'vue'
+import { reactive, onMounted } from 'vue'
 import { getGoodsList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import card from '@/components/goods/card'
@@ -22,7 +22,6 @@ export default {
     card
   },
   setup() {
-    const reload = inject('reload')
     const router = useRouter()
     const state = reactive({
       goodsList: [],
@@ -36,14 +35,12 @@ export default {
         const data = state.goodsListSearch
         callApi(getGoodsList, data, (res) => {
           state.goodsList = [...res.data.Data]
-          console.log(state.goodsList)
         })
       } else {
         state.goodsListSearch.GoodsName = state.search
         const data = state.goodsListSearch
         callApi(getGoodsList, data, (res) => {
           state.goodsList = [...res.data.Data]
-          console.log(state.goodsList)
         })
       }
     })
