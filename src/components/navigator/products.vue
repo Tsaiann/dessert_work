@@ -14,7 +14,7 @@
 
 <script>
 import guideLine from '@/components/guideLine.vue'
-import { reactive, onMounted, computed } from 'vue'
+import { reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 export default {
   name: 'Products',
@@ -61,6 +61,7 @@ export default {
         to: '/products/other'
       }
     ])
+    //點擊跳轉頁面
     const routerChange = (name, path, to) => {
       guideData[0].label = name
       guideData[0].to = to
