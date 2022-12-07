@@ -1,11 +1,11 @@
-.products{
-  .goods-main{
+.detail{
+  .goods-choose{
     margin: 0 20px;
-    .goods-main-above{
+    .goods-choose-above{
       @include flexBox(row, center, center);
       margin-bottom: 20px;
     }
-    .goods_galleria{
+    .galleria{
       @include size(80%, 470px);
       .p-galleria-item{
         img{
@@ -19,7 +19,13 @@
         @include size(240px, 90px);
         padding-left: 15px;
       }
-  
+      .p-galleria .p-galleria-thumbnail-container {
+        background: rgb(246, 246, 246);
+        padding: 0.5rem 0;
+        button{
+          display: none;
+        }
+      }
       .p-galleria-thumbnail-container{
         img{
           @include size(100%, 60px);
@@ -27,9 +33,6 @@
           padding: 5px;
         }
       }
-    }
-    .normal{
-      margin-right: 20px;
     }
     &-content{
       width: 100%;
@@ -42,6 +45,7 @@
         text-align: right;
       }
       h3{
+        @include text($darkGray, 18, 400);
         font-size: 18px;
         font-weight: normal;
       }
@@ -152,7 +156,7 @@
       @include flexBox(row, center, space-between);
       margin-bottom: 30px;
       button{
-        width: 48%;
+        width: 49%;
         font-size: 18px;
         padding: 8px 0;
       }
@@ -169,6 +173,170 @@
         button{
           width: 48%;
           margin: 5px;
+        }
+      }
+    }
+  }
+  .goods-data{
+    margin-bottom: 50px;
+    h2{
+      @include text(#000,25,normal);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  }
+  .goods-about{
+    .carousel{
+      margin: 0 auto 50px auto;
+      .p-carousel-indicators{
+        display: none; 
+      }
+      .p-carousel-container{
+        height: 300px;
+        .p-carousel-items-content{
+          @include flexBox(row, center, space-between);
+          padding-left: 20px;
+        }
+      }
+      .goods-item {
+        width: 90%;
+        cursor: pointer;
+        .goods-item-content {
+          text-align: center;
+          padding-bottom: 15px;
+          img{
+            width: 100%;
+          }
+          h4{
+            @include text($darkGray, 14, 400);
+            margin-top: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+          h6{
+            @include text($darkBrown, 14, 600);
+          }
+        }
+      }
+    }
+  }
+  /*common element*/
+  .color-block{
+    @include size(80px,5px);
+    background: #A67F77;
+    margin-top: 10px;
+  }
+  .wire{
+    @include size(100%,2px);
+    background: $middleGray;
+    position: relative;
+    margin-bottom: 30px;
+  }
+}
+
+@media(max-width: 960px){
+  .detail{
+    .goods-choose{
+      .goods-choose-above{
+        @include flexBox(column, center, center);
+        .galleria{
+          width: 420px;
+          margin-bottom: 20px;
+          .p-galleria-item{
+            img{
+              width: 90%;
+            }
+          }
+        } 
+      }
+      .button_buy{
+        display: none;
+        &.media{
+          display: flex;
+        }
+      }
+      &-content{
+        width: 90%;
+        min-height: 420px;
+        .specs_exception{
+          min-height: 150px;
+          .field-checkbox{
+            margin-left: 15px;
+            &-item{
+              width: 130px;
+            }
+          }
+        }
+      }
+    }
+    .goods-data{
+      width: 95%;
+      margin: 0 auto 50px auto;
+      h1{
+        margin-bottom: 0;
+      }
+    }
+    .goods-about{
+      width: 95%;
+      margin: 0 auto;
+      h1{
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+@media(max-width: 750px){
+  .detail{
+    .goods-choose{
+      .goods-choose-above{
+        .galleria{
+          @include size(320px, 400px);
+          margin-bottom: 20px;
+          .p-galleria-item{
+            img{
+              width: 95%;
+            }
+          }
+          .p-galleria-item-wrapper{
+            height: 330px;
+          }
+          .p-galleria-thumbnail-wrapper{
+            width: 220px;
+            padding-left: 0;
+          }
+        }
+      }
+      &-content{
+        width: 100%;
+        h2{
+          font-size: 18px;
+        }
+        p{
+          font-size: 16px;
+        }
+      }
+    }
+    .goods-data{
+      h1, h2{
+        font-size: 18px;
+      }
+    }
+  }
+}
+@media(max-width: 500px){
+  .detail{
+    .goods-about{
+      .carousel{
+        .goods-item {
+          margin: 0 auto;
+          width: 70%;
+        }
+        .p-carousel-container{
+          .p-carousel-items-content{
+            padding-left: 0;
+          }
         }
       }
     }
