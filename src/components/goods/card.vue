@@ -35,7 +35,7 @@
               </template>
             </Galleria>
           </div>
-          <div class="goods-main-content">
+          <div class="goods-content">
             <h2>{{ state.goodsData.Name }}</h2>
             <hr />
             <p>建議售價 NT{{ state.goodsData.UnitPrice }}</p>
@@ -58,7 +58,7 @@
             </div>
             <div>
               <h3>購買數量</h3>
-              <div class="goods-main-content__count" data-space-left="1.5rem">
+              <div class="goods-content__count" data-space-left="1.5rem">
                 <i class="pi pi-minus" @click="countChange('minus')"></i>
                 <InputNumber class="p-inputtext-sm" v-model="state.count" />
                 <i class="pi pi-plus" style="color: red" @click="countChange('plus')"></i>
@@ -67,7 +67,7 @@
           </div>
         </div>
         <div class="row horizontal center">
-          <button class="button_submit normal" data-width="95%" @click="addCartDialog()">加入購物車</button>
+          <button class="button_normal" data-width="95%" @click="addCartDialog()">加入購物車</button>
         </div>
       </div>
     </Dialog>
@@ -128,8 +128,6 @@ export default {
         state.goodsData = res.data.Data
         state.cartForm.GoodsID = state.goodsData.ID
         state.specsCount = state.goodsData.GoodsSpecs[0].Specs
-        state.newGoodsData = state.goodsData.GoodsSpecs.slice(1)
-        console.log(state.newGoodsData)
         getImg()
       })
     }
@@ -153,7 +151,6 @@ export default {
       if (event.target.checked === true) {
         if (state.currentSpecsChecked.length < state.goodsData.GoodsSpecs[0].Specs) {
           state.currentSpecsChecked.push(event.target.value)
-          console.log(state.currentSpecsChecked)
         } else {
           event.target.checked = false
           toast.add({ severity: 'error', summary: '已超過數量！', group: 'errorBox' })
@@ -162,9 +159,9 @@ export default {
         state.currentSpecsChecked = state.currentSpecsChecked.filter((item) => {
           return item !== event.target.value
         })
-        console.log(state.currentSpecsChecked)
       }
     }
+    //檢查商品數量是否正確
     const checkSpecs = () => {
       for (let i in state.goodsData.GoodsSpecs) {
         for (let j in state.allSpecsCheckedID) {
@@ -189,7 +186,7 @@ export default {
             })
             const data = state.cartForm
             callApi(addGoodsCart, data, () => {
-              toast.add({ severity: 'success', summary: '已加入購物車！', group: 'goods_addcart' })
+              toast.add({ severity: 'success', summary: '已加入購物車！', group: 'successBox' })
             })
           } else {
             toast.add({ severity: 'error', summary: '請選擇規格', group: 'errorBox' })
@@ -206,7 +203,7 @@ export default {
             })
             const data = state.cartForm
             callApi(addGoodsCart, data, () => {
-              toast.add({ severity: 'success', summary: '已加入購物車！', group: 'goods_addcart' })
+              toast.add({ severity: 'success', summary: '已加入購物車！', group: 'successBox' })
               state.cartForm.Specs = []
               state.visibleDialog = false
             })
@@ -220,16 +217,15 @@ export default {
       }
     }
     return {
-      getGoodDetail,
-      goodsList,
-      addCart,
       state,
       reload,
+      goodsList,
       checkGoodsDetail,
       countChange,
-      checkSpecs,
       handleSpecsMax,
-      addCartDialog
+      addCartDialog,
+      getGoodDetail,
+      addCart
     }
   }
 }
