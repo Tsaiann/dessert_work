@@ -13,18 +13,17 @@
       <div class="member-detail">
         <p>姓名*</p>
         <InputText type="text" v-model="state.memberForm.Name" />
+        <span v-if="v$.Name.$error"> {{ '請輸入兩字以上名字' }} </span>
       </div>
       <div class="member-detail">
         <p>電子郵件*</p>
         <InputText type="text" v-model="state.memberForm.Email" />
+        <span v-if="v$.Email.$error"> {{ '請輸入電子郵件' }} </span>
       </div>
       <div class="member-detail">
         <p>聯絡電話</p>
         <InputText type="text" v-model="state.memberForm.Phone" />
-      </div>
-      <div class="member-detail">
-        <p>出生日期</p>
-        <InputText type="text" v-model="state.memberForm.Birthday" />
+        <span v-if="v$.Phone.$error"> {{ '請輸入正確的聯絡電話' }} </span>
       </div>
       <div class="member-detail" data-space-bottom="2rem">
         <p>寄件地址</p>
@@ -39,10 +38,12 @@
       <div class="member-detail">
         <p>設定新密碼</p>
         <InputText type="password" v-model="state.memberForm.Password" />
+        <span v-if="v$.Password.$error"> {{ '密碼請輸入最少8位以上' }} </span>
       </div>
       <div class="member-detail" data-space-bottom="2rem">
         <p>確認新密碼</p>
         <InputText type="password" v-model="state.pwdConfirm" />
+        <span v-if="v$.ConfirmPassword.$error"> {{ '請再次輸入密碼' }} </span>
       </div>
       <hr />
       <div class="member-detail_exception">
@@ -58,8 +59,8 @@
       </div>
       <span>訂閱商品/活動訊息，我們將不定期透過email通知最新商品活動及優惠訊息。</span>
       <div class="row horizontal" data-space-top="3rem">
-        <button class="button_submit cancel" @click="handleReset" data-space-right="1rem">重新填寫</button>
-        <button class="button_submit confirm" @click="handleMemberUpdate">儲存變更</button>
+        <button class="button_cancel" @click="handleReset" data-space-right="1rem">重新填寫</button>
+        <button class="button_confirm" @click="handleMemberUpdate">儲存變更</button>
       </div>
     </div>
   </div>
@@ -71,7 +72,7 @@ import { memberData, updateMemberData, benefitsList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { resetForm } from '@/utils/resetForm'
 import { useToast } from 'primevue/usetoast'
-import { email, required, minLength } from '@vuelidate/validators'
+import { email, required, minLength, sameAs } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 import { useStore } from 'vuex'
 
@@ -87,7 +88,6 @@ export default {
         Name: '',
         Email: '',
         Phone: '',
-        Birthday: '',
         Address: '',
         Password: ''
       },
@@ -102,9 +102,11 @@ export default {
     })
     const rules = computed(() => {
       return {
-        Name: { required },
+        Name: { required, minLength: minLength(2) },
         Email: { required, email },
-        Password: { minLength: minLength(8) }
+        Password: { minLength: minLength(8) },
+        ConfirmPassword: { sameAs: sameAs(state.memberForm.Password) },
+        Phone: { required, minLength: minLength(10) }
       }
     })
     const v$ = useVuelidate(rules, state.memberForm)
@@ -134,16 +136,12 @@ export default {
         } else {
           callApi(updateMemberData, data, () => {
             getMemberData()
-            toast.add({ severity: 'success', summary: '更新成功！', group: 'goods_addcart' })
+            toast.add({ severity: 'success', summary: '更新成功！', group: 'successBox' })
           })
         }
       } else {
-        toast.add({ severity: 'error', summary: '必填欄位填寫錯誤', group: 'errorBox' })
-        resetForm(state.registerForm)
+        toast.add({ severity: 'error', summary: '填寫錯誤，請重新填寫', group: 'errorBox' })
       }
-    }
-    const onConfirm = () => {
-      reload()
     }
     //得到優惠券資料
     const getBenefitsData = onMounted(() => {
@@ -179,12 +177,11 @@ export default {
     return {
       state,
       getMemberData,
-      handleReset,
-      handleMemberUpdate,
-      v$,
       rules,
-      onConfirm,
-      getBenefitsData
+      v$,
+      getBenefitsData,
+      handleReset,
+      handleMemberUpdate
     }
   }
 }
