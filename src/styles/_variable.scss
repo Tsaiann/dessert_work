@@ -1,38 +1,13 @@
 $lightGray: #fdfdfd ;
 $middleGray:#C9C9C9;
 $darkGray: #808080;
-$common:#A67F78;
-
-$icon_img: 'icon-brand', 'icon-delivery', 'icon-return', 'icon-private';
-
-@each $currentIconImg in $icon_img{
-  .#{$currentIconImg}{
-    background-image: url('../assets/home/#{$currentIconImg}.png');
-    background-size: contain; 
-    background-repeat: no-repeat;
-    width: 100px;
-    height: 100px;
-  }
-  .icon-delivery{
-    width: 120px;
-    height:80px;
-  }
-  .icon-private{
-    width: 75px;
-    height:100px;
-    font-weight: normal;
-  }
-}
+$lightBrown:#dbc6ac;
+$middleBrown:#A67F78;
+$darkBrown:#754C24;
 
 @mixin textIndent($ti,$ml){
   text-indent: $ti +px;
   margin-left: $ml +px;
-}
-
-@mixin title-h2{
-  color: #754C24;
-  font-size: 24px;
-  font-weight: 500;
 }
 
 @mixin text($color, $fontSize, $fontWeight){
@@ -56,4 +31,22 @@ $icon_img: 'icon-brand', 'icon-delivery', 'icon-return', 'icon-private';
 @mixin size($weight, $height){
   width: $weight;
   height: $height;
+}
+
+$icon_img: 'icon-brand', 'icon-delivery', 'icon-return', 'icon-private';
+
+@each $currentIconImg in $icon_img{
+  .#{$currentIconImg}{
+    @include size(100px, 100px);
+    background-image: url('../assets/home/#{$currentIconImg}.png');
+    background-size: contain; 
+    background-repeat: no-repeat;
+  }
+  .icon-delivery{
+    @include size(120px, 80px);
+  }
+  .icon-private{
+    @include size(75px, 100px);
+    font-weight: normal;
+  }
 }
