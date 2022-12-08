@@ -14,8 +14,8 @@
         <InputText type="text" v-model="state.memberForm.otp" />
         <span>{{ otp.OTP }}</span>
       </div>
-      <div class="smbit">
-        <button class="button_submit confirm" @click="hanleLogin">登入</button>
+      <div class="submit">
+        <button class="button_confirm" @click="hanleLogin">登入</button>
       </div>
     </div>
   </div>
@@ -26,6 +26,7 @@ import { reactive, onMounted, inject } from 'vue'
 import { getOtp, login, getGoodsList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useRouter } from 'vue-router'
+import { resetForm } from '@/utils/resetForm'
 import { useToast } from 'primevue/usetoast'
 import { useStore } from 'vuex'
 
@@ -48,7 +49,6 @@ export default {
       checked: false
     })
     let otp = reactive({ OTP: '' })
-
     //取得otp
     const callOtp = onMounted(async () => {
       const data = ''
@@ -80,9 +80,7 @@ export default {
     }
     // 清除欄位
     const removeLogin = () => {
-      Object.keys(state.memberForm).forEach((item) => {
-        state.memberForm[item] = ''
-      })
+      resetForm(state.memberForm)
     }
     return {
       state,

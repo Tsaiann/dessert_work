@@ -30,7 +30,7 @@
     p{
       border-left: 1px solid $darkGray;
       border-bottom: 1px solid $darkGray;
-      background: $lightGray;
+      background: #eeebeb;
     }
   }
   .login-data{
@@ -60,26 +60,18 @@
         letter-spacing: 0.1rem;
       }
     }
-   .smbit{
+   .submit{
+    @include flexBox(row, center,center);
       width: 100%;
-      @include flexBox(column, flex-start, center);
       margin-top: 30px;
       button{
         width: 80%;
-        margin: 0 auto 5px auto;
-      }
-      .field-checkbox{
-        width: 80%;
-        margin: auto;
+        font-size: 16px;
+        cursor: pointer;
       }
       p{
         @include text($middleGray,16,400);
-        width: 100%;
         text-align: center;
-        cursor: pointer;
-        &:hover{
-          color: #000;
-        }
       }
     }
   }
@@ -89,7 +81,7 @@
     span{
       border-right: 1px solid $darkGray;
       border-bottom: 1px solid $darkGray;
-      background: $lightGray;
+      background: #eeebeb;
     }
   }
   .register-data{
@@ -106,8 +98,7 @@
       font-size: 16px;
     }
     span{
-      color: red;
-      font-size: 12px;
+      @include text(red, 12, normal);
       input{
         width: 500px;
       }
@@ -118,11 +109,12 @@
     ::placeholder { 
       color: #bcbbbb
     }
+    button{
+      margin-top: 30px;
+      width: 80%;
+      font-size: 16px;
+    }
   }
-}
-.button_submit{
-  @include size(80%, 40px);
-  margin: 10px 0;
 }
 @media(max-width: 800px) {
   .login, .register{

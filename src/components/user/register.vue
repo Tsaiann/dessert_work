@@ -37,7 +37,7 @@
         <span v-if="v$.phone.$error"> {{ '請輸入聯絡電話' }} </span>
       </div>
       <div class="row vertical center">
-        <button @click="handleSubmit" class="button_submit confirm">加入會員</button>
+        <button @click="handleSubmit" class="button_confirm">加入會員</button>
       </div>
     </div>
   </div>
@@ -47,7 +47,6 @@ import { reactive, computed } from 'vue'
 import { email, required, minLength, sameAs } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 import { useToast } from 'primevue/usetoast'
-import { resetForm } from '@/utils/resetForm'
 import { createMember } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useRouter } from 'vue-router'
@@ -89,7 +88,7 @@ export default {
       }
       if (!v$.value.$error) {
         await callApi(createMember, data, async () => {
-          toast.add({ severity: 'success', summary: '註冊成功！', group: 'goods_addcart' })
+          toast.add({ severity: 'success', summary: '註冊成功！', group: 'successBox' })
           await router.push({ name: 'Login' })
         }).catch(() => {
           toast.add({ severity: 'error', summary: '註冊失敗，請重新輸入', group: 'errorBox' })
