@@ -30,7 +30,7 @@
         </div>
       </template>
     </Toast>
-    <Toast position="center" group="goods_addcart">
+    <Toast position="center" group="successBox">
       <template #message="slotProps">
         <div class="row horizontal">
           <div data-width="100%">
@@ -92,8 +92,8 @@
         <label for="checkboxicon" class="specs-customize_member">
           <i class="pi pi-user" @click="handleMember">
             <div class="float-block_member" v-if="confirmUserInfo">
-              <button @click="memberRouter">會員專區</button>
-              <button @click="logout">登出</button>
+              <button class="button_confirm" @click="memberRouter">會員專區</button>
+              <button class="button_confirm" @click="logout">登出</button>
             </div>
           </i>
         </label>
@@ -111,8 +111,8 @@
               <i class="pi pi-trash" @click="deleteCartData(item.ID)"></i>
             </div>
             <div class="cart-check">
-              <button class="button_submit confirm" @click="goCart" v-if="goodsList.length > 0">立即結帳</button>
-              <button class="button_submit confirm" @click="$router.push({ name: 'Goods' })" v-else>馬上選購</button>
+              <button class="button_confirm" @click="goCart" v-if="goodsList.length > 0">立即結帳</button>
+              <button class="button_confirm" @click="$router.push({ name: 'Goods' })" v-else>馬上選購</button>
             </div>
           </div>
           <div class="cart_count">
@@ -124,7 +124,7 @@
           <i class="pi pi-search">
             <div class="float-block_search">
               <InputText placeholder="Search" type="text" v-model="search" />
-              <button class="button_submit confirm" @click="handleSearch">搜尋</button>
+              <button class="button_confirm" @click="handleSearch">搜尋</button>
             </div>
           </i>
         </label>
@@ -146,7 +146,6 @@ import { ref, reactive, onMounted, inject } from 'vue'
 import { getGoodsCart, deleteGoodsCart } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useRouter } from 'vue-router'
-import { resetForm } from '../utils/resetForm'
 import { useToast } from 'primevue/usetoast'
 
 export default {
@@ -279,7 +278,6 @@ export default {
         const data = ''
         callApi(getGoodsCart, data, (res) => {
           goodsList.value = [...res.data.Data]
-          console.log(goodsList.value)
         })
       }
     })
@@ -318,7 +316,7 @@ export default {
     const onConfirm = async (id) => {
       const data = { ID: id }
       await callApi(deleteGoodsCart, data, () => {
-        toast.add({ severity: 'success', summary: '刪除成功！', group: 'goods_addcart' })
+        toast.add({ severity: 'success', summary: '刪除成功！', group: 'successBox' })
         toast.removeGroup('cartGoodsDelete')
         getCartData()
       })
@@ -374,7 +372,7 @@ export default {
     const onConfirmLike = async (id) => {
       const data = { GoodsID: id }
       await callApi(deleteLikeList, data, () => {
-        toast.add({ severity: 'success', summary: '刪除成功！', group: 'goods_addcart' })
+        toast.add({ severity: 'success', summary: '刪除成功！', group: 'successBox' })
         toast.removeGroup('likeDelete')
         getLikeList()
       })
@@ -384,39 +382,35 @@ export default {
       await router.push({ name: path })
       await reload()
     }
-    const reReload = () => {
-      reload()
-    }
     return {
+      search,
+      memberRouterChange,
+      goodsCount,
+      getCartData,
       searchChecked,
       memberStatus,
       memberList,
-      reReload,
-      routerChange,
       closeCheckbox,
       menuChecked,
       routerList,
       goodsList,
+      memberChecked,
+      confirmUserInfo,
+      goodsTypeList,
+      routerChange,
       handleMember,
-      memberRouterChange,
-      goodsCount,
-      getCartData,
       deleteCartData,
       onReject,
       onConfirm,
       renderCartImg,
-      search,
       handleSearch,
       goCart,
-      memberChecked,
-      confirmUserInfo,
       logout,
       memberRouter,
       handleReset,
       onConfirmLogout,
       onConfirmLike,
-      memberRouterChangeMedia,
-      goodsTypeList
+      memberRouterChangeMedia
     }
   }
 }
