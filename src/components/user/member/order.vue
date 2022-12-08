@@ -21,7 +21,7 @@
       </Column>
     </DataTable>
     <div class="order-media" v-for="(item, i) in state.orderList" :key="i">
-      <h1>訂單編號： {{ item.ID }}</h1>
+      <h2>訂單編號： {{ item.ID }}</h2>
       <div class="row horizontal center space_between">
         <ul>
           <li>訂單日期： {{ item.CheckoutAt }}</li>
@@ -33,8 +33,8 @@
       </div>
     </div>
     <Dialog header="訂單資料" v-model:visible="detailDialog" :style="{ width: '600px' }">
-      <div data-inset="0.5rem">
-        <div class="orderData">
+      <div data-inset="0.5rem" class="order-dialog">
+        <div class="order-dialog-data">
           <div class="data_title">
             <div></div>
             <p>商品資訊</p>
@@ -51,12 +51,12 @@
             </div>
           </div>
         </div>
-        <div class="deliveryData">
+        <div class="order-dialog-delivery">
           <div class="data_title" data-space-bottom="1rem">
             <div></div>
             <p>配送資訊</p>
           </div>
-          <div data-space-left="1rem" class="deliveryData_method">
+          <div data-space-left="1rem" class="method">
             <div class="row horizontal">
               <p>方式：</p>
               <span>{{ state.orderDetailList.DeliveryMethod }}</span>
@@ -78,7 +78,7 @@
       </div>
       <template #footer>
         <div class="row horizontal center">
-          <button class="button_submit confirm" @click="detailDialog = false">確定</button>
+          <button class="button_confirm" @click="detailDialog = false">確定</button>
         </div>
       </template>
     </Dialog>
@@ -104,7 +104,7 @@ export default {
       let data = {}
       callApi(getOrderList, data, (res) => {
         state.orderList = [...res.data.Data]
-        console.log(state.orderList)
+        state.orderList = state.orderList.reverse()
         timeChange()
         orderStage()
       })
@@ -146,7 +146,6 @@ export default {
         for (let j in state.orderDetailList.OrderItem) {
           if (state.orderDetailList.OrderItem[j].GoodsID == goodsData[i].ID) {
             state.orderDetailList.OrderItem[j].Name = goodsData[i].Name
-            console.log(state.orderDetailList.OrderItem)
           }
         }
       }
@@ -155,11 +154,11 @@ export default {
       return process.env.VUE_APP_BASE_API + '/imgs/' + img
     }
     return {
+      detailDialog,
+      state,
       getOrder,
       timeChange,
       orderStage,
-      detailDialog,
-      state,
       getOrderDetail,
       openDialog,
       renderOrderImg
