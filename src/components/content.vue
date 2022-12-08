@@ -54,7 +54,6 @@
         <span>Macaron</span>
       </div>
     </div>
-    <div class="container autoCenter"><img src="../assets/home/shape02.png" alt="shape" width="1000px" /></div>
     <ul class="brand container" data-space-bottom="3rem">
       <li class="row vertical" @click="$router.push({ name: 'About' })">
         <div class="icon-brand"></div>
@@ -77,7 +76,7 @@
 </template>
 
 <script>
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { getGoodsList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useRouter } from 'vue-router'
@@ -86,11 +85,42 @@ export default {
   name: 'Content',
   setup() {
     const router = useRouter()
-    let homeImgs = [{ src: require('../assets/home/home01.png') }, { src: require('../assets/home/home02.png') }, { src: require('../assets/home/home03.png') }]
+    const state = reactive({
+      goodsList: [],
+      goodsListSearch: {
+        ID: 0,
+        Page: 0,
+        PageLimit: 10,
+        GoodsName: '',
+        GoodsType: 0
+      }
+    })
+    const homeImgs = reactive([
+      {
+        src: require('../assets/home/home01.png')
+      },
+      {
+        src: require('../assets/home/home02.png')
+      },
+      {
+        src: require('../assets/home/home03.png')
+      }
+    ])
     let showHomeImg = ref(0)
     let transitionName = ref('right-in')
     let currentIndex = ref(0)
-
+    const responsiveOptions = ref([
+      {
+        breakpoint: '800px',
+        numVisible: 3,
+        numScroll: 2
+      },
+      {
+        breakpoint: '603px',
+        numVisible: 2,
+        numScroll: 2
+      }
+    ])
     const setShow = (index) => {
       if (index < 0) {
         transitionName.value = 'left-in'
@@ -106,16 +136,6 @@ export default {
         currentIndex.value = index
       }
     }
-    const state = reactive({
-      goodsList: [],
-      goodsListSearch: {
-        ID: 0,
-        Page: 0,
-        PageLimit: 10,
-        GoodsName: '',
-        GoodsType: 0
-      }
-    })
     const getAllGoodsList = onMounted(async () => {
       const data = state.goodsListSearch
       callApi(getGoodsList, data, (res) => {
@@ -123,18 +143,6 @@ export default {
         console.log(state.goodsList)
       })
     })
-    const responsiveOptions = ref([
-      {
-        breakpoint: '800px',
-        numVisible: 3,
-        numScroll: 2
-      },
-      {
-        breakpoint: '603px',
-        numVisible: 2,
-        numScroll: 2
-      }
-    ])
     const checkGoodsDetail = (id) => {
       localStorage.setItem('goodsDetailID', id)
       if (id === 47 || id === 48 || id === 49 || id === 50 || id === 51 || id === 52) {
@@ -144,15 +152,15 @@ export default {
       }
     }
     return {
+      state,
       homeImgs,
       showHomeImg,
       transitionName,
-      setShow,
       currentIndex,
       responsiveOptions,
-      state,
       getAllGoodsList,
-      checkGoodsDetail
+      checkGoodsDetail,
+      setShow
     }
   }
 }

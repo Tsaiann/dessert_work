@@ -1,5 +1,70 @@
 .content{
   width: 100%;
+  .homePhoto{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    div{
+      img{
+        width: 100vw;
+      }
+    }
+    .prev, .next{
+      @include size(40px, 40px);
+      @include position(50%, '', '', '');
+      background: $darkGray;
+      border-radius: 10%;
+      opacity: .8;
+      cursor: pointer;
+    }
+    .prev{
+      left: 3%;
+      &::after{
+        content:"";
+        @include position(50%,0,0,50%);
+        @include triangle(10px,15px,10px,0,transparent #000 transparent transparent);
+        transform: translate(-65%, -50%);
+      }
+    }
+    .next{
+      right: 3%;
+      &::after{
+        content:"";
+        @include position(50%,0,0,60%);
+        @include triangle(10px,0,10px,15px,transparent transparent transparent #000 );
+        transform: translate(-55%, -50%);
+      }
+    }
+    .carousel{
+      @include position(0,'','','');
+      margin: auto;
+    }
+    .currentPage{
+      background: $darkBrown;
+    }
+    ul{
+      @include position('', '', 0, 50%);
+      width: 115px;
+      transform: translate(-50%,0);
+      li{
+        @include size(18px, 18px);
+        border-radius: 10%;
+        background: $middleGray;
+        margin: 30px 10px;
+        cursor: pointer;
+      }
+    }
+    .right-in-enter-from, .left-in-leave-to{
+      transform: translateX(100%);
+    }
+    .right-in-enter-active, .right-in-leave-active,.left-in-enter-active, .left-in-leave-active{
+      transition: transform .5s ;
+    }
+    .right-in-leave-to,.left-in-enter-from{
+      transform: translateX(-100%);
+    }
+
+  }
   .card{
     max-width: 1000px;
     margin: 0 auto 100px auto;
@@ -54,136 +119,13 @@
           width: 100%;
         }
         h4{
+          @include text($darkGray, 16, 500);
           margin: 20px 0 10px 0;
-          font-weight: 400;
-          font-size: 16px;
         }
         h6{
+          @include text($darkBrown, 16, 600);
           margin-bottom: 10px;
-          font-size: 16px;
-          color: #603814;
         }
-      }
-    }
-  }
-  .homePhoto{
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    div{
-      img{
-        width: 100vw;
-      }
-    }
-    .prev, .next{
-      @include size(40px, 40px);
-      @include position(50%, '', '', '');
-      background: #333333;
-      border-radius: 10%;
-      opacity: .8;
-      cursor: pointer;
-    }
-    .prev{
-      left: 3%;
-      &::after{
-        content:"";
-        @include position(50%,0,0,50%);
-        @include triangle(10px,15px,10px,0,transparent #000 transparent transparent);
-        transform: translate(-65%, -50%);
-      }
-    }
-    .next{
-      right: 3%;
-      &::after{
-        content:"";
-        @include position(50%,0,0,60%);
-        @include triangle(10px,0,10px,15px,transparent transparent transparent #000 );
-        transform: translate(-55%, -50%);
-      }
-    }
-    .carousel{
-      position: absolute;
-      top: 0;
-      margin: auto;
-    }
-    .currentPage{
-      background: #754C24;
-    }
-    ul{
-      @include position('', '', 0, 50%);
-      width: 115px;
-      transform: translate(-50%,0);
-      li{
-        @include size(18px, 18px);
-        border-radius: 10%;
-        background: $middleGray;
-        margin: 30px 10px;
-        cursor: pointer;
-      }
-    }
-    .right-in-enter-from, .left-in-leave-to{
-      transform: translateX(100%);
-    }
-    .right-in-enter-active, .right-in-leave-active,.left-in-enter-active, .left-in-leave-active{
-      transition: transform .5s ;
-    }
-    .right-in-leave-to,.left-in-enter-from{
-      transform: translateX(-100%);
-    }
-
-  }
-  .cake_item{
-    .itemTab{
-      position: relative;
-      &::after{
-        content:'';
-        @include size(60px, 25px);
-        @include position(5px, 5px, '', '');
-        background: rgba(225,43,18,.5);
-        border-radius: 10%;
-        z-index: 2;
-      }
-      &::before{
-        content: 'NEW';
-        @include position(9px, '', '', 18px);
-        color: #000;
-        z-index: 5;
-      }
-    }
-    li{
-      @include flexBox(column, center, center);
-      @include size(220px,320px);
-      border: 1px solid #C9C9C9;
-      img{
-        width: 100%;
-      }
-      div{
-        @include flexBox(column, center, center);
-        padding: 25px 0;
-        p{
-          line-height: 1.5;
-        }
-      }
-    }
-  }
-  .page{
-    @include flexBox(row, center, center);
-    li{
-      @include size(10px, 10px);
-      border-radius: 100%;
-      background: $middleGray;
-      margin: 30px 10px;
-    }
-  }
-  .brand{
-   padding: 100px 20px;
-    @include flexBox(row, flex-end, space-between);
-    li{
-      @include flexBox(column, center, center);
-      width: 110px;
-      cursor: pointer;
-      p{
-        line-height: 2;
       }
     }
   }
@@ -238,14 +180,25 @@
       }
     }
   }
+  .brand{
+   padding: 100px 20px;
+    @include flexBox(row, flex-end, space-between);
+    li{
+      @include flexBox(column, center, center);
+      width: 110px;
+      cursor: pointer;
+      p{
+        line-height: 2;
+      }
+    }
+  }
 }
 @media(max-width: 800px) {
   .content{
     .cakeType{
       @include flexBox(column, center, center);
       .item{
-        width: 300px;
-        height: 300px;
+        @include size(300px,300px);
         overflow: hidden;
         position: relative;
         margin-bottom: 30px;
