@@ -258,11 +258,6 @@ export default {
         to: '/member/like'
       },
       {
-        name: '詢問紀錄',
-        path: 'Ask',
-        to: '/member/ask'
-      },
-      {
         name: '專屬優惠',
         path: 'Discount',
         to: '/member/discount'
