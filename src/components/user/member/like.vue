@@ -67,7 +67,6 @@ export default {
       callApi(allLikeList, data, (res) => {
         state.likeList = [...res.data.Data]
         state.imgList = []
-        console.log(state.likeList)
         getLikeImg()
       })
     })
@@ -81,7 +80,7 @@ export default {
     const onConfirm = async (id) => {
       const data = { GoodsID: id }
       await callApi(deleteLikeList, data, () => {
-        toast.add({ severity: 'success', summary: '刪除成功！', group: 'goods_addcart' })
+        toast.add({ severity: 'success', summary: '刪除成功！', group: 'successBox' })
         toast.removeGroup('likeDelete')
       })
     }
