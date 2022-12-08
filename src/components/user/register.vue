@@ -58,7 +58,7 @@ export default {
     const toast = useToast()
     const rules = computed(() => {
       return {
-        name: { required },
+        name: { required, minLength: minLength(2) },
         account: { required, minLength: minLength(6) },
         email: { required, email },
         password: { required, minLength: minLength(8) },
