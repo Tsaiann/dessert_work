@@ -55,7 +55,7 @@
               <Textarea v-model="state.recipientForm.OrderRemark" rows="5" cols="30" placeholder="有任何額外需求請打在此處" data-width="100%" />
             </div>
           </div>
-          <button class="button_submit cancel" @click="handlePrePage">⇽ 返回購物車</button>
+          <button class="button_cancel" data-width="40%" @click="handlePrePage">⇽ 返回購物車</button>
         </div>
         <div class="fillInfo-right">
           <h2>送貨資訊</h2>
@@ -99,7 +99,7 @@
       </div>
       <hr style="border-color: #eae2d8" />
       <div class="row horizontal center" data-space-top="2rem">
-        <button class="button_submit confirm" @click="submitOrder">提交訂單</button>
+        <button class="button_confirm" data-width="60%" @click="submitOrder">提交訂單</button>
       </div>
     </div>
   </div>
