@@ -5,15 +5,9 @@
   .member-title{
     @include flexBox(row, center, flex-start);
     div{
-      width: 4px;
-      height: 35px;
-      background: #DEC6AB;
+      @include size(4px,35px);
+      background: $lightBrown;
       margin: 20px 10px 20px 0;
-    }
-    h2{
-      font-size: 20px;
-      letter-spacing: 4px;
-      font-weight: 400;
     }
   }
   .member-page{
@@ -49,11 +43,15 @@
   .member-edit{
     margin-left: 48px;
     span{
-      font-size: 12px;
-      color: $darkGray;
+      @include text($darkGray,12,normal);
     }
     p{
       color: $darkGray;
+    }
+    .member-detail{
+      span{
+        color: red;
+      }
     }
     .member-detail, .member-detail_exception{
       @include flexBox(row, center, flex-start);
@@ -70,6 +68,11 @@
       }
     }
   }
+  button{
+    @include size(48%, 40px);
+    margin: 10px auto;
+  }
+  
 }
 .order{
   @include size(100%, 760px);
@@ -98,10 +101,9 @@
   &-media{
     display: none;
     border-bottom: 1px solid $middleGray;
-    h1{
+    h2{
+      @include text(#000, 18,normal);
       background: rgb(226, 226, 226);
-      color: #000;
-      font-size: 18px;
       padding: 10px;
     }
     ul{
@@ -115,26 +117,90 @@
       width: 50px;
     }
   }
+  &-dialog{
+    &-data{
+      max-height: 300px;
+      overflow: scroll;
+      overflow-x: hidden;
+      /* 網頁捲軸【寬度】 */
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+      /* 網頁捲軸【背景】顏色 */
+      &::-webkit-scrollbar-track {
+        background: none;
+      }
+      /* 網頁捲軸【把手】顏色 */
+      &::-webkit-scrollbar-thumb {
+        background: #e4c9ac;
+        border-radius: 10px;
+      }
+      .goods_detail{
+        @include flexBox(row, center, flex-start);
+        margin: 20px 0 20px 17px;
+        img{
+          width: 20%;
+        }
+        h3{
+          font-size: 16px;
+          margin-bottom: 10px;
+        }
+        p{
+          @include text($darkGray,14, normal);
+        }
+        span{
+          font-size: 20px;
+          margin-left: 5px;
+        }
+      }
+    }
+    &-delivery{
+      .method{
+        border: 1px solid $middleGray;
+        p{
+          width: 100px;
+          background: #f4e6d6;
+          padding: 7px;
+          border-right:1px solid $middleGray;
+        }
+        span{
+          padding: 7px;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      }
+    }
+    .data_title{
+      @include flexBox(row, center, flex-start);
+      margin-left: 5px;
+      div{
+        @include size(4px, 30px);
+        background: $lightBrown;
+        margin-right: 8px;
+      }
+      p{
+        color: $middleBrown;
+      }
+    }
+  }
 }
-
 .discount{
   padding: 30px;
   p{
-    font-size: 20px;
+    @include text($middleGray, 20, normal);
     text-align: center;
-    color: $middleGray;
   }
   &-data{
     border: 1px solid #C7B299;
     padding: 20px;
     margin-bottom: 30px;
     h2{
-      @include title-h2;
       position: relative;
     }
     p{
-      color: #C7B299;
-      font-size: 24px;
+      @include text($lightBrown, 24, normal);
       margin-bottom: 10px;
       text-align: left;
     }
@@ -168,8 +234,7 @@
         &::after{
           content: '金級會員';
           @include position(-27px,-4px,'','');
-          color: $darkGray;
-          font-size: 10px;
+          @include text($darkGray, 10, normal);
         }
       }
     }
@@ -206,8 +271,7 @@
       padding: 10px;
       @include flexBox(column, center, center);
       h2{
-        color: #C7B299;
-        font-size: 24px;
+        @include text($lightBrown, 24, normal);
       }
       p{
         font-size: 16px;
@@ -218,14 +282,9 @@
 .like{
   &-notice{
     @include flexBox(row, center, center);
-    p{
-      font-size: 20px;
-      margin-right: 10px;
-    }
     button{
-      width: 6%;
-      height: 30px;
-      font-size: 16px;
+      margin-left: 10px;
+      padding: 5px;
     }
   }
   .likeList{
@@ -235,11 +294,8 @@
     height: 100%;
     cursor: pointer;
     &:hover{
-      h2{
-        color: #000;
-      }
-      p{
-        color: #9c8870;
+      h2, p{
+        color: $lightBrown;
       }
     }
     img{
@@ -259,90 +315,15 @@
       }
     }
     &_text{
-      width: 100%;
-      height: 133px;
+      @include size(100%, 133px);
       @include flexBox(column,flex-start,center);
-      h2{
-        font-size: 18px;
-      }
       p{
-        color: #C7B299;
-        font-weight: bolder;
-        font-size: 18px;
+        @include text($middleBrown,18, 600);
       }
     }
   }
 }
-.orderData{
-  max-height: 300px;
-  overflow: scroll;
-  overflow-x: hidden;
-  /* 網頁捲軸【寬度】 */
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
 
-  /* 網頁捲軸【背景】顏色 */
-  &::-webkit-scrollbar-track {
-    background: none;
-  }
-
-  /* 網頁捲軸【把手】顏色 */
-  &::-webkit-scrollbar-thumb {
-    background: #e4c9ac;
-    border-radius: 10px;
-  }
-  .goods_detail{
-    @include flexBox(row, center, flex-start);
-    margin: 20px 0 20px 17px;
-    img{
-      width: 20%;
-    }
-    h3{
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-    p{
-      font-size: 14px;
-      color: $darkGray;
-    }
-    span{
-      font-size: 20px;
-      margin-left: 5px;
-    }
-  }
-}
-.deliveryData{
-  &_method{
-    border: 1px solid $middleGray;
-    p{
-      width: 100px;
-      background: #f4e6d6;
-      padding: 7px;
-      border-right:1px solid $middleGray;
-    }
-    span{
-      padding: 7px;
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-  }
-}
-.data_title{
-  @include flexBox(row, center, flex-start);
-  margin-left: 5px;
-  div{
-    width: 4px;
-    height: 30px;
-    background: #dbc6ac;
-    margin-right: 8px;
-  }
-  p{
-    color: #bda68b;
-  }
-}
 @media(max-width: 960px) {
   .member{
     .member-page{
@@ -377,8 +358,7 @@
       &_content{
         width: 100%; 
         h2{
-          color: #C7B299;
-          font-size: 24px;
+          @include text($lightBrown, 24, normal);
         }
         p{
           font-size: 13px;
