@@ -22,7 +22,7 @@
           <h2>${{ item.Amount }}</h2>
           <p>單筆消費滿1000元即可使用一張</p>
           <p>單筆消費限用一張折價券</p>
-          <p>使用期限：2022/12/31</p>
+          <p>消費滿2000即贈送一張</p>
         </div>
       </div>
     </div>
@@ -54,7 +54,6 @@ export default {
         state.benefits = { ...res.data.Data }
         state.progress = 10000 / state.benefits.Consumption
         state.discount = state.benefits.DiscountTicket.length
-        console.log(state.discount)
       })
     })
     const progress = () => {
