@@ -2,26 +2,22 @@
   width: 100%;
   line-height: 1.5;
   .cart-page{
-    width: 95%;
+    @include size(95%, 100%);
     background: #fff;
     padding: 40px 60px 80px 60px;
-    height: 100%;
     margin: 0 auto 50px auto;
     .p-steps .p-steps-item.p-highlight .p-steps-number{
       background: #EAE2D8;
     }
     h2{
+      @include text(#000, 20, normal);
       background: #EAE2D8;
-      font-size: 20px;
-      font-weight: normal;
       padding: 5px 10px;
-      color: #000;
     }
     .exception_title{
       width: 80%;
       margin: auto;
       border: 1px solid $middleGray;
-      border-bottom:  none;
     }
     .cart-data{
       @include size(80%, 400px);
@@ -31,6 +27,13 @@
       background: $lightGray;
       overflow: scroll;
       position: relative;
+      h3{
+        @include text(#000, 16, normal);
+        margin-bottom: -8px;
+      }
+      span{
+        @include text(rgb(189, 185, 185), 12, normal);
+      }
       &-title{
         @include flexBox(row, flex-start, flex-start);
         width: 100%;
@@ -42,20 +45,10 @@
         padding: 10px 15px 0 15px;
         &_detail{
           @include flexBox(row, center, flex-start);
-          height: 100px;
-          width: 55%;
+          @include size(55%, 100px);
           img{
             width: 26%; 
             margin-right: 15px;
-          }
-          span{
-            font-size: 12px;
-            color: rgb(189, 185, 185);
-          }
-          h3{
-            font-weight: normal;
-            color: #000;
-            margin-bottom: -8px;
           }
         }
         &_total{
@@ -75,29 +68,18 @@
             width: 30%; 
             margin-right: 10px;
           }
-          span{
-            font-size: 12px;
-            color: rgb(189, 185, 185);
-          }
-          h3{
-            font-weight: normal;
-            color: #000;
-            margin-bottom: -8px;
-          }
         }
         .cart-data-content_total{
+          @include text(rgb(200, 104, 104),18, normal);
           text-align: right;
-          color: rgb(200, 104, 104);
-          font-size: 18px;
         }
         .cart-data-count{
           width: 30%;
         }
       }
       &-count{
-        height: 27px;
+        @include size(82px, 27px);
         border: 1px solid $middleGray;
-        width: 82px;
         @include flexBox(row, center, space-between);
         .pi-minus, .pi-plus{
           padding: 6px;
@@ -109,8 +91,7 @@
           border-left: 1px solid $middleGray;
         }
         input{
-          width: 28px;
-          height: 25px;
+          @include size(28px, 25px);
           text-align: center;
           border: none;
           border-radius: 0;
@@ -159,10 +140,6 @@
         }
       }
     }
-    .exception{
-      margin: 0;
-      width: 40%;
-    }
     .fillInfo{
       @include flexBox(row, flex-start, center);
       margin: 70px 0 50px 0;
@@ -171,14 +148,11 @@
         margin-right: 20px;
         .remark, .purchaser{
           border: 1px solid $middleGray;
-          input{
+          input, textarea{
             width: 100%;
           }
           label{
             margin-left: 5px;
-          }
-          textarea{
-            width: 100%;
           }
         }
       }
@@ -189,8 +163,7 @@
           font-weight: normal;
         }
         p{
-          font-size: 14px;
-          color: #C1272D;
+          @include text(#C1272D, 14, normal);
           @include textIndent(-17,17);
         }
         input, span{
@@ -198,8 +171,8 @@
         }
         .p-button.p-button-icon-only{
           padding: 0 13px;
-          background: #d6b791;
-          border: 1px solid #d6b791;
+          background: $lightBrown;
+          border: 1px solid $lightBrown;
         }
         label{
           margin-left: 5px;
@@ -227,10 +200,9 @@
       }
       &-footer{
         @include flexBox(row, center, flex-start);
+        @include text(#C1272D,14, normal);
         background: $middleGray;
         padding: 10px 10px 10px 20px;
-        color: #C1272D;
-        font-size: 14px;
       }
       hr{
         border-color: #eae2d8;
@@ -257,6 +229,7 @@
     }
   }
 }
+/* primeVue dialog style */
 .p-dialog .p-dialog-footer button{
   width: 300px;
 }
@@ -305,7 +278,7 @@
     }
   }
 }
-
+/* primeVue toast style */
 .p-toast .p-toast-message.p-toast-message-warn{
   background: $lightGray;
   opacity: 1;
@@ -384,15 +357,9 @@
           }
         }
       }
-      .exception{
-        width: 180px;
-      }
       .cart-data{
         margin-bottom: 20px;
-        &-title{
-          display: none;
-        }
-        &-content{
+        &-title, &-content{
           display: none;
         }
         &-content-media{
@@ -429,16 +396,13 @@
   }
   .cart{
     .cart-page{
-      .exception_title{
+      .exception_title, .cart-data{
         width: 95%;
       }
       .order-options{
         .send, .info{
           width: 95%;
         }
-      }
-      .cart-data{
-        width: 95%;
       }
     }
   }
