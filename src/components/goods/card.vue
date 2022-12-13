@@ -128,6 +128,7 @@ export default {
         state.goodsData = res.data.Data
         state.cartForm.GoodsID = state.goodsData.ID
         state.specsCount = state.goodsData.GoodsSpecs[0].Specs
+        state.newGoodsData = state.goodsData.GoodsSpecs.slice(1)
         getImg()
       })
     }
