@@ -2,7 +2,7 @@
 	width: 100%;
 	position: sticky;
 	top:0;
-	background: rgb(246, 246, 246);
+	background: $lightGray;
 	z-index: 100;
 	.sideTop{
 		padding: 20px 0;
@@ -52,12 +52,10 @@
 				@include size(20px, 20px);
 				@include flexBox(row, center, center);
 				@include position(0,-5px,'','');
-				color: #fff;
-				background: #d3b799;
+				@include text(#fff, 12, 500);
+				background: $lightBrown;
 				border-radius: 100%;
 				text-align: center;
-				font-size: 10px;
-				font-weight: 500;
 			}
 			input[type="checkbox"]{
 				@include size(1px,1px);
@@ -74,16 +72,8 @@
 				cursor: auto;
 				button{
 					width: 80%;
-					border: 1px solid $lightGray;
 					margin-top: 10px;
-					border-radius: 5px;
 					padding: 5px 0;
-					background: #e4d8c7;
-					cursor: pointer;
-					&:hover{
-						color: white;
-            background: #C3996D;
-					}
 				}
 			}
 			#checkboxicon{
@@ -137,14 +127,10 @@
 			}
 			.cart-check{
 				@include flexBox(column, center, center);
-				position: sticky;
-				margin-top: 15px;
-				bottom: 0;
-				z-index: 9999;
-				background: $lightGray;
 			}
-			.button_submit{
-				@include size(80%, 30px);
+			button{
+				@include size(80%, 40px);
+				font-size: 14px;
 				margin: 10px 0;
 			}
 			&::after{
@@ -173,12 +159,10 @@
 			input{
 				width: 90vw;
 			}
-			.button_submit{
-				width: 5%;
+			.button_confirm{
+				@include size(5%, 65%);
 				min-width: 43px;
-				height: 65%;
-				font-size: 14px;
-				border-radius: 5px;
+				padding-bottom: 10px;
 			}
 		}
 		#checkboxSearch{
@@ -248,16 +232,7 @@
 			}
 		}
   }
-	.p-menubar .p-menubar-root-list>.p-menuitem > .p-menuitem-link:not(.p-disabled):hover{
-		background: none;
-		color: #fff;
-		&:hover{
-			color: $darkGray;
-		}
-	}
-	.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:focus{
-		box-shadow: none;
-	}
+	/* PrimeVue style revise */
 	.menu{
 		border-top: 1px solid #808080;
 		border-bottom: 1px solid #808080;
@@ -334,6 +309,17 @@
 			}
 		}  
   }
+	.p-menubar .p-menubar-root-list>.p-menuitem > .p-menuitem-link:not(.p-disabled):hover{
+		background: none;
+		color: #fff;
+		&:hover{
+			color: $darkGray;
+		}
+	}
+	.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:focus{
+		box-shadow: none;
+	}
+	
 }
 @media(max-width: 960px) {
 	.header{
