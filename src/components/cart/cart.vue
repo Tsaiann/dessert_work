@@ -123,14 +123,14 @@
           </div>
           <template #footer>
             <div class="row horizontal" data-space-top="1rem">
-              <button class="button_submit cancel" @click="discountButton('cancel')">取消</button>
-              <button class="button_submit confirm" @click="discountButton('confirm')">確定</button>
+              <button class="button_cancel" @click="discountButton('cancel')">取消</button>
+              <button class="button_confirm" @click="discountButton('confirm')">確定</button>
             </div>
           </template>
         </Dialog>
       </div>
       <div class="row horizontal h_end" data-width="80%" style="margin: 20px auto">
-        <button class="button_submit confirm exception" @click="handleNextPage()">前往結賬</button>
+        <button class="button_confirm" data-width="40%" @click="handleNextPage()">前往結賬</button>
       </div>
     </div>
   </div>
@@ -220,11 +220,7 @@ export default {
     ])
     //根據選擇的寄送方式運費不同
     const feeMethodSelect = () => {
-      if (state.deliveryValue === '自取') {
-        state.deliveryFee = 0
-      } else {
-        state.deliveryFee = 150
-      }
+      state.deliveryValue === '自取' ? (state.deliveryFee = 0) : (state.deliveryFee = 150)
     }
     const feeChange = computed(() => {
       return state.deliveryFee * 1
@@ -244,7 +240,6 @@ export default {
         state.goodsList = [...res.data.Data]
         totalCount()
         specsChange()
-        console.log(state.goodsList)
       })
     })
     //得到所有商品規格
@@ -350,7 +345,6 @@ export default {
       const data = ''
       callApi(benefitsList, data, (res) => {
         state.benefits = [...res.data.Data.DiscountTicket]
-        console.log(state.benefits)
       })
     })
     //限制商品規格的數量
@@ -390,28 +384,28 @@ export default {
     }
     return {
       state,
-      discountButton,
       getGoodsSpecs,
-      specsChange,
-      renderCartImg,
-      handleSpecsMax,
-      changeCart,
       getBenefitsData,
       guideData,
       steps,
       sentItems,
       payItems,
-      handleNextPage,
       dialogDiscountVisible,
       getCartData,
+      allGoodsTotal,
+      feeChange,
+      orderTotal,
+      discountButton,
+      specsChange,
+      renderCartImg,
+      handleSpecsMax,
+      changeCart,
+      handleNextPage,
       deleteCartData,
       onConfirm,
       onReject,
       totalCount,
-      allGoodsTotal,
-      feeChange,
-      feeMethodSelect,
-      orderTotal
+      feeMethodSelect
     }
   }
 }
