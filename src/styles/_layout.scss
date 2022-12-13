@@ -1,12 +1,28 @@
 html, body {
   height: 100%;
-  .button_submit{
+  font-family: 'Noto Sans TC', 'Microsoft JhengHei', 'Hei', sans-serif;
+  h1{
+    @include text($darkBrown, 24, 500);
+  }
+  h2{
+    @include text($darkBrown, 20, 400);
+  }
+  @media(max-width: 600px){
+    h1{
+      font-size: 20px;
+      margin-bottom: 3rem;
+    }
+  }
+  button{
     opacity: 0.8;
-    border: 0;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 18px;
-    &.confirm{
+    font-size: 14px;
+    border: 0;
+    padding: 10px 0;
+  }
+  .button{
+    &_confirm{
       background: #DACDBC;
       color: #000;
       &:hover{
@@ -14,7 +30,7 @@ html, body {
         background: #C3996D;
       }
     }
-    &.cancel{
+    &_cancel{
       background: rgb(246, 240, 240);
       color: $darkGray;
       &:hover{
@@ -22,7 +38,7 @@ html, body {
         background: #d5d4d2;
       }
     }
-    &.normal{
+    &_normal{
       background: #c69e98;
       color: #000;
       &:hover{
@@ -32,72 +48,16 @@ html, body {
     }
   }
   input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+    appearance: none;
     margin: 0;
   }
-}
-body::-webkit-scrollbar {
-  display: none;
-}
-h1{
-  color: #754C24;
-  font-size: 24px;
-  font-weight: 500;
-}
-#app {
-  position: relative;
-  height: 100%;
-  .home {
-    @include flexBox(column, flex-start, flex-start);
-    width: 100%;
-    background: rgb(246, 246, 246);
-    font-family: 'Noto Sans TC', 'Microsoft JhengHei', 'Hei', sans-serif;
-    color: $darkGray;
-    img{
-      display: block;
-    }
-    .container{
-      max-width: 1000px;
-      margin: auto;
-      position: relative;
-    }
-    .p-breadcrumb{
-      background: none;
-      border: none;
-    }
-    .p-menubar{
-      background: none;
-      border: none;
-    }
-    ::-webkit-scrollbar{
-      display: none;
-    }
-    .horizon{
-      border-top: 1px solid $middleGray;
-    }
-    i{
-      cursor: pointer;
-    }
-    .guide{
-      border-bottom: 2px solid $middleGray;
-      padding-bottom: 0;
-      width: 100%;
-      nav{
-        ul{
-          li{
-            margin-bottom: 0;
-          }
-          span{
-            margin-left: 0;
-          }
-        }
-      }
-    }
-    .p-toast{
-      opacity: 1;
-    }
+  ::-webkit-scrollbar{
+    display: none;
   }
-}
+  i{
+    cursor: pointer;
+  }
+  /*primeVue toast common style*/
 .p-toast{
   opacity: 1;
   width: 300px !important;
@@ -130,16 +90,13 @@ h1{
         display: none;
       }
       .pi-times{
+        @include position(5px,5px,'','');
         color: #000;
-        position: absolute;
-        top: 5px;
-        right: 5px;
         cursor: pointer;
       }
       .p-button-success, .p-button-secondary{
+        @include text(#000, 12, normal);
         background: $lightGray ;
-        font-size: 12px;
-        color: #000;
         border: 1px solid $middleGray;
       }
     }
@@ -149,6 +106,34 @@ h1{
         font-size: 15px;
         white-space: nowrap;
       }
+    }
+  }
+}
+}
+
+#app {
+  position: relative;
+  height: 100%;
+  .home {
+    @include flexBox(column, flex-start, flex-start);
+    width: 100%;
+    background: rgb(246, 246, 246);
+    color: $darkGray;
+    img{
+      display: block;
+    }
+    .container{
+      max-width: 1000px;
+      margin: auto;
+      position: relative;
+    }
+    .p-breadcrumb, .p-menubar{
+      background: none;
+      border: none;
+    }
+    .guide{
+      border-bottom: 2px solid $middleGray;
+      width: 100%;
     }
   }
 }
