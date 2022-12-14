@@ -94,31 +94,6 @@
   }
   .dialog_main{
     width: 100%;
-    .specs{
-      height: 140px;
-      &-customize{
-        border: 1px solid $middleGray;
-        border-radius: 10px;
-        background: none;
-        color: #000;
-        position: relative;
-        padding: 10px 30px;
-        cursor: pointer;
-        &:hover{
-          border: 1px solid #dbc6ac;
-          color: #dbc6ac;
-        }
-      }
-      input[type="checkbox"]{
-        @include size(10px, 10px);
-        @include position(0, null, null, 0);
-        z-index: -1;
-        &:checked ~ label{
-          background: #e3d5c4;
-          color: #000;
-        }
-      }
-    }
     .dialog_above{
       @include flexBox(row, flex-start, flex-start);
     }
@@ -154,11 +129,6 @@
         display: none;
       }
     }
-    button{
-      font-size: 18px;
-      padding: 5px;
-      width: 95%;
-    }
     .goods-content{
       @include size(460px,300px);
       h2{
@@ -173,71 +143,99 @@
       }
       .specs_exception{
         height: 170px;
-        .field-checkbox{
-          @include flexBox(row, center, flex-start);
-          flex-wrap: wrap;
-          &-item{
-            @include flexBox(row, center, flex-start);
-            margin: 0 0 10px 0;
-            width: 140px;
-            label{
-              white-space:nowrap;
-            }
-          }
-          input[type=checkbox],input[type=number]{
-            @include size(12px,15px);
-            margin: 0 5px 0 10px;
-            background: #f6f6f6;
-            border: 0;
-            border-bottom: 1px solid $middleGray;
-            text-align: center;
-          }
-          input[type=number]{
-            @include size(30px,20px);
-            pointer-events: none;
-            background: #fff;
-            &::placeholder{
-              @include text($middleGray,10,normal);
-            }
-          }
-          input[type=checkbox]{
-            &:checked ~ label{
-              color: #000;
-            }
-            &:checked ~ input[type=number]{
-              border-bottom: 1px solid #000;
-              pointer-events: all;
-            }
-          }
-          input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button {
-            //appearance: none;
-            margin: 0;
-          }
-        }
       }
       &__count{
-        @include size(100%, 40px);
-        border: 1px solid rgb(219, 216, 216);
-        background: $lightGray;
         margin: 10px 0 10px 0;
-        @include flexBox(row, center, space-between);
-        i{
-          margin: 0 10px;
-          cursor: pointer;
-        }
-        input{
-          @include size(350px, 38px);
-          border: none;
-          text-align: center;
-          &:focus{
-            box-shadow: none;
-          }
-        }
       }
+    }
+    button{
+      font-size: 18px;
+      padding: 5px;
+      width: 95%;
     }
   }
 }
-
+/* goods specs common */
+.specs{
+  height: 140px;
+  &-customize{
+    border: 1px solid $middleGray;
+    border-radius: 10px;
+    background: none;
+    color: #000;
+    position: relative;
+    padding: 10px 30px;
+    cursor: pointer;
+    &:hover{
+      border: 1px solid #dbc6ac;
+      color: #dbc6ac;
+    }
+  }
+  input[type="checkbox"]{
+    @include size(10px, 10px);
+    @include position(0, null, null, 0);
+    z-index: -1;
+    &:checked ~ label{
+      background: #e3d5c4;
+    }
+  }
+}
+.field-checkbox{
+  @include flexBox(row, center, flex-start);
+  flex-wrap: wrap;
+  margin-left: 10px;
+  &-item{
+    @include flexBox(row, center, flex-start);
+    margin: 0 0 10px 0;
+    width: 140px;
+    label{
+      white-space:nowrap;
+    }
+  }
+  input[type=checkbox],input[type=number]{
+    @include size(15px,15px);
+    margin: 0 5px 0 10px;
+    background: #f6f6f6;
+    border: 0;
+    border-bottom: 1px solid $middleGray;
+    text-align: center;
+  }
+  input[type=number]{
+    @include size(30px,20px);
+    pointer-events: none;
+    background: #fff;
+    &::placeholder{
+      @include text($middleGray,10,normal);
+    }
+  }
+  input[type=checkbox]{
+    &:checked ~ label{
+      color: #000;
+    }
+    &:checked ~ input[type=number]{
+      border-bottom: 1px solid #000;
+      pointer-events: all;
+    }
+  }
+}
+.goods-content__count, .goods-choose-content__count{
+  @include size(100%, 40px);
+    border: 1px solid rgb(219, 216, 216);
+    background: $lightGray;
+    @include flexBox(row, center, space-between);
+    i{
+      margin: 0 10px;
+      cursor: pointer;
+    }
+    input{
+      @include size(350px, 38px);
+      border: none;
+      text-align: center;
+      &:focus{
+        box-shadow: none;
+      }
+    }
+}
 @media(max-width: 960px) {
   .products{
     .goods-page{

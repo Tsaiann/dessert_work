@@ -1,7 +1,7 @@
 .detail{
   .goods-choose{
     margin: 0 20px;
-    .goods-choose-above{
+    &-above{
       @include flexBox(row, center, center);
       margin-bottom: 20px;
     }
@@ -47,89 +47,23 @@
       h3{
         @include text($darkGray, 18, 500);
       }
-      .specs{
-        height: 140px;
-        &-customize{
-          border: 1px solid $middleGray;
-          border-radius: 10px;
-          background: none;
-          color: #000;
-          position: relative;
-          padding: 10px 30px;
-          cursor: pointer;
-          &:hover{
-            border: 1px solid #dbc6ac;
-            color: #dbc6ac;
-          }
-        }
-        input[type="checkbox"]{
-          @include size(10px, 10px);
-          @include position(0, null, null, 0);
-          z-index: -1;
-          &:checked ~ label{
-            background: #e3d5c4;
-            color: #000;
-          }
-        }
-      }
       .specs_exception{
         min-height: 240px;
         margin-top: 10px;
         .field-checkbox{
-          @include flexBox(row, center, flex-start);
-          margin-left: 10px;
-          flex-wrap: wrap;
           &-item{
-            @include flexBox(row, center, flex-start);
             margin: 0 0 20px 0;
             width: 150px;
-            label{
-              white-space:nowrap;
-            }
-          }
-          input[type=checkbox],input[type=number]{
-            @include size(15px, 15px);
-            margin: 0 5px 0 10px;
-            background: #f6f6f6;
-            border: 0;
-            border-bottom: 1px solid $middleGray;
-            text-align: center;
           }
           input[type=number]{
-            @include size(30px, 20px);
-            pointer-events: none;
-            &::placeholder{
-              @include text($middleGray,10,normal);
-            }
-          }
-          input[type=checkbox]{
-            &:checked ~ label{
-              color: #000;
-            }
-            &:checked ~ input[type=number]{
-              border-bottom: 1px solid #000;
-              pointer-events: all;
-            }
+            background: rgb(246, 246, 246);
           }
         }
       }
       &__count{
-        @include size(100%, 40px);
-        border: 1px solid rgb(219, 216, 216);
-        background: $lightGray;
         margin: 10px 0 10px 0;
-        @include flexBox(row, center, space-between);
-        i{
-          margin: 0 10px;
-          cursor: pointer;
-        }
         input{
           @include size(30px,38px);
-          border: none;
-          text-align: center;
-          &:focus{
-            box-shadow: none;
-          }
         }
       }
       .like, .like_finish{
