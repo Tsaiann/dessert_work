@@ -57,8 +57,14 @@ html, body {
   i{
     cursor: pointer;
   }
+  img{
+    display: block;
+  }
+  input{
+    width: 100%;
+  }
   /*primeVue toast common style*/
-.p-toast{
+  .p-toast{
   opacity: 1;
   width: 300px !important;
   .p-toast-message{
@@ -108,7 +114,7 @@ html, body {
       }
     }
   }
-}
+  }
 }
 
 #app {
@@ -119,9 +125,6 @@ html, body {
     width: 100%;
     background: rgb(246, 246, 246);
     color: $darkGray;
-    img{
-      display: block;
-    }
     .container{
       max-width: 1000px;
       margin: auto;
