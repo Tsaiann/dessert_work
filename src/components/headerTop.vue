@@ -147,10 +147,12 @@ import { getGoodsCart, deleteGoodsCart } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
+import { useStore } from 'vuex'
 
 export default {
   name: 'headerTop',
   setup() {
+    const store = useStore()
     const reload = inject('reload')
     const router = useRouter()
     const toast = useToast()
@@ -297,8 +299,6 @@ export default {
       const memberInfo = localStorage.getItem('memberInfo')
       if (memberInfo === null) {
         router.push({ name: 'User' })
-      } else {
-        return
       }
     }
     // 刪除購物車商品
@@ -342,7 +342,7 @@ export default {
       toast.add({ severity: 'success', summary: '確定要登出嗎？', group: 'logout' })
     }
     const onConfirmLogout = () => {
-      localStorage.clear()
+      store.commit('memberModules/LOGOUT', '')
       router.push({ name: 'User' })
       memberChecked.value = false
       reload()
