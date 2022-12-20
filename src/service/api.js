@@ -205,3 +205,15 @@ export const benefitsList = (data) =>
     },
     data: data
   })
+
+//贈送折價卷
+export const createDiscount = (data) =>
+  request({
+    url: '/admin/member/discount/c',
+    method: 'post',
+    headers: {
+      token: getToken(),
+      'Content-Type': 'text/plain'
+    },
+    data: data
+  })
