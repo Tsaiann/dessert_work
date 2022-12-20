@@ -3,7 +3,7 @@
     <guideLine :data="guideData" />
     <div class="cart-page">
       <div class="card" data-space-bottom="2rem">
-        <Steps :model="items" />
+        <Steps :model="steps" />
       </div>
       <div class="finish">
         <div class="finish-title">
@@ -75,7 +75,7 @@ export default {
         to: '/cart'
       }
     ])
-    const items = reactive([
+    const steps = reactive([
       {
         label: '訂單資訊',
         to: '/cart'
@@ -99,7 +99,7 @@ export default {
     })
     return {
       guideData,
-      items,
+      steps,
       recipientForm
     }
   }
