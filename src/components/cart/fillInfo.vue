@@ -33,19 +33,19 @@
               </div>
               <div data-space-bottom="0.5rem">
                 <p>姓名</p>
-                <InputText type="text" v-model="state.memberForm.Name" />
+                <InputText type="text" v-model="state.memberForm.Name" @change="onChange('purchase')" />
               </div>
               <div data-space-bottom="0.5rem">
                 <p>電話號碼</p>
-                <InputText type="text" v-model="state.memberForm.Phone" />
+                <InputText type="text" v-model="state.memberForm.Phone" @change="onChange('purchase')" />
               </div>
               <div data-space-bottom="0.5rem">
                 <p>電子信箱</p>
-                <InputText type="text" v-model="state.memberForm.Email" />
+                <InputText type="text" v-model="state.memberForm.Email" @change="onChange('purchase')" />
               </div>
               <div>
                 <p>收件地址</p>
-                <InputText type="text" v-model="state.memberForm.Address" />
+                <InputText type="text" v-model="state.memberForm.Address" @change="onChange('purchase')" />
               </div>
             </div>
           </div>
@@ -66,21 +66,21 @@
             </div>
             <div data-space-bottom="0.5rem">
               <h3>收件人姓名</h3>
-              <InputText type="text" v-model="state.recipientForm.Recipient" />
+              <InputText type="text" v-model="state.recipientForm.Recipient" @change="onChange('recipient')" />
               <p>請填入收件人真實姓名，以確保順利收件</p>
             </div>
             <div data-space-bottom="0.5rem">
               <h3>聯絡電話</h3>
-              <InputText type="text" v-model="state.recipientForm.Phone" />
+              <InputText type="text" v-model="state.recipientForm.Phone" @change="onChange('recipient')" />
               <p>取貨通知將以此電話聯繫</p>
             </div>
             <div data-space-bottom="0.5rem">
               <h3>電子信箱</h3>
-              <InputText type="text" v-model="state.recipientForm.Email" />
+              <InputText type="text" v-model="state.recipientForm.Email" @change="onChange('recipient')" />
             </div>
             <div>
               <h3>收件地址</h3>
-              <InputText type="text" data-space-bottom="1rem" v-model="state.recipientForm.Addr" />
+              <InputText type="text" data-space-bottom="1rem" v-model="state.recipientForm.Addr" @change="onChange('recipient')" />
             </div>
             <hr style="border-color: #eae2d8" />
             <div data-space-bottom="0.5rem">
@@ -107,9 +107,9 @@
 
 <script>
 import guideLine from '@/components/guideLine.vue'
-import { reactive, ref, inject } from 'vue'
+import { reactive, ref, inject, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { memberData, submitGoodsCart } from '@/service/api'
+import { memberData, submitGoodsCart, createDiscount } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useToast } from 'primevue/usetoast'
 import { useStore } from 'vuex'
@@ -143,7 +143,12 @@ export default {
         Email: '',
         PaymentMethod: JSON.parse(localStorage.getItem('cartInfo')).payment,
         DeliveryMethod: JSON.parse(localStorage.getItem('cartInfo')).delivery
-      }
+      },
+      discountForm: {
+        MemberID: JSON.parse(localStorage.getItem('memberInfo')).id,
+        Amount: 50
+      },
+      orderTotal: JSON.parse(localStorage.getItem('cartTotal')).total
     })
     const guideData = reactive([
       {
@@ -165,8 +170,20 @@ export default {
         to: '/finish'
       }
     ])
+    //若有暫存資料先取回來
+    const reloadForm = onMounted(() => {
+      const recForm = JSON.parse(localStorage.getItem('recform'))
+      const purForm = JSON.parse(localStorage.getItem('purform'))
+      if (purForm !== null) {
+        state.memberForm = purForm
+        if (recForm !== null) {
+          state.recipientForm = recForm
+        }
+      }
+    })
     //回到上一頁
     const handlePrePage = () => {
+      removeChange()
       router.push({ name: 'Cart' })
     }
     //確定送出訂單資料
@@ -180,9 +197,13 @@ export default {
       state.recipientForm.Discounts.push(JSON.parse(localStorage.getItem('cartInfo')).discount)
       const data = state.recipientForm
       callApi(submitGoodsCart, data, () => {
+        if (state.orderTotal >= 2000) {
+          callApi(createDiscount, state.discountForm, () => {})
+        }
         store.commit('cartModules/SET_CARTINFO', state.recipientForm)
         router.push({ name: 'Finish' })
         toast.removeGroup('cartCheckout')
+        removeChange()
         reload()
       }).catch(() => {
         toast.removeGroup('cartCheckout')
@@ -198,6 +219,7 @@ export default {
           state.memberForm.Name = res.data.Data.Name
           state.memberForm.Email = res.data.Data.Email
           state.memberForm.Phone = res.data.Data.Phone
+          onChange('purchase')
         })
       }
     }
@@ -208,7 +230,29 @@ export default {
         state.recipientForm.Recipient = state.memberForm.Name
         state.recipientForm.Phone = state.memberForm.Phone
         state.recipientForm.Email = state.memberForm.Email
+        onChange('recipient')
       }
+    }
+    //自動緩存資料
+    const onChange = (method) => {
+      const caseObj = {
+        purchase: () => {
+          setTimeout(() => {
+            localStorage.setItem('purform', JSON.stringify(state.memberForm))
+          }, 2000)
+        },
+        recipient: () => {
+          setTimeout(() => {
+            localStorage.setItem('recform', JSON.stringify(state.recipientForm))
+          }, 2000)
+        }
+      }
+      caseObj[method]()
+    }
+    //回到上一頁或是結帳完成清除暫存資料
+    const removeChange = () => {
+      localStorage.removeItem('purform')
+      localStorage.removeItem('recform')
     }
     return {
       guideData,
@@ -217,12 +261,14 @@ export default {
       purchaserChecked,
       recipientChecked,
       date,
+      reloadForm,
       handlePrePage,
       submitOrder,
       onRejectCheckout,
       onConfirmCheckout,
       recChecked,
-      purChecked
+      purChecked,
+      onChange
     }
   }
 }
