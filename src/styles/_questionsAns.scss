@@ -1,12 +1,11 @@
 .QA{
   line-height: 1.5;
-  div{
+  .content{
     span{
       color: $darkGray;
       margin-left: 20px;
     }
     li{
-      margin-bottom: 10px;
       p{
         @include text(#000, 16,600);
       }
