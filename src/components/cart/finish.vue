@@ -62,15 +62,13 @@
 
 <script>
 import guideLine from '@/components/guideLine.vue'
-import { useRouter } from 'vue-router'
-import { reactive, onMounted } from 'vue'
+import { reactive } from 'vue'
 export default {
   name: 'Finish',
   components: {
     guideLine
   },
   setup() {
-    const router = useRouter()
     const guideData = reactive([
       {
         label: '購物車',
@@ -99,14 +97,10 @@ export default {
       delivery: JSON.parse(localStorage.getItem('cartInfo')).delivery,
       total: JSON.parse(localStorage.getItem('cartTotal')).total
     })
-    const text = onMounted(() => {
-      console.log(router.currentRoute.value.params)
-    })
     return {
       guideData,
       items,
-      recipientForm,
-      text
+      recipientForm
     }
   }
 }
