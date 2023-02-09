@@ -98,7 +98,7 @@ export default {
       addr: store.getters['cartModules/getCartInfo'].addr,
       payment: store.getters['cartModules/getCartInfo'].payment,
       delivery: store.getters['cartModules/getCartInfo'].delivery,
-      total: store.getters['cartModules/getCartInfo'].total
+      total: store.getters['cartModules/getTotal']
     })
     return {
       guideData,

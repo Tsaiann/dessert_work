@@ -20,7 +20,6 @@ export const cartModules = {
         state.cartStatus.delivery = JSON.parse(localStorage.getItem('cartInfo')).delivery
         state.cartStatus.recipient = JSON.parse(localStorage.getItem('cartInfo')).recipient
         state.cartStatus.phone = JSON.parse(localStorage.getItem('cartInfo')).phone
-        state.cartStatus.total = JSON.parse(localStorage.getItem('cartInfo')).total
         state.cartStatus.addr = JSON.parse(localStorage.getItem('cartInfo')).addr
       }
       return state.cartStatus

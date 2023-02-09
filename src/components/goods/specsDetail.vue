@@ -105,6 +105,7 @@ import { callApi } from '@/utils/callApi'
 import { addGoodsCart, addLikeList, allLikeList, getGoodsList } from '@/service/api'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 import guideLine from '@/components/guideLine.vue'
 
 export default {
@@ -115,6 +116,7 @@ export default {
   setup() {
     const toast = useToast()
     const router = useRouter()
+    const store = useStore()
     const state = reactive({
       isLogin: store.getters['memberModules/getLogin'],
       goodsData: [],
