@@ -63,6 +63,8 @@
 <script>
 import guideLine from '@/components/guideLine.vue'
 import { reactive } from 'vue'
+import { useStore } from 'vuex'
+
 export default {
   name: 'Finish',
   components: {
@@ -89,13 +91,14 @@ export default {
         to: '/finish'
       }
     ])
+    const store = useStore()
     const recipientForm = reactive({
-      recipient: JSON.parse(localStorage.getItem('cartInfo')).recipient,
-      phone: JSON.parse(localStorage.getItem('cartInfo')).phone,
-      addr: JSON.parse(localStorage.getItem('cartInfo')).addr,
-      payment: JSON.parse(localStorage.getItem('cartInfo')).payment,
-      delivery: JSON.parse(localStorage.getItem('cartInfo')).delivery,
-      total: JSON.parse(localStorage.getItem('cartTotal')).total
+      recipient: store.getters['cartModules/getCartInfo'].recipient,
+      phone: store.getters['cartModules/getCartInfo'].phone,
+      addr: store.getters['cartModules/getCartInfo'].addr,
+      payment: store.getters['cartModules/getCartInfo'].payment,
+      delivery: store.getters['cartModules/getCartInfo'].delivery,
+      total: store.getters['cartModules/getCartInfo'].total
     })
     return {
       guideData,

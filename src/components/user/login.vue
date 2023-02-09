@@ -58,7 +58,7 @@ export default {
     })
     //登入會員
     const hanleLogin = async () => {
-      if (state.memberForm.account !== '' && state.memberForm.password !== '' && state.memberForm.otp !== '') {
+      if (state.memberForm.account && state.memberForm.password && state.memberForm.otp) {
         await callApi(login, state.memberForm, async (res) => {
           store.commit('memberModules/SET_USERSTATUS', res.data.Data)
           const data = { GoodsName: '' }

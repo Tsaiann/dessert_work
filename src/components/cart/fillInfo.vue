@@ -141,14 +141,14 @@ export default {
         Addr: '',
         OrderRemark: '',
         Email: '',
-        PaymentMethod: JSON.parse(localStorage.getItem('cartInfo')).payment,
-        DeliveryMethod: JSON.parse(localStorage.getItem('cartInfo')).delivery
+        PaymentMethod: store.getters['cartModules/getCartInfo'].payment,
+        DeliveryMethod: store.getters['cartModules/getCartInfo'].delivery
       },
       discountForm: {
-        MemberID: JSON.parse(localStorage.getItem('memberInfo')).id,
+        MemberID: store.getters['memberModules/getID'],
         Amount: 50
       },
-      orderTotal: JSON.parse(localStorage.getItem('cartTotal')).total
+      orderTotal: store.getters['cartModules/getTotal']
     })
     const guideData = reactive([
       {

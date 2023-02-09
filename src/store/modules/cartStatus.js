@@ -13,7 +13,25 @@ export const cartModules = {
     }
   },
 
-  getters: {},
+  getters: {
+    getCartInfo(state) {
+      if (localStorage.getItem('cartInfo') !== null) {
+        state.cartStatus.payment = JSON.parse(localStorage.getItem('cartInfo')).payment
+        state.cartStatus.delivery = JSON.parse(localStorage.getItem('cartInfo')).delivery
+        state.cartStatus.recipient = JSON.parse(localStorage.getItem('cartInfo')).recipient
+        state.cartStatus.phone = JSON.parse(localStorage.getItem('cartInfo')).phone
+        state.cartStatus.total = JSON.parse(localStorage.getItem('cartInfo')).total
+        state.cartStatus.addr = JSON.parse(localStorage.getItem('cartInfo')).addr
+      }
+      return state.cartStatus
+    },
+    getTotal(state) {
+      if (localStorage.getItem('cartTotal').total !== '') {
+        state.cartStatus.total = JSON.parse(localStorage.getItem('cartTotal')).total
+      }
+      return state.cartStatus.total
+    }
+  },
 
   mutations: {
     SET_CARTPAYMENT(state, payload) {
@@ -28,7 +46,6 @@ export const cartModules = {
       localStorage.setItem('cartTotal', JSON.stringify({ total: payload }))
     },
     SET_CARTINFO(state, payload) {
-      console.log('cartPayment store', payload)
       state.cartStatus.payment = payload.PaymentMethod
       state.cartStatus.delivery = payload.DeliveryMethod
       state.cartStatus.recipient = payload.Recipient

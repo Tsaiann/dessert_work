@@ -67,8 +67,8 @@ export default {
     return {
       memberList,
       guideData,
-      routerChange,
-      changeRouterName
+      changeRouterName,
+      routerChange
     }
   }
 }

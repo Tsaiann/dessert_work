@@ -30,7 +30,7 @@ export default {
         GoodsName: ''
       }
     })
-    const getAllGoodsList = onMounted(async () => {
+    const getAllGoodsList = onMounted(() => {
       if (state.search === undefined) {
         const data = state.goodsListSearch
         callApi(getGoodsList, data, (res) => {

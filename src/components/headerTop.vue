@@ -267,10 +267,8 @@ export default {
     ])
     // 獲得所有購物車資料
     const getCartData = onMounted(() => {
-      const memberInfo = localStorage.getItem('memberInfo')
-      if (memberInfo === null) {
-        return
-      } else {
+      if (memberStatus === null) return
+      else {
         confirmUserInfo.value = true
         const data = ''
         callApi(getGoodsCart, data, (res) => {
@@ -280,15 +278,11 @@ export default {
     })
     // 點擊會員icon判斷有沒有登入會員跳換路由
     const handleMember = () => {
-      const memberInfo = localStorage.getItem('memberInfo')
-      if (memberInfo === null) {
-        router.push({ name: 'User' })
-      }
+      if (memberStatus === null) router.push({ name: 'User' })
     }
     // 判斷menu中會員是否登入來跳轉路由
     const memberRouterChange = onMounted(() => {
-      const memberInfo = localStorage.getItem('memberInfo')
-      if (memberInfo === null) {
+      if (memberStatus === null) {
         routerList[2].to = '/user'
       } else {
         routerList[2].to = '/member'
@@ -296,10 +290,7 @@ export default {
     })
     // 判斷menu中會員是否登入來跳轉路由(手機)
     const memberRouterChangeMedia = () => {
-      const memberInfo = localStorage.getItem('memberInfo')
-      if (memberInfo === null) {
-        router.push({ name: 'User' })
-      }
+      if (memberStatus === null) router.push({ name: 'User' })
     }
     // 刪除購物車商品
     const deleteCartData = async (id) => {
@@ -329,9 +320,7 @@ export default {
             search: search.value
           }
         })
-        .then(() => {
-          reload()
-        })
+        .then(() => reload())
     }
     // 購物車結帳功能
     const goCart = () => {
@@ -361,9 +350,7 @@ export default {
         }
       })
     })
-    const handleReset = async () => {
-      await reload()
-    }
+    const handleReset = async () => await reload()
     const onConfirmLike = async (id) => {
       const data = { GoodsID: id }
       await callApi(deleteLikeList, data, () => {

@@ -47,6 +47,7 @@ import { allLikeList, deleteLikeList, getImg } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default {
   name: 'Like',
@@ -59,6 +60,7 @@ export default {
         Specs: []
       }
     })
+    const store = useStore()
     const router = useRouter()
     const toast = useToast()
     //獲得收藏清單列表
@@ -88,14 +90,12 @@ export default {
     const getLikeImg = async () => {
       for (let i in state.likeList) {
         const data = { ident: state.likeList[i].Goods.ImagesIdnet }
-        await callApi(getImg, data, (res) => {
-          state.imgList.push(res.data.Data[0].Url)
-        })
+        await callApi(getImg, data, (res) => state.imgList.push(res.data.Data[0].Url))
       }
     }
     //跳轉商品頁面
     const changeRouter = (id) => {
-      localStorage.setItem('goodsDetailID', id)
+      store.commit('goodsModules/SET_GOODSDETAIL', id)
       if (id == 7 || id == 8 || id == 9 || id == 10 || id == 11 || id == 12) {
         router.push({ name: 'SpecsDetail' })
       } else {

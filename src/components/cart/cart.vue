@@ -298,7 +298,7 @@ export default {
     }
     // 前往下一頁
     const handleNextPage = async () => {
-      if (state.deliveryValue !== null && state.paymentValue !== null) {
+      if (state.deliveryValue && state.paymentValue) {
         store.commit('cartModules/SET_CARTPAYMENT', state)
         store.commit('cartModules/SET_CARTTOTAL', orderTotal.value)
         router.push({ name: 'FillInfo' })

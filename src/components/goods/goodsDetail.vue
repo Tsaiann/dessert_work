@@ -102,6 +102,7 @@ import { addGoodsCart, addLikeList, allLikeList, getGoodsList } from '@/service/
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
 import guideLine from '@/components/guideLine.vue'
+import { useStore } from 'vuex'
 
 export default {
   name: 'GoodsDetail',
@@ -112,6 +113,7 @@ export default {
     const reload = inject('reload')
     const toast = useToast()
     const router = useRouter()
+    const store = useStore()
     const guideData = reactive([
       {
         label: null,
@@ -119,7 +121,7 @@ export default {
       }
     ])
     const state = reactive({
-      memberInfo: localStorage.getItem('memberInfo'),
+      isLogin: store.getters['memberModules/getLogin'],
       check: false,
       goodsData: [],
       imgList: [],
@@ -201,15 +203,12 @@ export default {
     }
     //需要的商品數量
     const countChange = (name) => {
-      if (name === 'plus' && state.count < 99) {
-        state.count += 1
-      } else if (name === 'minus' && state.count > 1) {
-        state.count -= 1
-      }
+      if (name === 'plus' && state.count < 99) state.count += 1
+      else if (name === 'minus' && state.count > 1) state.count -= 1
     }
     //加入到購物車
     const addCart = async () => {
-      if (state.memberInfo !== null) {
+      if (state.isLogin === true) {
         if (state.check == true) {
           state.cartForm.Specs[0].Num = state.count
           const data = state.cartForm
@@ -225,7 +224,7 @@ export default {
     }
     //直接購買（跳轉結帳）
     const handleBuy = async () => {
-      if (state.memberInfo !== null) {
+      if (state.isLogin === true) {
         if (state.check == true) {
           state.cartForm.Specs[0].Num = state.count
           const data = state.cartForm
@@ -242,7 +241,7 @@ export default {
     }
     //加入到收藏清單
     const handleAddLike = () => {
-      if (state.memberInfo !== null) {
+      if (state.isLogin === true) {
         const data = { GoodsID: state.cartForm.GoodsID }
         callApi(addLikeList, data, () => {
           state.like = true
@@ -252,7 +251,7 @@ export default {
       }
     }
     const likeStatus = () => {
-      if (state.memberInfo !== null) {
+      if (state.isLogin === true) {
         const data = ''
         callApi(allLikeList, data, (res) => {
           for (let i in res.data.Data) {
@@ -264,7 +263,7 @@ export default {
       }
     }
     const aboutGoodsRouter = (id) => {
-      localStorage.setItem('goodsDetailID', id)
+      store.commit('goodsModules/SET_GOODSDETAIL', id)
       router.push({ name: 'SpecsDetail' })
     }
     return {

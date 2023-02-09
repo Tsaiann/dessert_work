@@ -2,6 +2,7 @@ export const memberModules = {
   namespaced: true,
   state: {
     token: '',
+    isLogin: false,
     memberStatus: {
       id: null,
       account: '',
@@ -17,11 +18,17 @@ export const memberModules = {
   },
 
   getters: {
-    getToken(state) {
-      if (!state.token) {
-        state.token = localStorage.getItem('memberInfo').token
+    getLogin(state) {
+      if (localStorage.getItem('memberInfo').token !== '') {
+        state.isLogin = true
       }
-      return state.token
+      return state.isLogin
+    },
+    getID(state) {
+      if (localStorage.getItem('memberInfo').id !== '') {
+        state.id = JSON.parse(localStorage.getItem('memberInfo')).id
+      }
+      return state.id
     }
   },
 
@@ -33,6 +40,7 @@ export const memberModules = {
       state.memberStatus.email = payload.Info.Email
       state.memberStatus.phone = payload.Info.Phone
       state.token = payload.Token
+      state.isLogin = true
       localStorage.setItem(
         'memberInfo',
         JSON.stringify({ id: payload.Info.ID, account: payload.Info.Account, username: payload.Info.Name, token: payload.Token })
@@ -46,6 +54,7 @@ export const memberModules = {
     },
     LOGOUT(state) {
       state.token = ''
+      state.isLogin = false
       state.memberStatus.id = null
       state.memberStatus.account = ''
       state.memberStatus.username = ''

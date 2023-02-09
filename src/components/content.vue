@@ -80,10 +80,12 @@ import { ref, reactive, onMounted } from 'vue'
 import { getGoodsList } from '@/service/api'
 import { callApi } from '@/utils/callApi'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default {
   name: 'Content',
   setup() {
+    const store = useStore()
     const router = useRouter()
     const state = reactive({
       goodsList: [],
@@ -144,7 +146,7 @@ export default {
       })
     })
     const checkGoodsDetail = (id) => {
-      localStorage.setItem('goodsDetailID', id)
+      store.commit('goodsModules/SET_GOODSDETAIL', id)
       if (id === 47 || id === 48 || id === 49 || id === 50 || id === 51 || id === 52) {
         router.push({ name: 'SpecsDetail' })
       } else {

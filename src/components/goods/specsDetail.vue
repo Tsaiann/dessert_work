@@ -116,7 +116,7 @@ export default {
     const toast = useToast()
     const router = useRouter()
     const state = reactive({
-      memberInfo: localStorage.getItem('memberInfo'),
+      isLogin: store.getters['memberModules/getLogin'],
       goodsData: [],
       newGoodsData: [],
       imgList: [],
@@ -202,15 +202,12 @@ export default {
     }
     //需要的商品數量
     const countChange = (name) => {
-      if (name === 'plus' && state.count < 99) {
-        state.count += 1
-      } else if (name === 'minus' && state.count > 1) {
-        state.count -= 1
-      }
+      if (name === 'plus' && state.count < 99) state.count += 1
+      else if (name === 'minus' && state.count > 1) state.count -= 1
     }
     //加入到購物車
     const addCart = async () => {
-      if (state.memberInfo !== null) {
+      if (state.isLogin === true) {
         checkSpecs()
         const totalNum = state.cartForm.Specs.reduce((pre, cur) => {
           return pre + cur.Num
@@ -237,7 +234,7 @@ export default {
     }
     //直接購買（跳轉結帳）
     const handleBuy = async () => {
-      if (state.memberInfo !== null) {
+      if (state.isLogin === true) {
         checkSpecs()
         const totalNum = state.cartForm.Specs.reduce((pre, cur) => {
           return pre + cur.Num
@@ -262,7 +259,7 @@ export default {
     }
     //加入到收藏清單
     const handleAddLike = () => {
-      if (state.memberInfo !== null) {
+      if (state.isLogin === true) {
         const data = { GoodsID: state.cartForm.GoodsID }
         callApi(addLikeList, data, () => {
           state.like = true
@@ -273,7 +270,7 @@ export default {
     }
     //判斷收藏清單裡是否已有資料
     const likeStatus = () => {
-      if (state.memberInfo !== null) {
+      if (state.isLogin === true) {
         const data = ''
         callApi(allLikeList, data, (res) => {
           for (let i in res.data.Data) {
@@ -286,7 +283,7 @@ export default {
     }
     //相關產品的路由跳轉
     const aboutGoodsRouter = (id) => {
-      localStorage.setItem('goodsDetailID', id)
+      store.commit('goodsModules/SET_GOODSDETAIL', id)
       router.push({ name: 'GoodsDetail' })
     }
     //限制商品規格的數量

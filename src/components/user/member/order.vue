@@ -121,11 +121,8 @@ export default {
     const orderStage = () => {
       for (let i in state.orderList) {
         const stage = state.orderList[i].OrderStage
-        if (stage == 0) {
-          state.orderList[i].OrderStage = '未出貨'
-        } else if (stage == 1) {
-          state.orderList[i].OrderStage = '已出貨'
-        }
+        if (stage == 0) state.orderList[i].OrderStage = '未出貨'
+        else if (stage == 1) state.orderList[i].OrderStage = '已出貨'
       }
     }
     //獲得商品詳細資料

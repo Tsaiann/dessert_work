@@ -31,7 +31,7 @@ export default {
         GoodsType: 0
       }
     })
-    const getAllGoodsList = onMounted(async () => {
+    const getAllGoodsList = onMounted(() => {
       const data = state.goodsListSearch
       callApi(getGoodsList, data, (res) => {
         state.goodsList = [...res.data.Data]

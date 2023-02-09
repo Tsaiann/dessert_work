@@ -79,6 +79,7 @@ import { callApi } from '@/utils/callApi'
 import { reactive, inject } from 'vue'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default {
   name: 'Card',
@@ -87,6 +88,7 @@ export default {
   },
   setup(props) {
     const toast = useToast()
+    const store = useStore()
     const router = useRouter()
     const reload = inject('reload')
     const state = reactive({
@@ -112,7 +114,7 @@ export default {
     }
     //商品詳細頁面
     const checkGoodsDetail = (id) => {
-      localStorage.setItem('goodsDetailID', id)
+      store.commit('goodsModules/SET_GOODSDETAIL', id)
       if (id === 7 || id === 8 || id === 9 || id === 10 || id === 11 || id === 12) {
         router.push({ name: 'SpecsDetail' })
       } else {
@@ -121,8 +123,8 @@ export default {
     }
     //獲得該商品詳細資料
     const getGoodDetail = (id) => {
-      localStorage.setItem('goodsDetailID', id)
-      const data = { ID: localStorage.getItem('goodsDetailID') * 1 }
+      store.commit('goodsModules/SET_GOODSDETAIL', id)
+      const data = { ID: store.state.goodsModules.currentGoodsID }
       state.imgList = []
       callApi(getGoodsList, data, (res) => {
         state.goodsData = res.data.Data
@@ -141,11 +143,8 @@ export default {
     }
     //需要的商品數量
     const countChange = (name) => {
-      if (name === 'plus' && state.count < 99) {
-        state.count += 1
-      } else if (name === 'minus' && state.count > 1) {
-        state.count -= 1
-      }
+      if (name === 'plus' && state.count < 99) state.count += 1
+      else if (name === 'minus' && state.count > 1) state.count -= 1
     }
     //限制商品規格的數量
     const handleSpecsMax = (event) => {
@@ -177,8 +176,8 @@ export default {
     }
     //加入到購物車
     const addCartDialog = async () => {
-      const memberInfo = localStorage.getItem('memberInfo')
-      if (memberInfo !== null) {
+      const isLogin = store.getters['memberModules/getLogin']
+      if (isLogin == true) {
         if (state.newGoodsData.length == 1) {
           if (state.check == true) {
             state.cartForm.Specs.push({
