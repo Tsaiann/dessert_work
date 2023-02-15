@@ -55,28 +55,20 @@
         <li>‧ 客服意見反應信箱：season99@gmail.com</li>
       </ul>
     </div>
+    <div>Mouse position is at: {{ x }}, {{ y }}</div>
   </div>
 </template>
 
-<script>
+<script setup>
 import guideLine from '@/components/guideLine.vue'
 import { reactive } from 'vue'
+import { useMouse } from '@/composables/test.js'
 
-export default {
-  name: 'QuestionsAns',
-  components: {
-    guideLine
-  },
-  setup() {
-    const guideData = reactive([
-      {
-        label: '常見問題',
-        to: '/questionsAns'
-      }
-    ])
-    return {
-      guideData
-    }
+const guideData = reactive([
+  {
+    label: '常見問題',
+    to: '/questionsAns'
   }
-}
+])
+const { x, y } = useMouse()
 </script>
