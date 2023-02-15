@@ -24,25 +24,14 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import guideLine from '@/components/guideLine.vue'
 import { reactive } from 'vue'
 
-export default {
-  name: 'About',
-  components: {
-    guideLine
-  },
-  setup() {
-    const guideData = reactive([
-      {
-        label: '關於季菓',
-        to: '/about'
-      }
-    ])
-    return {
-      guideData
-    }
+const guideData = reactive([
+  {
+    label: '關於季菓',
+    to: '/about'
   }
-}
+])
 </script>
