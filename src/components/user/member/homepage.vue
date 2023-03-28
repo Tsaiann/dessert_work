@@ -43,7 +43,7 @@
       <div class="member-detail" data-space-bottom="2rem">
         <p>確認新密碼</p>
         <InputText type="password" v-model="state.pwdConfirm" />
-        <span v-if="v$.ConfirmPassword.$error"> {{ '請再次輸入密碼' }} </span>
+        <span v-if="state.pwdConfirm !== state.memberForm.Password"> {{ '請再次輸入密碼' }} </span>
       </div>
       <hr />
       <div class="member-detail_exception">
@@ -60,7 +60,7 @@
       <span>訂閱商品/活動訊息，我們將不定期透過email通知最新商品活動及優惠訊息。</span>
       <div class="row horizontal" data-space-top="3rem">
         <button class="button_cancel" @click="handleReset" data-space-right="1rem">重新填寫</button>
-        <button class="button_confirm" @click="handleMemberUpdate">儲存變更</button>
+        <button class="button_confirm" @click="memberVerify">儲存變更</button>
       </div>
     </div>
   </div>
@@ -98,20 +98,39 @@ export default {
         level: '',
         nextLevel: '',
         nextLevelCash: ''
-      }
+      },
+      levels: [
+        {
+          threshold: 0,
+          name: '銅級會員'
+        },
+        {
+          threshold: 5000,
+          name: '銀級會員'
+        },
+        {
+          threshold: 10000,
+          name: '金級會員'
+        },
+        {
+          threshold: 20000,
+          name: '白金會員'
+        }
+      ]
     })
     const rules = computed(() => {
       return {
         Name: { required, minLength: minLength(2) },
         Email: { required, email },
         Password: { minLength: minLength(8) },
-        ConfirmPassword: { sameAs: sameAs(state.memberForm.Password) },
-        Phone: { required, minLength: minLength(10) }
+        pwdConfirm: { sameAs: sameAs(state.memberForm.Password) },
+        Phone: { minLength: minLength(10) }
       }
     })
     const v$ = useVuelidate(rules, state.memberForm)
     //取得該會員資料
     const getMemberData = onMounted(async () => {
+      console.log(v$)
       const data = ''
       await callApi(memberData, data, (res) => {
         state.memberForm.Name = res.data.Data.Name
@@ -121,11 +140,13 @@ export default {
         state.memberForm.account = res.data.Data.Account
       })
     })
+
     //重新填寫會員資料
     const handleReset = () => {
       resetForm(state.memberForm)
       getMemberData()
     }
+
     //會員資料更新
     const handleMemberUpdate = async () => {
       v$.value.$validate()
@@ -143,6 +164,27 @@ export default {
         toast.add({ severity: 'error', summary: '填寫錯誤，請重新填寫', group: 'errorBox' })
       }
     }
+    //會員資料認證
+    const memberVerify = () => {
+      v$.value.$validate()
+      if (state.memberForm.Name && state.memberForm.Email) {
+        if (state.memberForm.Password && state.pwdConfirm && state.memberForm.Password !== state.pwdConfirm) {
+          toast.add({ severity: 'error', summary: '密碼輸入錯誤！', group: 'errorBox' })
+        } else {
+          memberUpdate()
+        }
+      } else {
+        toast.add({ severity: 'error', summary: '必填格式空白或錯誤！', group: 'errorBox' })
+      }
+    }
+    //會員資料更新
+    const memberUpdate = () => {
+      const data = state.memberForm
+      callApi(updateMemberData, data, () => {
+        getMemberData()
+        toast.add({ severity: 'success', summary: '更新成功！', group: 'successBox' })
+      })
+    }
     //得到優惠券資料
     const getBenefitsData = onMounted(() => {
       const data = ''
@@ -151,28 +193,20 @@ export default {
         levelChange()
       })
     })
+
     //根據消費金額確認會員等級
     const levelChange = () => {
       const total = state.benefits.Consumption
-      if (total < 5000) {
-        state.benefitsList.level = ' 銅級會員'
-        state.benefitsList.nextLevel = '銀級會員'
-        state.benefitsList.nextLevelCash = 5000 - total
-        store.commit('memberModules/SET_USERBENEFITS', state.benefitsList)
-      } else if (total < 10000 && total >= 5000) {
-        state.benefitsList.level = ' 銀級會員'
-        state.benefitsList.nextLevel = '金級會員'
-        state.benefitsList.nextLevelCash = 10000 - total
-        store.commit('memberModules/SET_USERBENEFITS', state.benefitsList)
-      } else if (total < 20000 && total >= 10000) {
-        state.benefitsList.state.level = ' 金級會員'
-        state.benefitsList.nextLevel = '白金會員'
-        state.benefitsList.nextLevelCash = 20000 - total
-        store.commit('memberModules/SET_USERBENEFITS', state.benefitsList)
-      } else {
-        state.benefitsList.state.level = ' 白金會員'
-        store.commit('memberModules/SET_USERBENEFITS', state.benefitsList)
+      const userLevel = state.levels.find((level) => total >= level.threshold)
+      const nextLevel = state.levels.find((level) => total < level.threshold)
+      const nextLevelCash = nextLevel.threshold - total
+
+      state.benefitsList = {
+        level: userLevel.name,
+        nextLevel: nextLevel.name,
+        nextLevelCash: nextLevelCash
       }
+      store.commit('memberModules/SET_USERBENEFITS', state.benefitsList)
     }
     return {
       state,
@@ -181,7 +215,8 @@ export default {
       v$,
       getBenefitsData,
       handleReset,
-      handleMemberUpdate
+      handleMemberUpdate,
+      memberVerify
     }
   }
 }
