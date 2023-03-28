@@ -96,11 +96,11 @@ export default {
     //跳轉商品頁面
     const changeRouter = (id) => {
       store.commit('goodsModules/SET_GOODSDETAIL', id)
-      if (id == 7 || id == 8 || id == 9 || id == 10 || id == 11 || id == 12) {
-        router.push({ name: 'SpecsDetail' })
-      } else {
-        router.push({ name: 'GoodsDetail' })
+      const specialIds = [7, 8, 9, 10, 11, 12]
+      const currentRoute = {
+        name: specialIds.includes(id) ? 'SpecsDetail' : 'GoodsDetail'
       }
+      router.push(currentRoute)
     }
     return {
       state,
