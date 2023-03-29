@@ -147,11 +147,11 @@ export default {
     })
     const checkGoodsDetail = (id) => {
       store.commit('goodsModules/SET_GOODSDETAIL', id)
-      if (id === 47 || id === 48 || id === 49 || id === 50 || id === 51 || id === 52) {
-        router.push({ name: 'SpecsDetail' })
-      } else {
-        router.push({ name: 'GoodsDetail' })
+      const specialIds = [47, 48, 49, 50, 51, 52]
+      const route = {
+        name: specialIds.includes(id) ? 'SpecsDetail' : 'GoodsDetail'
       }
+      router.push(route)
     }
     return {
       state,
