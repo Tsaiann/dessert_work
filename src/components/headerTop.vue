@@ -77,7 +77,7 @@
           <ul>
             <li v-for="(item, i) in goodsTypeList" :key="i" @click="routerChange(item.path)">{{ item.name }}</li>
           </ul>
-          <div @click="memberRouterChangeMedia">會員專區</div>
+          <div @click="handleMember">會員專區</div>
           <ul v-if="memberStatus !== null">
             <li v-for="(item, i) in memberList" :key="i" @click="routerChange(item.path)">{{ item.name }}</li>
           </ul>
@@ -282,16 +282,9 @@ export default {
     }
     // 判斷menu中會員是否登入來跳轉路由
     const memberRouterChange = onMounted(() => {
-      if (memberStatus === null) {
-        routerList[2].to = '/user'
-      } else {
-        routerList[2].to = '/member'
-      }
+      const route = memberStatus === null ? '/user' : '/member'
+      routerList[2].to = route
     })
-    // 判斷menu中會員是否登入來跳轉路由(手機)
-    const memberRouterChangeMedia = () => {
-      if (memberStatus === null) router.push({ name: 'User' })
-    }
     // 刪除購物車商品
     const deleteCartData = async (id) => {
       toast.add({ severity: 'success', summary: '確定要刪除商品？', group: 'cartGoodsDelete', ID: id })
@@ -391,8 +384,7 @@ export default {
       memberRouter,
       handleReset,
       onConfirmLogout,
-      onConfirmLike,
-      memberRouterChangeMedia
+      onConfirmLike
     }
   }
 }
