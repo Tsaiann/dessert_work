@@ -50,12 +50,12 @@
           </div>
         </div>
         <div class="button_buy media">
-          <button class="button_normal" data-width="50%" @click="addCart()">加入購物車</button>
-          <button class="button_confirm" data-width="50%" @click="handleBuy()">直接購買</button>
+          <button class="button_normal" data-width="50%" @click="addCart('add')">加入購物車</button>
+          <button class="button_confirm" data-width="50%" @click="addCart('purchase')">直接購買</button>
         </div>
         <div class="button_buy">
-          <button class="button_normal" data-width="50%" @click="addCart()">加入購物車</button>
-          <button class="button_confirm" data-width="50%" @click="handleBuy()">直接購買</button>
+          <button class="button_normal" data-width="50%" @click="addCart('add')">加入購物車</button>
+          <button class="button_confirm" data-width="50%" @click="addCart('purchase')">直接購買</button>
         </div>
       </div>
       <div class="goods-data">
@@ -131,7 +131,8 @@ export default {
         GoodsID: null,
         Specs: []
       },
-      like: false
+      like: false,
+      purchase: false
     })
     const responsiveOptions = ref([
       {
@@ -207,8 +208,8 @@ export default {
       if (name === 'plus' && state.count < 99) state.count += 1
       else if (name === 'minus' && state.count > 1) state.count -= 1
     }
-    //加入到購物車
-    const addCart = async () => {
+    // 檢查商品規格
+    const addCart = async (method) => {
       if (state.isLogin === true) {
         checkSpecs()
         const totalNum = state.cartForm.Specs.reduce((pre, cur) => {
@@ -221,35 +222,17 @@ export default {
           })
           const data = state.cartForm
           callApi(addGoodsCart, data, () => {
-            toast.add({ severity: 'success', summary: '已加入購物車！', group: 'successBox' })
-            state.cartForm.Specs = []
-          })
-        } else {
-          toast.add({ severity: 'error', summary: '規格有誤，請再次確認！', group: 'errorBox' })
-          state.cartForm.Specs = []
-          console.log(state.specsCount)
-          console.log(totalNum)
-        }
-      } else {
-        toast.add({ severity: 'error', summary: '請先登入會員！', group: 'errorBox' })
-      }
-    }
-    //直接購買（跳轉結帳）
-    const handleBuy = async () => {
-      if (state.isLogin === true) {
-        checkSpecs()
-        const totalNum = state.cartForm.Specs.reduce((pre, cur) => {
-          return pre + cur.Num
-        }, 0)
-        if (totalNum == state.specsCount) {
-          state.cartForm.Specs.unshift({
-            SpecID: state.goodsData.GoodsSpecs[0].ID,
-            Num: state.count
-          })
-          const data = state.cartForm
-          callApi(addGoodsCart, data, () => {
-            router.push({ name: 'Cart' })
-            state.cartForm.Specs = []
+            const type = {
+              add: () => {
+                toast.add({ severity: 'success', summary: '已加入購物車！', group: 'successBox' })
+                state.cartForm.Specs = []
+              },
+              purchase: () => {
+                router.push({ name: 'Cart' })
+                state.cartForm.Specs = []
+              }
+            }
+            type[method]()
           })
         } else {
           toast.add({ severity: 'error', summary: '規格有誤，請再次確認！', group: 'errorBox' })
@@ -324,7 +307,6 @@ export default {
       goodsList,
       likeStatus,
       handleAddLike,
-      handleBuy,
       addCart,
       countChange,
       aboutGoodsRouter,
