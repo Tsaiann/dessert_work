@@ -19,7 +19,7 @@ export const memberModules = {
 
   getters: {
     getLogin(state) {
-      if (localStorage.getItem('memberInfo').token !== '') {
+      if (localStorage.getItem('memberInfo') !== null) {
         state.isLogin = true
       }
       return state.isLogin
