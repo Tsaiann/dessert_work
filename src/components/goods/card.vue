@@ -58,7 +58,7 @@
             </div>
             <div>
               <h3>購買數量</h3>
-              <div class="goods-content__count" data-space-left="1.5rem">
+              <div class="goods-content__count">
                 <i class="pi pi-minus" @click="countChange('minus')"></i>
                 <InputNumber class="p-inputtext-sm" v-model="state.count" />
                 <i class="pi pi-plus" style="color: red" @click="countChange('plus')"></i>
@@ -174,44 +174,48 @@ export default {
         }
       }
     }
+    //檢查規格單一的商品
+    const checkSingleGoods = () => {
+      if (state.check == true) {
+        state.cartForm.Specs.push({
+          SpecID: state.newGoodsData[0].ID,
+          Num: state.count
+        })
+        const data = state.cartForm
+        callApi(addGoodsCart, data, () => {
+          toast.add({ severity: 'success', summary: '已加入購物車！', group: 'successBox' })
+        })
+      } else {
+        toast.add({ severity: 'error', summary: '請選擇規格', group: 'errorBox' })
+      }
+    }
+    //檢查需要規格的商品是否有符合
+    const checkSpecailGoods = () => {
+      checkSpecs()
+      const totalNum = state.cartForm.Specs.reduce((pre, cur) => {
+        return pre + cur.Num
+      }, 0)
+      if (totalNum == state.specsCount) {
+        state.cartForm.Specs.unshift({
+          SpecID: state.goodsData.GoodsSpecs[0].ID,
+          Num: state.count
+        })
+        const data = state.cartForm
+        callApi(addGoodsCart, data, () => {
+          toast.add({ severity: 'success', summary: '已加入購物車！', group: 'successBox' })
+          state.cartForm.Specs = []
+          state.visibleDialog = false
+        })
+      } else {
+        toast.add({ severity: 'error', summary: '規格有誤，請再次確認！', group: 'errorBox' })
+        state.cartForm.Specs = []
+      }
+    }
     //加入到購物車
     const addCartDialog = async () => {
       const isLogin = store.getters['memberModules/getLogin']
       if (isLogin == true) {
-        if (state.newGoodsData.length == 1) {
-          if (state.check == true) {
-            state.cartForm.Specs.push({
-              SpecID: state.newGoodsData[0].ID,
-              Num: state.count
-            })
-            const data = state.cartForm
-            callApi(addGoodsCart, data, () => {
-              toast.add({ severity: 'success', summary: '已加入購物車！', group: 'successBox' })
-            })
-          } else {
-            toast.add({ severity: 'error', summary: '請選擇規格', group: 'errorBox' })
-          }
-        } else {
-          checkSpecs()
-          const totalNum = state.cartForm.Specs.reduce((pre, cur) => {
-            return pre + cur.Num
-          }, 0)
-          if (totalNum == state.specsCount) {
-            state.cartForm.Specs.unshift({
-              SpecID: state.goodsData.GoodsSpecs[0].ID,
-              Num: state.count
-            })
-            const data = state.cartForm
-            callApi(addGoodsCart, data, () => {
-              toast.add({ severity: 'success', summary: '已加入購物車！', group: 'successBox' })
-              state.cartForm.Specs = []
-              state.visibleDialog = false
-            })
-          } else {
-            toast.add({ severity: 'error', summary: '規格有誤，請再次確認！', group: 'errorBox' })
-            state.cartForm.Specs = []
-          }
-        }
+        state.newGoodsData.length == 1 ? checkSingleGoods() : checkSpecailGoods()
       } else {
         toast.add({ severity: 'error', summary: '請先登入會員！', group: 'errorBox' })
       }
