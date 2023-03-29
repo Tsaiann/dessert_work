@@ -326,19 +326,12 @@ export default {
       state.updateCartForm.GoodsID = obj.GoodsID
       state.updateCartForm.Specs[0].ID = obj.Specs[0].ID
       state.updateCartForm.Specs[0].SpecID = obj.Specs[0].SpecID
-      if (method === 'plus' && obj.Specs[0].Num < 99) {
-        state.updateCartForm.Specs[0].Num = obj.Specs[0].Num + 1
-        const data = state.updateCartForm
-        callApi(updateCartInfo, data, () => {
-          getCartData()
-        })
-      } else if (method === 'minus' && obj.Specs[0].Num > 1) {
-        state.updateCartForm.Specs[0].Num = obj.Specs[0].Num - 1
-        const data = state.updateCartForm
-        callApi(updateCartInfo, data, () => {
-          getCartData()
-        })
-      }
+      if (method === 'plus' && obj.Specs[0].Num < 99) state.updateCartForm.Specs[0].Num = obj.Specs[0].Num + 1
+      else if (method === 'minus' && obj.Specs[0].Num > 1) state.updateCartForm.Specs[0].Num = obj.Specs[0].Num - 1
+      const data = state.updateCartForm
+      callApi(updateCartInfo, data, () => {
+        getCartData()
+      })
     }
     //得到優惠券資料
     const getBenefitsData = onMounted(() => {
