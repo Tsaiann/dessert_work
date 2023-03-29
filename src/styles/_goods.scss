@@ -236,6 +236,11 @@
       }
     }
 }
+.goods-content__count{
+  input{
+    width: 100%;
+  }
+}
 @media(max-width: 960px) {
   .products{
     .goods-page{
