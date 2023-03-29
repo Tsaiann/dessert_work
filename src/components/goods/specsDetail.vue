@@ -208,7 +208,7 @@ export default {
       if (name === 'plus' && state.count < 99) state.count += 1
       else if (name === 'minus' && state.count > 1) state.count -= 1
     }
-    // 檢查商品規格
+    // 加入購物車（直接購買 / 單純加入購物車）
     const addCart = async (method) => {
       if (state.isLogin === true) {
         checkSpecs()
