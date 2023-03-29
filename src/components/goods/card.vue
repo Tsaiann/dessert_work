@@ -115,11 +115,11 @@ export default {
     //商品詳細頁面
     const checkGoodsDetail = (id) => {
       store.commit('goodsModules/SET_GOODSDETAIL', id)
-      if (id === 7 || id === 8 || id === 9 || id === 10 || id === 11 || id === 12) {
-        router.push({ name: 'SpecsDetail' })
-      } else {
-        router.push({ name: 'GoodsDetail' })
+      const specialIds = [7, 8, 9, 10, 11, 12]
+      const currentRoute = {
+        name: specialIds.includes(id) ? 'SpecsDetail' : 'GoodsDetail'
       }
+      router.push(currentRoute)
     }
     //獲得該商品詳細資料
     const getGoodDetail = (id) => {
