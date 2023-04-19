@@ -1,7 +1,7 @@
 <template>
   <div class="QA container" data-space-bottom="3rem">
     <guideLine :data="guideData" />
-    <div data-space-left="1rem" class="content">
+    <div class="content">
       <h1 data-space-bottom="1rem">蛋糕相關問題</h1>
       <ul data-space-bottom="3rem">
         <li>
