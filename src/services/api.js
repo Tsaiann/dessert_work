@@ -1,4 +1,4 @@
-import { request } from '@/service/request'
+import { request } from 'services/request'
 
 // 取得token
 export const getToken = () => {
