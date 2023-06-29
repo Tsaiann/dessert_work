@@ -3,7 +3,7 @@ import axios from 'axios'
 export const request = (config) => {
   const service = axios.create({
     headers: config.headers,
-    baseURL: process.env.NODE_ENV === 'production' ? 'https://nocodenolife.net/ann/' : '/api',
+    baseURL: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_BASE_API : '/api',
     timeout: 30000,
 
     transformRequest: [
