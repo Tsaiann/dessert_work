@@ -77,8 +77,8 @@
 
 <script>
 import { ref, reactive, onMounted } from 'vue'
-import { getGoodsList } from '@/service/api'
-import { callApi } from '@/utils/callApi'
+import { getGoodsList } from 'services/api'
+import { callApi } from 'utils/callApi'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 

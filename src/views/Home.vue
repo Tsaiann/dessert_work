@@ -25,11 +25,11 @@
 </template>
 
 <script>
-import headerTop from '@/components/headerTop.vue'
-import footerBottom from '@/components/footerBottom.vue'
+import headerTop from 'components/headerTop.vue'
+import footerBottom from 'components/footerBottom.vue'
 import { useToast } from 'primevue/usetoast'
-import { getGoodsCart, deleteGoodsCart, updateCartInfo } from '@/service/api'
-import { callApi } from '@/utils/callApi'
+import { getGoodsCart, deleteGoodsCart, updateCartInfo } from 'services/api'
+import { callApi } from 'utils/callApi'
 
 export default {
   name: 'Home',

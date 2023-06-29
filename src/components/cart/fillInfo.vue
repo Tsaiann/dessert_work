@@ -106,11 +106,11 @@
 </template>
 
 <script>
-import guideLine from '@/components/guideLine.vue'
+import guideLine from 'components/guideLine.vue'
 import { reactive, ref, inject, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { memberData, submitGoodsCart, createDiscount } from '@/service/api'
-import { callApi } from '@/utils/callApi'
+import { memberData, submitGoodsCart, createDiscount } from 'services/api'
+import { callApi } from 'utils/callApi'
 import { useToast } from 'primevue/usetoast'
 import { useStore } from 'vuex'
 

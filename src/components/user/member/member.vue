@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import guideLine from '@/components/guideLine.vue'
+import guideLine from 'components/guideLine.vue'
 import { reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 export default {

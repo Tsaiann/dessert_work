@@ -31,8 +31,8 @@
 
 <script>
 import { reactive, onMounted, computed } from 'vue'
-import { benefitsList } from '@/service/api'
-import { callApi } from '@/utils/callApi'
+import { benefitsList } from 'services/api'
+import { callApi } from 'utils/callApi'
 
 export default {
   name: 'Discount',

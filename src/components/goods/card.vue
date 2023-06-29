@@ -74,8 +74,8 @@
   </div>
 </template>
 <script>
-import { addGoodsCart, getGoodsList } from '@/service/api'
-import { callApi } from '@/utils/callApi'
+import { addGoodsCart, getGoodsList } from 'services/api'
+import { callApi } from 'utils/callApi'
 import { reactive, inject } from 'vue'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'

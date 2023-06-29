@@ -87,8 +87,8 @@
 
 <script>
 import { onMounted, reactive, ref } from 'vue'
-import { getOrderList, orderDetail } from '@/service/api'
-import { callApi } from '@/utils/callApi'
+import { getOrderList, orderDetail } from 'services/api'
+import { callApi } from 'utils/callApi'
 import moment from 'moment'
 export default {
   name: 'Order',

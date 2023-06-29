@@ -23,10 +23,10 @@
 <script>
 import Toast from 'primevue/toast'
 import { reactive, onMounted, inject } from 'vue'
-import { getOtp, login, getGoodsList } from '@/service/api'
-import { callApi } from '@/utils/callApi'
+import { getOtp, login, getGoodsList } from 'services/api'
+import { callApi } from 'utils/callApi'
 import { useRouter } from 'vue-router'
-import { resetForm } from '@/utils/resetForm'
+import { resetForm } from 'utils/resetForm'
 import { useToast } from 'primevue/usetoast'
 import { useStore } from 'vuex'
 

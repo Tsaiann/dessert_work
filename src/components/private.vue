@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import guideLine from '@/components/guideLine.vue'
+import guideLine from 'components/guideLine.vue'
 import { reactive } from 'vue'
 
 export default {

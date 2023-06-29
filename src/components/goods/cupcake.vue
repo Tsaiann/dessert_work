@@ -11,9 +11,9 @@
 </template>
 <script>
 import { reactive, onMounted } from 'vue'
-import { getGoodsList } from '@/service/api'
-import { callApi } from '@/utils/callApi'
-import card from '@/components/goods/card'
+import { getGoodsList } from 'services/api'
+import { callApi } from 'utils/callApi'
+import card from 'components/goods/card'
 
 export default {
   name: 'Cupcake',

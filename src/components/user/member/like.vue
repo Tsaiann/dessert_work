@@ -43,8 +43,8 @@
 
 <script>
 import { reactive, onMounted } from 'vue'
-import { allLikeList, deleteLikeList, getImg } from '@/service/api'
-import { callApi } from '@/utils/callApi'
+import { allLikeList, deleteLikeList, getImg } from 'services/api'
+import { callApi } from 'utils/callApi'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'

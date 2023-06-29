@@ -101,12 +101,12 @@
 </template>
 <script>
 import { reactive, onMounted, ref } from 'vue'
-import { callApi } from '@/utils/callApi'
-import { addGoodsCart, addLikeList, allLikeList, getGoodsList } from '@/service/api'
+import { callApi } from 'utils/callApi'
+import { addGoodsCart, addLikeList, allLikeList, getGoodsList } from 'services/api'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import guideLine from '@/components/guideLine.vue'
+import guideLine from 'components/guideLine.vue'
 
 export default {
   name: 'SpecsDetail',

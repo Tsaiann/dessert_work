@@ -68,9 +68,9 @@
 
 <script>
 import { onMounted, reactive, computed, inject } from 'vue'
-import { memberData, updateMemberData, benefitsList } from '@/service/api'
-import { callApi } from '@/utils/callApi'
-import { resetForm } from '@/utils/resetForm'
+import { memberData, updateMemberData, benefitsList } from 'services/api'
+import { callApi } from 'utils/callApi'
+import { resetForm } from 'utils/resetForm'
 import { useToast } from 'primevue/usetoast'
 import { email, required, minLength, sameAs } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'

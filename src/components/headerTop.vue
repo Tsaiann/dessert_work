@@ -143,8 +143,8 @@
 
 <script>
 import { ref, reactive, onMounted, inject } from 'vue'
-import { getGoodsCart, deleteGoodsCart } from '@/service/api'
-import { callApi } from '@/utils/callApi'
+import { getGoodsCart, deleteGoodsCart } from 'services/api'
+import { callApi } from 'utils/callApi'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
 import { useStore } from 'vuex'

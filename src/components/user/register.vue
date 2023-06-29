@@ -47,8 +47,8 @@ import { reactive, computed } from 'vue'
 import { email, required, minLength, sameAs } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 import { useToast } from 'primevue/usetoast'
-import { createMember } from '@/service/api'
-import { callApi } from '@/utils/callApi'
+import { createMember } from 'services/api'
+import { callApi } from 'utils/callApi'
 import { useRouter } from 'vue-router'
 
 export default {

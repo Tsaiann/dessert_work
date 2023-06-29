@@ -97,11 +97,11 @@
 </template>
 <script>
 import { reactive, onMounted, inject, ref } from 'vue'
-import { callApi } from '@/utils/callApi'
-import { addGoodsCart, addLikeList, allLikeList, getGoodsList } from '@/service/api'
+import { callApi } from 'utils/callApi'
+import { addGoodsCart, addLikeList, allLikeList, getGoodsList } from 'services/api'
 import { useToast } from 'primevue/usetoast'
 import { useRouter } from 'vue-router'
-import guideLine from '@/components/guideLine.vue'
+import guideLine from 'components/guideLine.vue'
 import { useStore } from 'vuex'
 
 export default {

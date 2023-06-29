@@ -138,11 +138,11 @@
 
 <script>
 import { reactive, ref, onMounted, computed, inject } from 'vue'
-import guideLine from '@/components/guideLine.vue'
+import guideLine from 'components/guideLine.vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
-import { getGoodsCart, deleteGoodsCart, updateCartInfo, benefitsList } from '@/service/api'
-import { callApi } from '@/utils/callApi'
+import { getGoodsCart, deleteGoodsCart, updateCartInfo, benefitsList } from 'services/api'
+import { callApi } from 'utils/callApi'
 import { useStore } from 'vuex'
 
 export default {
