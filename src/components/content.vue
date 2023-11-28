@@ -83,7 +83,7 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
-  name: 'Content',
+  name: 'HomeContent',
   setup() {
     const store = useStore()
     const router = useRouter()
