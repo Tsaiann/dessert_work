@@ -8,9 +8,9 @@ export const getToken = () => {
 // 獲得登入OTP碼
 export const getOtp = (data) =>
   request({
-    url: 'member/otp',
+    url: '/member/otp',
     method: 'get',
-    headers: {},
+    headers: { 'Content-Type': 'application/json' },
     data: data
   })
 
